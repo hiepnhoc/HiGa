@@ -18,6 +18,103 @@ chỉ nói chuyện qua bản spec. Áp lên agent: hai phòng, mỗi phòng m�
 
 Đã đóng gói thành Claude Code skill `clean-room-rebuild`, gọi bằng `/clean-room-rebuild`.
 
+<figure class="diagram">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 640" font-family="-apple-system,Segoe UI,Inter,Roboto,Helvetica,Arial,sans-serif" font-size="12" role="img" aria-label="Sơ đồ pipeline clean-room-rebuild">
+  <style>
+    .box { fill: var(--bg-2, #f1efe9); stroke: var(--line, #c9c5bb); stroke-width: 1.2; }
+    .room { fill: none; stroke: var(--fg-2, #777); stroke-width: 1; stroke-dasharray: 5 4; }
+    .t { fill: var(--fg, #1d1c1a); }
+    .b { fill: var(--fg, #1d1c1a); font-weight: 700; font-size: 13px; }
+    .m { fill: var(--fg-2, #5f5b55); font-size: 11px; }
+    .mono { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11px; }
+    .acc { fill: var(--accent, #b5411f); font-weight: 700; font-size: 12px; }
+    .ln { stroke: var(--fg, #1d1c1a); stroke-width: 1.4; fill: none; marker-end: url(#a); }
+    .back { stroke: var(--accent, #b5411f); stroke-width: 1.4; fill: none; stroke-dasharray: 4 3; marker-end: url(#b); }
+    .no { stroke: var(--accent, #b5411f); stroke-width: 2; fill: none; stroke-dasharray: 3 3; }
+  </style>
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--fg, #1d1c1a)"/></marker>
+    <marker id="b" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--accent, #b5411f)"/></marker>
+  </defs>
+
+  <!-- 0. Legal gate -->
+  <rect class="box" x="230" y="12" width="360" height="50" rx="8"/>
+  <text class="b" x="410" y="32" text-anchor="middle">Bước 0 · Cổng pháp lý (bắt buộc)</text>
+  <text class="m" x="410" y="50" text-anchor="middle">license / EULA / của ai · cấm RE → chỉ đọc cấu trúc lộ thiên</text>
+  <path class="ln" d="M410,62 L410,86"/>
+
+  <!-- ROOM A -->
+  <rect class="room" x="14" y="86" width="380" height="214" rx="10"/>
+  <text class="acc" x="28" y="106">ROOM A</text>
+  <text class="m" x="86" y="106">thấy bản gốc · không thấy code rebuild</text>
+  <rect class="box" x="28" y="118" width="352" height="70" rx="8"/>
+  <text class="b" x="204" y="140" text-anchor="middle">REA investigator</text>
+  <text class="m" x="204" y="158" text-anchor="middle">web · Electron · native (Ghidra) · APK (jadx) · .NET</text>
+  <text class="m" x="204" y="174" text-anchor="middle">chỉ vai này đổi theo loại source</text>
+  <rect class="box" x="28" y="200" width="104" height="32" rx="6"/>
+  <text class="mono t" x="80" y="220" text-anchor="middle">SPEC.md</text>
+  <rect class="box" x="142" y="200" width="118" height="32" rx="6"/>
+  <text class="mono t" x="201" y="220" text-anchor="middle">EVIDENCE.md</text>
+  <rect class="box" x="270" y="200" width="110" height="32" rx="6"/>
+  <text class="mono t" x="325" y="220" text-anchor="middle">QUESTIONS.md</text>
+  <rect class="box" x="28" y="244" width="352" height="30" rx="6"/>
+  <text class="mono m" x="204" y="263" text-anchor="middle">original/ · gitignore · chỉ room A đọc</text>
+
+  <!-- GATE -->
+  <rect class="box" x="430" y="118" width="376" height="128" rx="8"/>
+  <text class="b" x="618" y="140" text-anchor="middle">Spec gate</text>
+  <text class="m" x="618" y="156" text-anchor="middle">Laya (local, MCP) · fallback Haiku · mỗi rule 4 check</text>
+  <text class="m" x="444" y="178">C1 cited — rule trỏ tới mã evidence</text>
+  <text class="m" x="444" y="194">C2 grounded — evidence có file:line / trace / hằng</text>
+  <text class="m" x="444" y="210">C3 behavioral — không dán code gốc (fail = rò clean-room)</text>
+  <text class="m" x="444" y="226">C4 testable — đủ cụ thể để viết test</text>
+  <text class="mono m" x="618" y="241" text-anchor="middle">GATE.json · pass | back_to_rea</text>
+  <!-- SPEC → gate -->
+  <path class="ln" d="M380,216 C405,216 405,182 430,182"/>
+  <!-- gate → back to A -->
+  <path class="back" d="M430,230 C405,230 405,259 380,259"/>
+  <text class="m" x="405" y="282" text-anchor="middle">back_to_rea</text>
+
+  <!-- ROOM B -->
+  <rect class="room" x="430" y="318" width="376" height="124" rx="10"/>
+  <text class="acc" x="444" y="338">ROOM B · session mới</text>
+  <text class="m" x="600" y="338">thấy SPEC + ARCHITECTURE + tests/</text>
+  <rect class="box" x="444" y="350" width="348" height="52" rx="8"/>
+  <text class="b" x="618" y="371" text-anchor="middle">Rebuilder</text>
+  <text class="m" x="618" y="389" text-anchor="middle">working dir không chứa original/ và EVIDENCE.md (ép cơ học)</text>
+  <text class="mono m" x="618" y="426" text-anchor="middle">→ rebuild/ · câu hỏi → QUESTIONS.md → gate → room A</text>
+  <path class="ln" d="M618,246 L618,318"/>
+  <text class="m" x="628" y="286">pass</text>
+
+  <!-- EVIDENCE blocked -->
+  <path class="no" d="M201,232 L201,376 L444,376"/>
+  <line class="no" x1="310" y1="362" x2="334" y2="390" stroke-dasharray="none"/>
+  <line class="no" x1="334" y1="362" x2="310" y2="390" stroke-dasharray="none"/>
+  <text class="acc" x="201" y="412" text-anchor="middle">EVIDENCE.md không bao giờ vào room B</text>
+
+  <!-- TESTER -->
+  <rect class="box" x="430" y="466" width="376" height="92" rx="8"/>
+  <text class="b" x="618" y="488" text-anchor="middle">Tester + mutator</text>
+  <text class="m" x="444" y="508">test viết từ SPEC trước khi xem code · test_Rn_*</text>
+  <text class="m" x="444" y="524">mỗi rule 1 mutant phải bị kill · sống → thêm test, không sửa code</text>
+  <text class="m" x="444" y="540">behavior diff gốc ↔ rebuild ở tầng hành vi</text>
+  <path class="ln" d="M618,442 L618,466"/>
+
+  <!-- GOAL LOOP -->
+  <rect class="box" x="14" y="466" width="380" height="92" rx="8"/>
+  <text class="b" x="204" y="488" text-anchor="middle">Vòng /goal · MAX_ROUNDS = 5</text>
+  <text class="m" x="28" y="508">DONE: gate pass ∧ test pass ∧ mutant all killed</text>
+  <text class="m" x="28" y="524">          ∧ behavior diff sạch ∧ QUESTIONS rỗng</text>
+  <text class="m" x="28" y="540">round không giảm fail/mutant/câu hỏi → BLOCKED.md, chờ người</text>
+  <path class="back" d="M430,512 L394,512"/>
+  <!-- loop back to A -->
+  <path class="back" d="M14,512 L6,512 L6,192 L28,192" />
+  <text class="m" x="30" y="596">vòng tiếp → room A investigate lại</text>
+  <path class="back" d="M204,558 L204,586"/>
+</svg>
+<figcaption>Pipeline clean-room-rebuild: bốn vai, hai phòng, gate ở giữa, vòng /goal bao ngoài.</figcaption>
+</figure>
+
 ## Bước 0 — Cổng pháp lý (bắt buộc, chạy trước mọi thứ)
 
 Trước khi phân tích sâu phải xác định và báo lại:
