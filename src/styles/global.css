@@ -112,3 +112,4 @@ article .tldr b { color: var(--accent); font-family: var(--mono); font-size: 0.7
 .prose figure.diagram { margin: 18px 0 24px; }
 .prose figure.diagram svg { width: 100%; height: auto; display: block; }
 .prose figure.diagram figcaption { color: var(--fg-2); font-size: 0.84rem; text-align: center; margin-top: 6px; }
+.prose figure.diagram img { width: 100%; height: auto; display: block; border-radius: 8px; border: 1px solid var(--line); }

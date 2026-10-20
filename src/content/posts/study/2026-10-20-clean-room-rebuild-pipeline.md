@@ -115,6 +115,14 @@ chỉ nói chuyện qua bản spec. Áp lên agent: hai phòng, mỗi phòng m�
 <figcaption>Pipeline clean-room-rebuild: bốn vai, hai phòng, gate ở giữa, vòng /goal bao ngoài.</figcaption>
 </figure>
 
+Bản phác đầu tiên của pipeline (lúc còn dùng JEV làm spec gate, Opus 5.5 rebuild, Haiku 5.5 test;
+"3 broken must fail" sau này thành bước mutation):
+
+<figure class="diagram">
+<img src="/img/clean-room-rebuild/rea-jev-clean-room-original.jpg" alt="REA × JEV clean-room: REA room A đọc app và viết SPEC.md, JEV spec gate chấm từng rule proof/back, Opus 5.5 room B session mới chỉ nhận SPEC.md, Haiku 5.5 chạy test + 3 broken versions phải fail, /goal lặp tới khi cả 3 broken đều fail" loading="lazy" />
+<figcaption>Bản phác gốc: REA × JEV · Opus 5.5 rebuilds · 3 broken must fail.</figcaption>
+</figure>
+
 ## Bước 0 — Cổng pháp lý (bắt buộc, chạy trước mọi thứ)
 
 Trước khi phân tích sâu phải xác định và báo lại:
