@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Chạy test khi lưu code domain",
+      "description": "Lưu file trong domain/ hoặc test → chạy mvn -q test, kết quả đưa lại cho agent",
+      "trigger": "PostFileSave",
+      "matcher": "src/(main/java/.*/domain/|test/java/).*\\.java$",
+      "action": { "type": "command", "command": "mvn -q -o test 2>&1 | tail -40" },
+      "timeout": 300,
+      "enabled": true
+    }
+  ]
+}

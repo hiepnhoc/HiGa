@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Cập nhật docs/API.md khi sửa Resource",
+      "description": "Mỗi khi agent lưu một file *Resource.java, rà lại các endpoint và cập nhật bảng trong docs/API.md",
+      "trigger": "PostFileSave",
+      "matcher": "src/main/java/.*Resource\\.java$",
+      "action": {
+        "type": "agent",
+        "prompt": "Một file Resource vừa được lưu. Đọc toàn bộ src/main/java/**/api/*Resource.java, liệt kê method HTTP, path, request/response, mã lỗi có thể trả về, rồi cập nhật bảng trong docs/API.md cho khớp. Chỉ sửa docs/API.md, không đụng code. Nếu không có gì đổi thì nói 'API.md đã khớp' và dừng."
+      },
+      "enabled": true
+    }
+  ]
+}
