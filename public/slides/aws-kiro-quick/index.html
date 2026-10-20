@@ -24,8 +24,10 @@
 html,body{height:100%;background:var(--bg);color:var(--paper);font-family:var(--body);overflow:hidden}
 body[data-notes="1"]{overflow:hidden}
 
-#stage{position:fixed;inset:0;display:grid;place-items:center}
-#deck{position:relative;width:1280px;height:720px;transform-origin:center center}
+#stage{position:fixed;inset:0;overflow:hidden}
+#deck{position:absolute;left:50%;top:50%;width:1280px;height:720px;transform-origin:center center;transform:translate(-50%,-50%) scale(1)}
+#rot{position:fixed;left:0;right:0;bottom:36px;text-align:center;font-size:14px;color:var(--paper-3);display:none}
+@media (orientation:portrait) and (max-width:700px){#rot{display:block}#help{display:none}}
 .slide{position:absolute;inset:0;padding:64px 80px 72px;display:none;flex-direction:column}
 .slide.on{display:flex}
 .slide > .notes{display:none}
@@ -445,6 +447,7 @@ body[data-notes="1"] #help{right:396px}
 </div></div>
 
 <aside id="notes"><h4>Ghi chú thuyết trình</h4><div id="notesBody"></div></aside>
+<div id="rot">Xoay ngang điện thoại để xem slide lớn hơn · chạm phải/trái để chuyển</div>
 <div id="help"><kbd>←</kbd> <kbd>→</kbd> chuyển · <kbd>N</kbd> ghi chú · <kbd>F</kbd> toàn màn hình · <kbd>Home</kbd>/<kbd>End</kbd></div>
 
 <script>
@@ -452,7 +455,7 @@ body[data-notes="1"] #help{right:396px}
   var slides=[].slice.call(document.querySelectorAll('.slide')),n=slides.length,i=0;
   var deck=document.getElementById('deck'),stage=document.getElementById('stage'),bar=document.getElementById('bar'),notesBody=document.getElementById('notesBody');
   slides.forEach(function(s,k){var f=document.createElement('div');f.className='foot';f.innerHTML='<span>Amazon Quick &amp; Kiro — PTSPS</span><span>'+(k+1)+' / '+n+'</span>';s.appendChild(f);});
-  function fit(){var r=stage.getBoundingClientRect(),s=Math.min(r.width/1280,r.height/720);deck.style.transform='scale('+s+')';}
+  function fit(){var r=stage.getBoundingClientRect(),s=Math.min(r.width/1280,r.height/720);deck.style.transform='translate(-50%,-50%) scale('+s+')';}
   function show(k){k=Math.max(0,Math.min(n-1,k));slides[i].classList.remove('on');i=k;slides[i].classList.add('on');
     bar.style.width=((i+1)/n*100)+'%';history.replaceState(null,'','#'+(i+1));
     var a=slides[i].querySelector('.notes');notesBody.textContent=a?a.textContent:'(không có ghi chú)';}
