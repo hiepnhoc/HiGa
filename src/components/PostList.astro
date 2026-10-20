@@ -1,0 +1,24 @@
+---
+import { fmtDate, plain, sectionOf, urlOf, type Post } from '../lib/posts';
+
+interface Props {
+  posts: Post[];
+  showSection?: boolean;
+  showTldr?: boolean;
+}
+const { posts, showSection = true, showTldr = true } = Astro.props;
+---
+<ul class="post-list">
+  {posts.length === 0 && <li class="muted">Chưa có bài.</li>}
+  {posts.map((p) => (
+    <li>
+      <div class="row">
+        <span class="date">{fmtDate(p.data.date)}</span>
+        <a class="title" href={urlOf(p)}>{p.data.title}</a>
+        {showSection && <a class="chip section" href={`/${sectionOf(p)}/`}>{sectionOf(p)}</a>}
+        {p.data.status !== 'done' && <span class={`chip status-${p.data.status}`}>{p.data.status}</span>}
+      </div>
+      {showTldr && p.data.tldr && <div class="tldr">{plain(p.data.tldr)}</div>}
+    </li>
+  ))}
+</ul>

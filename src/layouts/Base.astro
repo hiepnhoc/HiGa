@@ -1,0 +1,47 @@
+---
+import '../styles/global.css';
+import { allSections } from '../lib/posts';
+
+interface Props {
+  title?: string;
+  description?: string;
+  active?: string; // section id hoặc 'tags' | 'archive' | 'search'
+}
+const { title, description, active } = Astro.props;
+const sections = await allSections();
+const siteName = 'HiGa';
+const fullTitle = title ? `${title} · ${siteName}` : siteName;
+---
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="alternate" type="application/rss+xml" title={siteName} href="/rss.xml" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <header class="site">
+      <div class="wrap">
+        <a class="brand" href="/">HiGa</a>
+        <nav>
+          {sections.map((s) => (
+            <a href={`/${s.id}/`} class:list={{ active: active === s.id }}>{s.title}</a>
+          ))}
+          <a href="/tags/" class:list={{ active: active === 'tags' }}>tags</a>
+          <a href="/archive/" class:list={{ active: active === 'archive' }}>archive</a>
+        </nav>
+        <span class="spacer"></span>
+        <a href="/search/" class:list={{ active: active === 'search' }} title="Tìm kiếm">search ⌕</a>
+      </div>
+    </header>
+    <main class="wrap">
+      <slot />
+    </main>
+    <footer class="site">
+      <div class="wrap">HiGa — sổ tay cá nhân · <a href="/rss.xml">RSS</a></div>
+    </footer>
+  </body>
+</html>

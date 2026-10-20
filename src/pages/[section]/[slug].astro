@@ -1,0 +1,53 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { allPosts, fmtDate, plain, splitId, sectionMeta } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await allPosts();
+  return posts.map((post) => {
+    const { section, slug } = splitId(post.id);
+    return { params: { section, slug }, props: { post } };
+  });
+}
+
+const { post } = Astro.props;
+const { section } = Astro.params;
+const { Content, headings } = await render(post);
+const meta = (await sectionMeta()).get(section!);
+const sectionTitle = meta?.title ?? section;
+const toc = headings.filter((h) => h.depth === 2);
+---
+<Base title={post.data.title} description={post.data.tldr} active={section}>
+  <article data-pagefind-body>
+    <p class="small" data-pagefind-ignore><a href={`/${section}/`}>← {sectionTitle}</a></p>
+    <h1>{post.data.title}</h1>
+    <div class="meta" data-pagefind-ignore="index">
+      <span data-pagefind-meta={`date:${fmtDate(post.data.date)}`}>{fmtDate(post.data.date)}</span>
+      {post.data.updated && <span>· cập nhật {fmtDate(post.data.updated)}</span>}
+      <a class="chip section" href={`/${section}/`} data-pagefind-filter="section">{section}</a>
+      {post.data.status !== 'done' && <span class={`chip status-${post.data.status}`}>{post.data.status}</span>}
+      {post.data.tags.length > 0 && (
+        <span class="chips">
+          {post.data.tags.map((t) => <a class="chip" href={`/tags/${t}/`} data-pagefind-filter="tag">#{t}</a>)}
+        </span>
+      )}
+      {post.data.source && <a href={post.data.source} target="_blank" rel="noopener">nguồn ↗</a>}
+    </div>
+
+    {post.data.tldr && (
+      <div class="tldr"><b>TL;DR</b><br />{plain(post.data.tldr)}</div>
+    )}
+
+    {toc.length > 2 && (
+      <details class="small muted" style="margin-bottom:18px" data-pagefind-ignore>
+        <summary>Mục lục</summary>
+        <ul>{toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ul>
+      </details>
+    )}
+
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</Base>

@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import PostList from '../components/PostList.astro';
+import { allPosts, monthKey } from '../lib/posts';
+
+const posts = await allPosts();
+const byMonth = new Map<string, typeof posts>();
+for (const p of posts) {
+  const k = monthKey(p.data.date);
+  if (!byMonth.has(k)) byMonth.set(k, []);
+  byMonth.get(k)!.push(p);
+}
+---
+<Base title="Archive" active="archive">
+  <h1>Archive</h1>
+  <p class="muted">{posts.length} bài, theo tháng.</p>
+  <div class="archive">
+    {[...byMonth.entries()].map(([month, list]) => (
+      <>
+        <h2 id={month}>{month}</h2>
+        <PostList posts={list} showTldr={false} />
+      </>
+    ))}
+  </div>
+</Base>

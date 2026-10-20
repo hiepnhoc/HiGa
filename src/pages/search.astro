@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Tìm kiếm" active="search">
+  <h1>Tìm kiếm</h1>
+  <p class="muted small">Tìm toàn văn mọi bài (Pagefind, chạy tĩnh, chỉ có sau khi build).</p>
+  <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+  <div id="search"></div>
+  <script is:inline src="/pagefind/pagefind-ui.js"></script>
+  <script is:inline>
+    window.addEventListener('DOMContentLoaded', () => {
+      new PagefindUI({
+        element: '#search',
+        showSubResults: true,
+        showImages: false,
+        autofocus: true,
+        translations: {
+          placeholder: 'Tìm bài…',
+          zero_results: 'Không có kết quả cho [SEARCH_TERM]',
+          clear_search: 'Xoá',
+          load_more: 'Thêm',
+          search_label: 'Tìm',
+          filters_label: 'Lọc',
+          many_results: '[COUNT] kết quả cho [SEARCH_TERM]',
+          one_result: '[COUNT] kết quả cho [SEARCH_TERM]',
+        },
+      });
+    });
+  </script>
+</Base>

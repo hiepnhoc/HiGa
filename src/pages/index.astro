@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+import PostList from '../components/PostList.astro';
+import { allPosts, allSections } from '../lib/posts';
+
+const posts = await allPosts();
+const sections = await allSections();
+const recent = posts.slice(0, 15);
+const wip = posts.filter((p) => p.data.status !== 'done').slice(0, 8);
+---
+<Base description="Sổ tay cá nhân: blog, research, study, work log">
+  <h1>HiGa</h1>
+  <p class="muted">Sổ tay để lục lại đã học gì, làm gì. Mỗi bài có <em>tl;dr</em> để đọc nhanh nhớ lại.</p>
+
+  <div class="sections">
+    {sections.map((s) => (
+      <a href={`/${s.id}/`}>
+        <span class="count">{s.count}</span>
+        <div class="name">{s.title}</div>
+        {s.description && <div class="desc">{s.description}</div>}
+      </a>
+    ))}
+  </div>
+
+  {wip.length > 0 && (
+    <>
+      <h2>Đang dở</h2>
+      <PostList posts={wip} showTldr={false} />
+    </>
+  )}
+
+  <h2>Mới nhất</h2>
+  <PostList posts={recent} />
+  <p class="small"><a href="/archive/">Xem tất cả →</a></p>
+</Base>

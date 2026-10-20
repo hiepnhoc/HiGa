@@ -1,0 +1,19 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostList from '../../components/PostList.astro';
+import { allPosts, allTags } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const tags = await allTags();
+  return tags.map(({ tag }) => ({ params: { tag } }));
+}
+
+const { tag } = Astro.params;
+const posts = (await allPosts()).filter((p) => p.data.tags.includes(tag!));
+---
+<Base title={`#${tag}`} active="tags">
+  <p class="small"><a href="/tags/">← tags</a></p>
+  <h1>#{tag}</h1>
+  <p class="small muted">{posts.length} bài</p>
+  <PostList posts={posts} />
+</Base>

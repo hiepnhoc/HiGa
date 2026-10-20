@@ -1,0 +1,14 @@
+---
+import Base from '../../layouts/Base.astro';
+import { allTags } from '../../lib/posts';
+const tags = await allTags();
+---
+<Base title="Tags" active="tags">
+  <h1>Tags</h1>
+  <p class="muted">Tag đi xuyên chuyên mục: một bài trong <em>work</em> tag <code>aws</code> sẽ nằm chung với bài <em>study</em> tag <code>aws</code>.</p>
+  <div class="tags-cloud">
+    {tags.map(({ tag, count }) => (
+      <a href={`/tags/${tag}/`}>#{tag}<span class="n">{count}</span></a>
+    ))}
+  </div>
+</Base>

@@ -1,0 +1,20 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostList from '../../components/PostList.astro';
+import { allPosts, allSections, sectionOf } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const sections = await allSections();
+  return sections.map((s) => ({ params: { section: s.id }, props: { meta: s } }));
+}
+
+const { section } = Astro.params;
+const { meta } = Astro.props;
+const posts = (await allPosts()).filter((p) => sectionOf(p) === section);
+---
+<Base title={meta.title} description={meta.description} active={section}>
+  <h1>{meta.title}</h1>
+  {meta.description && <p class="muted">{meta.description}</p>}
+  <p class="small muted">{posts.length} bài</p>
+  <PostList posts={posts} showSection={false} />
+</Base>
