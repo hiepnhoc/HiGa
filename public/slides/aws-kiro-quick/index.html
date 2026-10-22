@@ -924,7 +924,7 @@ body[data-notes="1"] #help{right:396px}
   slides.forEach(function(s,k){var f=document.createElement('div');f.className='foot';f.innerHTML='<span>Amazon Quick &amp; Kiro — PTSPS</span><span>'+(k+1)+' / '+n+'</span>';s.appendChild(f);});
   function fit(){var r=stage.getBoundingClientRect(),s=Math.min(r.width/1280,r.height/720);deck.style.transform='translate(-50%,-50%) scale('+s+')';}
   function show(k){k=Math.max(0,Math.min(n-1,k));slides[i].classList.remove('on');i=k;slides[i].classList.add('on');
-    bar.style.width=((i+1)/n*100)+'%';history.replaceState(null,'','#'+(i+1));
+    bar.style.width=((i+1)/n*100)+'%';try{history.replaceState(null,'','#'+(i+1));}catch(e){}
     var a=slides[i].querySelector('.notes');notesBody.textContent=a?a.textContent:'(không có ghi chú)';}
   function go(d){show(i+d);}
   document.addEventListener('keydown',function(e){
@@ -940,7 +940,7 @@ body[data-notes="1"] #help{right:396px}
   stage.addEventListener('touchend',function(e){if(tx===null)return;var dx=e.changedTouches[0].clientX-tx;tx=null;if(Math.abs(dx)>40)go(dx<0?1:-1);},{passive:true});
   window.addEventListener('resize',fit);
   window.addEventListener('hashchange',function(){var h=parseInt(location.hash.slice(1),10);if(!isNaN(h)&&h-1!==i)show(h-1);});
-  var h=parseInt(location.hash.slice(1),10);slides[0].classList.add('on');show(isNaN(h)?0:h-1);fit();
+  var h=NaN;try{h=parseInt(location.hash.slice(1),10);}catch(e){}slides[0].classList.add('on');fit();show(isNaN(h)?0:h-1);
 })();
 </script>
 </body>
