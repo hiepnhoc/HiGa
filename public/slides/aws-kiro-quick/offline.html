@@ -167,7 +167,7 @@ body[data-notes="1"] #help{right:374px}
       <table>
         <tr><td style="width:190px"><b>Chat, Apps</b></td><td>Hỏi đáp, tạo tài liệu, tạo app nhỏ không cần code</td></tr>
         <tr><td><b>Spaces</b></td><td>Không gian chung của nhóm: tài liệu, dữ liệu, agent</td></tr>
-        <tr><td><b>Quick Index</b></td><td>Kho tìm kiếm chung, chạy nền</td></tr>
+        <tr><td><b>Quick Index</b></td><td>Index chạy nền cho tài liệu trong Space và knowledge base</td></tr>
         <tr><td><b>Quick Research</b></td><td>Nghiên cứu nhiều nguồn, báo cáo có trích dẫn</td></tr>
         <tr><td><b>Quick Sight</b></td><td>Dashboard, hỏi số liệu bằng câu tự nhiên</td></tr>
         <tr><td><b>Quick Flows</b></td><td>Tự động hoá việc lặp lại bằng cách mô tả</td></tr>
@@ -229,39 +229,41 @@ body[data-notes="1"] #help{right:374px}
 <!-- 6 -->
 <section class="slide q">
   <span class="prod">Amazon Quick</span>
-  <h2>Quick Index</h2>
+  <h2>Quick Index: dữ liệu vào từ đâu</h2>
   <div class="two wide-l">
     <div class="col">
-      <ul>
-        <li>Gom tài liệu, file, database và email thành một kho tìm kiếm chung. Chat, Research, Flows và Automate đều dùng kho này.</li>
-        <li>Chạy tự động, nhưng chỉ index dữ liệu được đưa vào qua tải file hoặc knowledge base.</li>
-        <li>Trạng thái file: Uploading, Processing, Text ready, Ready.</li>
-        <li>Giữ quyền truy cập của nguồn gốc: người không có quyền ở nguồn thì không xem được qua Quick.</li>
-        <li>Dung lượng tính theo kích thước file gốc: 25 GB/người (Professional), 50 GB/người (Enterprise). Vượt mức tính 5 USD/GB/tháng.</li>
+      <p style="margin-bottom:10px">Quick Index là lớp index chạy nền, không có chỗ riêng để tải file vào. Dữ liệu đi vào theo ba đường:</p>
+      <ul class="tight">
+        <li><b>File tải lên Space</b>: index ngay, ai có quyền vào Space thì dùng được.</li>
+        <li><b>Knowledge base</b> từ SharePoint, OneDrive, Google Drive, Confluence, S3, web: file vẫn nằm ở nguồn, Quick đồng bộ mỗi ngày. Dùng được cho nhiều Space và agent.</li>
+        <li><b>Thư mục trên máy</b> qua desktop app (từ 9/2026): thành một Space có thể tìm kiếm.</li>
       </ul>
+      <div class="uc"><h4>Lưu ý</h4><ul>
+        <li>File đính kèm trong chat (tối đa 20 file) gắn với cuộc chat đó, bị xoá cùng cuộc chat sau 90 ngày không dùng. Tài liệu cần dùng lâu dài thì đưa vào Space.</li>
+        <li>Quyền xét ở mức knowledge base: người được chia sẻ knowledge base thấy toàn bộ nội dung trong đó. Tài liệu mật nên tách riêng.</li>
+        <li>Dung lượng: 25 GB/người (Professional), 50 GB/người (Enterprise).</li>
+      </ul></div>
     </div>
     <div class="col" style="display:flex;align-items:center">
-    <svg class="d" viewBox="0 0 520 380" width="100%" role="img" aria-label="Nguồn dữ liệu vào Quick Index rồi tới các tính năng">
-      <rect class="bx" x="0" y="20" width="140" height="40" rx="4"/><text class="s" x="12" y="45">File tải lên</text>
-      <rect class="bx" x="0" y="72" width="140" height="40" rx="4"/><text class="s" x="12" y="97">SharePoint</text>
-      <rect class="bx" x="0" y="124" width="140" height="40" rx="4"/><text class="s" x="12" y="149">OneDrive, Drive</text>
-      <rect class="bx" x="0" y="176" width="140" height="40" rx="4"/><text class="s" x="12" y="201">Amazon S3</text>
-      <rect class="bx" x="0" y="228" width="140" height="40" rx="4"/><text class="s" x="12" y="253">Confluence, web</text>
-      <g class="ln"><path d="M140 40 L188 140"/><path d="M140 92 L188 145"/><path d="M140 144 L188 150"/><path d="M140 196 L188 155"/><path d="M140 248 L188 160" marker-end="url(#ar)"/></g>
-      <rect class="bq" x="190" y="90" width="140" height="120" rx="6"/>
-      <text class="t c" x="260" y="140">Quick Index</text><text class="s c" x="260" y="164">giữ quyền gốc</text>
-      <g class="ln"><path d="M330 150 L378 42" marker-end="url(#ar)"/><path d="M330 150 L378 102" marker-end="url(#ar)"/><path d="M330 150 L378 162" marker-end="url(#ar)"/><path d="M330 150 L378 222" marker-end="url(#ar)"/></g>
-      <rect class="bx" x="380" y="22" width="140" height="40" rx="4"/><text class="s" x="392" y="47">Chat</text>
-      <rect class="bx" x="380" y="82" width="140" height="40" rx="4"/><text class="s" x="392" y="107">Research</text>
-      <rect class="bx" x="380" y="142" width="140" height="40" rx="4"/><text class="s" x="392" y="167">Flows</text>
-      <rect class="bx" x="380" y="202" width="140" height="40" rx="4"/><text class="s" x="392" y="227">Automate</text>
-      <text class="s" x="0" y="320">Quick Index không lưu bảng số liệu cho dashboard.</text>
-      <text class="s" x="0" y="342">Số liệu của Quick Sight đi qua dataset.</text>
+    <svg class="d" viewBox="0 0 470 400" width="100%" role="img" aria-label="Ba đường đưa dữ liệu vào Quick Index; file chat chỉ gắn với cuộc chat">
+      <rect class="bx" x="0" y="20" width="170" height="60" rx="4"/><text class="t" x="12" y="45">File tải lên Space</text><text class="s" x="12" y="66">index ngay</text>
+      <rect class="bx" x="0" y="100" width="170" height="78" rx="4"/><text class="t" x="12" y="125">Knowledge base</text><text class="s" x="12" y="146">SharePoint, Drive, S3…</text><text class="s" x="12" y="164">đồng bộ mỗi ngày</text>
+      <rect class="bx" x="0" y="198" width="170" height="60" rx="4"/><text class="t" x="12" y="223">Thư mục trên máy</text><text class="s" x="12" y="244">desktop app</text>
+      <g class="ln"><path d="M170 50 L228 120" marker-end="url(#ar)"/><path d="M170 139 L228 139" marker-end="url(#ar)"/><path d="M170 228 L228 158" marker-end="url(#ar)"/></g>
+      <rect class="bq" x="230" y="90" width="120" height="98" rx="6"/><text class="t c" x="290" y="135">Quick Index</text><text class="s c" x="290" y="157">tính dung lượng</text>
+      <g class="ln"><path d="M350 125 L388 85" marker-end="url(#ar)"/><path d="M350 139 L388 139" marker-end="url(#ar)"/><path d="M350 153 L388 193" marker-end="url(#ar)"/></g>
+      <rect class="bx" x="390" y="62" width="80" height="40" rx="4"/><text class="s c" x="430" y="87">Chat</text>
+      <rect class="bx" x="390" y="119" width="80" height="40" rx="4"/><text class="s c" x="430" y="144">Research</text>
+      <rect class="bx" x="390" y="176" width="80" height="40" rx="4"/><text class="s c" x="430" y="201">Flows…</text>
+      <rect class="bx" x="0" y="300" width="170" height="60" rx="4" style="stroke-dasharray:4 3"/><text class="t" x="12" y="325">File đính kèm chat</text><text class="s" x="12" y="346">tối đa 20 file</text>
+      <path class="ln" d="M170 330 L388 330" style="stroke-dasharray:4 3" marker-end="url(#ar)"/>
+      <rect class="bx" x="390" y="310" width="80" height="40" rx="4"/><text class="s c" x="430" y="335">1 cuộc chat</text>
+      <text class="s" x="190" y="320">chỉ dùng trong cuộc chat,</text><text class="s" x="190" y="352">xoá sau 90 ngày không dùng</text>
     </svg>
     </div>
   </div>
-  <p class="src">Nguồn: AWS News Blog (09/10/2025); aws.amazon.com/quick/index; docs.aws.amazon.com/quick: "Manage index data capacity"</p>
-  <aside class="notes">Người dùng không cấu hình index trực tiếp, chỉ thấy qua trạng thái file. Admin quản lý dung lượng ở Manage Quick, Subscriptions, Index capacity. Không chọn được model embedding hay cách chia đoạn.</aside>
+  <p class="src">Nguồn: docs.aws.amazon.com/quick: "Knowledge bases", "Index capacity", "Using chat", "Managing a space"; AWS What's New (09/09/2026)</p>
+  <aside class="notes">Docs không ghi rõ file chat có được index hay không. Docs chỉ nói index capacity tính cho file tải lên Space và dữ liệu knowledge base, còn file chat bị xoá cùng cuộc chat. Nên nói: muốn hỏi lại nhiều lần, dùng chung thì đưa vào Space.</aside>
 </section>
 
 <!-- 7 -->
