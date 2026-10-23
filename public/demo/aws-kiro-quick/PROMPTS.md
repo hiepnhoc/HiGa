@@ -94,5 +94,5 @@ So sánh Kiro Crew với OpenClaw về bảo mật, mô hình mở, cách cài �
 
 Quick Flows (mô tả bằng lời):
 ```
-Mỗi sáng 8h: đọc các file trong Space "PTSPS demo", tóm tắt điểm mới, gửi vào email của tôi.
+Mỗi sáng 8h: đọc các file trong Space "CloudNexus demo", tóm tắt điểm mới, gửi vào email của tôi.
 ```

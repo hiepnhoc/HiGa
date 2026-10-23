@@ -108,7 +108,7 @@ body[data-notes="1"] #help{right:374px}
 <section class="slide title">
   <h1>Amazon Quick và Kiro</h1>
   <p class="sub">Giới thiệu tính năng và các trường hợp sử dụng</p>
-  <p class="who">Phòng Phát triển Sản phẩm và Ứng dụng (PTSPS), ACBS<br>Tháng 10/2026</p>
+  <p class="who">CloudNexus<br>Tháng 10/2026</p>
   <p class="small" style="margin-top:40px;font-size:14px">Phím ← → để chuyển slide, N để xem ghi chú, F để toàn màn hình.</p>
   <aside class="notes">Buổi này giới thiệu hai sản phẩm AI agent của AWS. Số liệu lấy từ tài liệu chính thức của AWS và Kiro tại thời điểm 10/2026, nguồn ghi ở cuối mỗi slide.</aside>
 </section>
@@ -121,7 +121,7 @@ body[data-notes="1"] #help{right:374px}
     <li>Amazon Quick<span>Spaces, Index, Research, Sight, Flows, Automate</span></li>
     <li>Kiro IDE và Kiro CLI<span>Specs, Steering, Hooks</span></li>
     <li>Kiro Crew<span>Agent chạy liên tục, nhiều phiên</span></li>
-    <li>Các trường hợp sử dụng và đề xuất cho phòng</li>
+    <li>Các trường hợp sử dụng và hướng áp dụng</li>
     <li>Demo và thảo luận</li>
   </ol>
 </section>
@@ -392,7 +392,7 @@ body[data-notes="1"] #help{right:374px}
     </div>
   </div>
   <p class="src">Nguồn: kiro.dev/docs/specs; kiro.dev/docs/cli/v3; kiro.dev/ide</p>
-  <aside class="notes">Phần demo chính: nhập yêu cầu, dừng ở requirements.md để cả phòng đọc tiêu chí chấp nhận, duyệt, rồi sang design và tasks.</aside>
+  <aside class="notes">Phần demo chính: nhập yêu cầu, dừng ở requirements.md để mọi người cùng đọc tiêu chí chấp nhận, duyệt, rồi sang design và tasks.</aside>
 </section>
 
 <!-- 14 -->
@@ -580,7 +580,7 @@ fileMatchPattern: "**/*Resource.java"
     <figure class="shot"><div class="frame" style="background:#fff"><img src="https://kiro.dev/images/crew/diagram-security.svg?h=75c02e10" alt="Sơ đồ 8 lớp bảo vệ của Kiro Crew" loading="lazy" onerror="this.parentNode.classList.add('err')"></div><figcaption>Một hành động của agent đi qua 8 lớp kiểm tra. Ảnh: kiro.dev</figcaption></figure>
   </div>
   <p class="src">Nguồn: kiro.dev/blog/introducing-kiro-crew; kiro.dev/crew</p>
-  <aside class="notes">Với môi trường công ty chứng khoán, cần trao đổi với bộ phận bảo mật trước khi cho Crew truy cập repo hoặc hệ thống của công ty.</aside>
+  <aside class="notes">Trước khi cho Crew truy cập repo hoặc hệ thống của khách hàng, cần thống nhất với khách hàng về quyền truy cập và nơi chạy Crew.</aside>
 </section>
 
 <!-- 22 -->
@@ -599,23 +599,23 @@ fileMatchPattern: "**/*Resource.java"
 
 <!-- 23 -->
 <section class="slide">
-  <h2>Đề xuất cho phòng</h2>
+  <h2>Hướng áp dụng tại CloudNexus</h2>
   <p class="small" style="margin-bottom:12px">Ý kiến của người trình bày, cần thảo luận thêm.</p>
   <div class="two">
     <div class="col">
       <h3>Kiro</h3>
       <ul>
-        <li>Thử spec-driven với một API mới đã có thiết kế Figma và danh sách API, so sánh với cách làm hiện tại.</li>
-        <li>Viết bộ steering chung cho các service Quarkus của phòng.</li>
-        <li>Thử Kiro Crew trên máy dev cho việc theo dõi PR và báo cáo đầu ngày, chưa kết nối hệ thống của công ty.</li>
+        <li>Dùng spec-driven cho các dự án triển khai lên cloud: requirements, design và tasks làm tài liệu bàn giao cho khách hàng.</li>
+        <li>Viết bộ steering chung theo quy ước của CloudNexus (IaC, cấu trúc repo, quy tắc bảo mật) để dùng lại giữa các dự án.</li>
+        <li>Thử Kiro Crew trên máy nội bộ để theo dõi PR, pipeline và deployment, chưa kết nối hệ thống của khách hàng.</li>
       </ul>
     </div>
     <div class="col">
       <h3>Amazon Quick</h3>
       <ul>
-        <li>Xác nhận region, gói dịch vụ và các nguồn dữ liệu được phép kết nối.</li>
-        <li>Thử một Space cho tài liệu nội bộ không nhạy cảm.</li>
-        <li>Nếu cần dashboard từ dữ liệu giao dịch: dùng VPC connection và SPICE làm mới ban đêm, hoặc tách kho báo cáo riêng.</li>
+        <li>Tìm hiểu Quick như một dịch vụ có thể tư vấn và triển khai cho khách hàng dùng AWS.</li>
+        <li>Thử một Space cho tài liệu nội bộ của CloudNexus và Research cho việc tìm hiểu thị trường.</li>
+        <li>Với dashboard từ database của khách hàng: VPC connection, SPICE làm mới theo lịch, hoặc tách kho báo cáo riêng.</li>
       </ul>
     </div>
   </div>

@@ -3,14 +3,14 @@ title: Slide trình bày Amazon Quick, Kiro IDE và Kiro Crew — tính năng v�
 date: 2026-10-20
 tags: [aws, kiro, kiro-crew, amazon-quick, agentic-ai, slide, presentation]
 tldr: >-
-  Deck 16 slide để demo cho phòng: Quick (business user) vs Kiro (dev); Kiro IDE với Specs/Hooks/Steering;
+  Deck trình bày cho CloudNexus: Quick (business user) vs Kiro (dev); Kiro IDE với Specs/Hooks/Steering;
   Kiro Crew (4/8/2026, open source) chạy nhiều session, có memory, lịch, multi-agent. Slide HTML ở
   /slides/aws-kiro-quick/.
 ---
 
 ## Bối cảnh
 
-Cần trình bày + demo về Amazon Quick, Kiro, Kiro IDE và Kiro Crew cho phòng. Nhờ Claude tra cứu
+Cần trình bày + demo về Amazon Quick, Kiro, Kiro IDE và Kiro Crew cho CloudNexus (việc riêng, không liên quan công ty). Nhờ Claude tra cứu
 tình hình mới nhất rồi dựng slide HTML tự chứa, đẩy lên đây để mở trực tiếp khi demo.
 
 **Mở slide:** [/slides/aws-kiro-quick/](/slides/aws-kiro-quick/) — phím `←` `→` chuyển, `N` bật

@@ -13,7 +13,7 @@ tldr: >-
 
 Slide ở [/slides/aws-kiro-quick/](/slides/aws-kiro-quick/) nói về tính năng; bài này là phần
 **demo sống** đi kèm. Mọi demo chạy trên một project nhỏ `fee-demo` (Quarkus, tính phí + thuế
-cho một lệnh chứng khoán, số liệu ví dụ công khai) để người xem thấy đúng ngữ cảnh Java của phòng.
+cho một lệnh chứng khoán, số liệu ví dụ công khai) để có một ví dụ Java cụ thể.
 
 Bộ file dùng ngay: [/demo/aws-kiro-quick/README.md](/demo/aws-kiro-quick/README.md) (cách tạo
 project, Crew setup), [/demo/aws-kiro-quick/PROMPTS.md](/demo/aws-kiro-quick/PROMPTS.md) (prompt
@@ -39,7 +39,7 @@ gõ sẵn theo thứ tự), `kiro/steering/*.md`, `kiro/hooks/*.json`, `src/FeeR
 Slide 8 đang mở. Chuyển sang IDE, chat mode **Spec**, dán prompt 1.
 
 1. **Requirements** hiện ra: dừng, đọc to 2 acceptance criteria dạng EARS ("WHEN quantity không
-   phải bội số 100 THEN hệ thống SHALL trả 400 INVALID_QUANTITY…"). Hỏi phòng: thiếu rule gì không?
+   phải bội số 100 THEN hệ thống SHALL trả 400 INVALID_QUANTITY…"). Hỏi người nghe: thiếu rule gì không?
    Nếu ai nói "lô lẻ", ghi nhận — đó là mồi cho bước 3.
 2. **Design**: chỉ chỗ Kiro chọn `BigDecimal` + `HALF_UP`, `BusinessException`, package `domain/`
    — không ai nhắc, do steering. Duyệt.
@@ -105,7 +105,7 @@ dashboard chụp hôm trước (chụp sẵn Activity view, Schedule panel, Memo
 
 Slide 4–6.
 
-- Tạo Space "PTSPS demo", upload 2–3 PDF công khai (ví dụ tài liệu Kiro Crew, bài blog Quick Suite).
+- Tạo Space "CloudNexus demo", upload 2–3 PDF công khai (ví dụ tài liệu Kiro Crew, bài blog Quick Suite).
 - **Quick Research** với prompt 10a → báo cáo có trích dẫn, chỉ vào phần nguồn nội bộ vs web.
 - **Quick Flows** với prompt 10b → flow tạo bằng lời, có lịch. Không cần chạy thật.
 - Browser extension: bôi đen một đoạn trên trang kiro.dev → "Summarize this selection".
@@ -133,7 +133,7 @@ Tổng ~40 phút. Nếu chỉ có 20 phút: bỏ 3 và 5, rút 4 còn 4a/4b/4d.
 - Không demo trên repo công ty; `fee-demo` là project ví dụ, số liệu phí/thuế là ví dụ công khai.
 - Tên lệnh `kiro-cli chat` và flag `cron add` lấy từ docs ngày 20/10/2026 — chạy thử trước vì
   CLI đổi nhanh.
-- Ghi lại câu hỏi của phòng để cập nhật bài này (`status: wip`).
+- Ghi lại câu hỏi của người nghe để cập nhật bài này (`status: wip`).
 
 ## Link liên quan
 
