@@ -620,19 +620,17 @@ fileMatchPattern: "**/*Resource.java"
 <!-- K-cli-vs-crew -->
 <section class="slide k">
   <span class="prod">Kiro Crew</span>
-  <h2>Kiro CLI và Kiro Crew cùng chạy trên máy: khác gì</h2>
+  <h2>Kiro CLI và Kiro Crew</h2>
   <table>
     <tr><th style="width:190px"></th><th>Kiro CLI</th><th>Kiro Crew</th></tr>
-    <tr><td><b>Cách chạy</b></td><td>Một phiên mở trong terminal, kết thúc khi xong việc hoặc đóng terminal</td><td>Gateway chạy nền như một dịch vụ (<code>kirocrew gateway</code>, cài thành service)</td></tr>
-    <tr><td><b>Ai bắt đầu việc</b></td><td>Người dùng gõ lệnh, hoặc script/CI gọi ở chế độ headless</td><td>Người dùng, hoặc tự động theo cron, webhook, heartbeat</td></tr>
-    <tr><td><b>Khi rời bàn phím</b></td><td>Task đang chạy thì chạy tiếp, không tự nhận việc mới; cần duyệt thì chờ ở terminal</td><td>Vẫn nhận việc theo lịch, sự kiện; duyệt và giao việc từ dashboard, Slack, điện thoại</td></tr>
-    <tr><td><b>Khi tắt máy</b></td><td>Dừng</td><td>Cũng dừng. Chạy 24/7 thì đặt trên VM hoặc server, hoặc dùng cloud session</td></tr>
-    <tr><td><b>Bộ nhớ</b></td><td>Theo phiên, cộng steering</td><td>Memory, lesson, skill giữ qua nhiều phiên</td></tr>
-    <tr><td><b>Theo dõi</b></td><td>Màn hình terminal</td><td>Dashboard: Activity, Schedule, audit log</td></tr>
+    <tr><td><b>Cách làm việc</b></td><td>Làm việc trực tiếp với agent trong terminal, từng phiên một</td><td>Chạy nền liên tục, quản lý nhiều phiên và nhiều agent</td></tr>
+    <tr><td><b>Bắt đầu việc</b></td><td>Khi người dùng ra lệnh, hoặc khi script/CI gọi</td><td>Khi người dùng ra lệnh, hoặc tự động theo lịch, webhook, heartbeat</td></tr>
+    <tr><td><b>Bộ nhớ</b></td><td>Theo phiên, cộng steering của dự án</td><td>Memory, lesson, skill giữ qua nhiều phiên</td></tr>
+    <tr><td><b>Giao tiếp</b></td><td>Terminal, IDE hỗ trợ ACP</td><td>Dashboard, ứng dụng Mac, Slack, Telegram, Discord, Teams</td></tr>
   </table>
-  <p class="small" style="margin-top:14px">CLI là công cụ dùng khi đang làm việc. Crew là trợ lý chạy thường trực, tự nhận việc và nhận lệnh từ nhiều kênh.</p>
-  <p class="src">Nguồn: kiro.dev/cli; kiro.dev/docs/crew/interfaces/cli-reference; kiro.dev/docs/crew/running-24-7; kiro.dev/blog/introducing-kiro-crew</p>
-  <aside class="notes">"Không online" nghĩa là không ngồi trước máy, không phải tắt máy. Crew chạy trên laptop thì tắt laptop là Crew dừng. Muốn chạy suốt đêm thì đặt Crew trên một VM.</aside>
+  <p class="small" style="margin-top:14px">Crew chạy trên Kiro CLI và dùng lại cấu hình <code>.kiro</code>, nên steering, skill, custom agent viết cho CLI dùng được luôn trong Crew.</p>
+  <p class="src">Nguồn: kiro.dev/cli; kiro.dev/crew; kiro.dev/blog/introducing-kiro-crew</p>
+  <aside class="notes">Nếu bị hỏi: Crew chạy nền nên vẫn nhận việc khi không ngồi trước máy; nhưng máy tắt thì Crew cũng dừng. Muốn chạy 24/7 thì đặt Crew trên VM hoặc server.</aside>
 </section>
 
 <!-- 18 -->
@@ -716,15 +714,16 @@ fileMatchPattern: "**/*Resource.java"
 <!-- 22 -->
 <section class="slide k">
   <span class="prod">Kiro</span>
-  <h2>Chọn công cụ nào trong Kiro</h2>
+  <h2>Kiro IDE, Kiro CLI, Kiro Crew: dùng khi nào</h2>
   <table>
-    <tr><th style="width:170px">Công cụ</th><th>Phù hợp khi</th><th style="width:330px">Ví dụ nhà cung cấp nêu</th></tr>
-    <tr><td><b>Kiro IDE</b></td><td>Làm tính năng mới, cần lập kế hoạch và duyệt từng bước; cần kiểm chứng bằng property-based test</td><td>Tính năng cần suy nghĩ kỹ, refactor cần lập kế hoạch, tìm hiểu hành vi của hệ thống hiện có</td></tr>
-    <tr><td><b>Kiro CLI</b></td><td>Quen làm việc trong terminal; tự động hoá trong CI/CD; dùng với JetBrains, Zed qua ACP</td><td>Tìm và sửa lỗi CI rồi tạo pull request ở chế độ headless</td></tr>
-    <tr><td><b>Steering, hooks</b></td><td>Chuẩn hoá cách làm của cả nhóm</td><td>Cập nhật test khi lưu file, cập nhật README khi API đổi</td></tr>
-    <tr><td><b>Kiro Crew</b></td><td>Việc kéo dài nhiều giờ hoặc nhiều ngày, chạy theo lịch, cần chạy khi không ngồi máy</td><td>Phân loại ticket; điều tra sự cố trên nhiều repo; migration có checkpoint; kiểm tra PR và sửa test lỗi trước giờ làm</td></tr>
+    <tr><th style="width:150px"></th><th style="width:300px">Kiro IDE</th><th style="width:300px">Kiro CLI</th><th>Kiro Crew</th></tr>
+    <tr><td><b>Hình thức</b></td><td>Trình soạn code, nền VS Code</td><td>Agent trong terminal</td><td>Workspace chạy nền, có dashboard</td></tr>
+    <tr><td><b>Điểm mạnh</b></td><td>Spec có duyệt từng bước, property-based test, hook, Agent focus mode</td><td>Custom agent, planning agent, chạy headless trong CI/CD, dùng với JetBrains, Zed qua ACP</td><td>Lịch, webhook, heartbeat; bộ nhớ qua nhiều phiên; nhiều agent song song; Apps</td></tr>
+    <tr><td><b>Phù hợp khi</b></td><td>Làm tính năng mới, refactor cần lập kế hoạch, tìm hiểu hệ thống có sẵn</td><td>Quen làm việc trong terminal, tự động hoá trong pipeline</td><td>Việc kéo dài nhiều giờ, nhiều ngày, việc định kỳ</td></tr>
+    <tr><td><b>Ví dụ nhà cung cấp nêu</b></td><td>Tính năng cần suy nghĩ kỹ; cập nhật test khi lưu file, cập nhật README khi API đổi</td><td>Tìm và sửa lỗi CI rồi tạo pull request</td><td>Phân loại ticket; điều tra sự cố trên nhiều repo; migration có checkpoint; kiểm tra PR trước giờ làm</td></tr>
   </table>
-  <p class="src">Nguồn: kiro.dev/cli; kiro.dev/blog/introducing-kiro-crew; SD Times "Amazon launches spec-driven AI IDE, Kiro"</p>
+  <p class="small" style="margin-top:14px">Ba công cụ dùng chung agent harness và cấu hình <code>.kiro</code>: spec, steering, skill tạo ở một nơi dùng được ở nơi khác.</p>
+  <p class="src">Nguồn: kiro.dev/ide; kiro.dev/cli; kiro.dev/crew; kiro.dev/blog/introducing-kiro-crew; SD Times "Amazon launches spec-driven AI IDE, Kiro"</p>
 </section>
 
 <!-- 24 -->
