@@ -88,6 +88,17 @@ pre .h{color:var(--paper-3)}
 .d .c{text-anchor:middle}
 .d .ln{stroke:#8a92a6;stroke-width:1.3;fill:none}
 
+.uc{margin-top:14px;padding:12px 16px 6px;border-radius:6px;background:#fdf6ec;border:1px solid #f1d7b8}
+.k .uc{background:#f4f1fd;border-color:#d9d1f5}
+.uc h4{font-size:15px;font-weight:600;color:var(--quick);margin-bottom:6px}
+.k .uc h4{color:var(--kiro)}
+.uc li{font-size:17px;line-height:1.45;margin-bottom:5px}
+.tight li{font-size:18px;margin-bottom:6px}
+.divider{justify-content:center;padding:80px 96px}
+.divider .part{font-size:18px;font-weight:600;color:var(--paper-3);margin-bottom:10px}
+.divider.q .part{color:var(--quick)} .divider.k .part{color:var(--kiro)}
+.divider h1{font-size:50px}
+.divider .aud{font-size:22px;color:var(--paper-2);margin-top:16px}
 #notes{position:fixed;right:0;top:0;bottom:0;width:360px;background:#fff;border-left:1px solid var(--line);padding:24px;overflow:auto;display:none;z-index:6;font-size:16px;line-height:1.55;color:var(--paper-2)}
 #notes h4{font-size:13px;color:var(--paper-3);margin-bottom:10px;font-weight:600}
 body[data-notes="1"] #notes{display:block}
@@ -117,12 +128,11 @@ body[data-notes="1"] #help{right:374px}
 <section class="slide">
   <h2>Nội dung</h2>
   <ol class="agenda">
-    <li>Tổng quan<span>Quick và Kiro dành cho ai</span></li>
-    <li>Amazon Quick<span>Spaces, Index, Research, Sight, Flows, Automate</span></li>
-    <li>Kiro IDE và Kiro CLI<span>Specs, Steering, Hooks</span></li>
-    <li>Kiro Crew<span>Agent chạy liên tục, nhiều phiên</span></li>
-    <li>Các trường hợp sử dụng và hướng áp dụng</li>
-    <li>Demo và thảo luận</li>
+    <li>Tổng quan<span>Quick và Kiro khác nhau thế nào</span></li>
+    <li>Amazon Quick<span>dành cho BA, nghiệp vụ, văn phòng</span></li>
+    <li>Kiro IDE, Kiro CLI, Kiro Crew<span>dành cho IT, lập trình viên</span></li>
+    <li>Demo</li>
+    <li>Hỏi đáp</li>
   </ol>
 </section>
 
@@ -131,7 +141,7 @@ body[data-notes="1"] #help{right:374px}
   <h2>Tổng quan</h2>
   <table>
     <tr><th style="width:200px"></th><th>Amazon Quick</th><th>Kiro</th></tr>
-    <tr><td><b>Dành cho</b></td><td>Người dùng nghiệp vụ, nhân viên văn phòng</td><td>Lập trình viên, nhóm phát triển phần mềm</td></tr>
+    <tr><td><b>Dành cho</b></td><td>BA, nhân viên nghiệp vụ, văn phòng</td><td>IT, lập trình viên</td></tr>
     <tr><td><b>Làm gì</b></td><td>Trả lời câu hỏi từ dữ liệu công ty, nghiên cứu, làm báo cáo, tự động hoá công việc trên các ứng dụng</td><td>Lập kế hoạch và viết code bằng AI agent, từ yêu cầu đến code đã kiểm thử</td></tr>
     <tr><td><b>Ra mắt</b></td><td>9/10/2025 (tên Quick Suite), phát triển từ Amazon QuickSight</td><td>Bản preview 7/2025. Kiro Crew ra mắt 4/8/2026</td></tr>
     <tr><td><b>Hình thức</b></td><td>Dịch vụ web, desktop app, extension trình duyệt</td><td>IDE, CLI, Web, ứng dụng di động, Kiro Crew</td></tr>
@@ -139,6 +149,13 @@ body[data-notes="1"] #help{right:374px}
   </table>
   <p class="src">Nguồn: AWS News Blog (09/10/2025); aws.amazon.com/quick/faqs; kiro.dev/ide; kiro.dev/blog/introducing-kiro-crew</p>
   <aside class="notes">Hai sản phẩm cùng hướng dùng AI agent để làm việc, nhưng khác đối tượng. Quick phát triển từ QuickSight nên dashboard cũ vẫn dùng được.</aside>
+</section>
+
+<!-- Q0 -->
+<section class="slide divider q">
+  <p class="part">Phần 1</p>
+  <h1>Amazon Quick</h1>
+  <p class="aud">Dành cho BA, nhân viên nghiệp vụ và văn phòng</p>
 </section>
 
 <!-- 4 -->
@@ -149,39 +166,65 @@ body[data-notes="1"] #help{right:374px}
     <div class="col">
       <p class="quote">"An AI assistant for work that turns questions into answers", và có thể thực hiện hành động như đặt lịch họp, theo dõi đầu việc.</p>
       <table>
-        <tr><td style="width:170px"><b>Chat, Spaces</b></td><td>Hỏi đáp trên dữ liệu, không gian chung theo nhóm</td></tr>
-        <tr><td><b>Quick Index</b></td><td>Kho tìm kiếm chung cho tài liệu, file, database, email</td></tr>
+        <tr><td style="width:190px"><b>Chat, Apps</b></td><td>Hỏi đáp, tạo tài liệu, tạo app nhỏ không cần code</td></tr>
+        <tr><td><b>Spaces</b></td><td>Không gian chung của nhóm: tài liệu, dữ liệu, agent</td></tr>
+        <tr><td><b>Quick Index</b></td><td>Kho tìm kiếm chung, chạy nền</td></tr>
         <tr><td><b>Quick Research</b></td><td>Nghiên cứu nhiều nguồn, báo cáo có trích dẫn</td></tr>
-        <tr><td><b>Quick Sight</b></td><td>BI: dashboard, hỏi số liệu bằng ngôn ngữ tự nhiên</td></tr>
+        <tr><td><b>Quick Sight</b></td><td>Dashboard, hỏi số liệu bằng câu tự nhiên</td></tr>
         <tr><td><b>Quick Flows</b></td><td>Tự động hoá việc lặp lại bằng cách mô tả</td></tr>
-        <tr><td><b>Quick Automate</b></td><td>Tự động hoá quy trình nhiều bước, nhiều hệ thống</td></tr>
+        <tr><td><b>Quick Automate</b></td><td>Tự động hoá quy trình nhiều bước, có người duyệt</td></tr>
       </table>
     </div>
     <figure class="shot"><div class="frame"><img src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2025/10/01/2025_quick-suite_1.png" alt="Giao diện Amazon Quick" loading="lazy" onerror="this.parentNode.classList.add('err')"></div><figcaption>Ảnh: AWS News Blog</figcaption></figure>
   </div>
   <p class="src">Nguồn: aws.amazon.com/quick/faqs; AWS News Blog "Announcing Amazon Quick Suite" (09/10/2025)</p>
-  <aside class="notes">Đi nhanh bảng này, mỗi dòng có một slide riêng phía sau.</aside>
+  <aside class="notes">Mỗi dòng trong bảng có một slide riêng phía sau, kèm các trường hợp sử dụng.</aside>
+</section>
+
+<!-- Q-chat -->
+<section class="slide q">
+  <span class="prod">Amazon Quick</span>
+  <h2>Chat, Apps và tiện ích mở rộng</h2>
+  <div class="two">
+    <div class="col">
+      <ul class="tight">
+        <li><b>Chat</b>: hỏi về dữ liệu công ty hoặc bất kỳ chủ đề nào. Có agent mặc định và agent riêng cho từng phòng ban.</li>
+        <li><b>Apps in Quick</b>: tạo ứng dụng nhỏ bằng mô tả, không cần viết code, có thể gắn vào luồng phê duyệt.</li>
+        <li><b>Tiện ích</b>: extension cho trình duyệt và Microsoft 365, desktop app làm việc với file trên máy không cần tải lên.</li>
+      </ul>
+      <div class="uc"><h4>Dùng khi nào</h4><ul>
+        <li>Chuyển một cuộc hội thoại thành tài liệu, bài trình bày, bảng tính hoặc hình ảnh.</li>
+        <li>Tạo form tiếp nhận yêu cầu, bảng theo dõi trạng thái, công cụ tính toán chuyên dụng.</li>
+        <li>Chuẩn bị trước cuộc họp, tổng hợp việc cần làm sau họp.</li>
+        <li>Tóm tắt hoặc giải thích đoạn văn bản đang đọc trên trình duyệt.</li>
+      </ul></div>
+    </div>
+    <figure class="shot"><div class="frame"><img src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2025/10/02/2025_quick-suite_chat-agent-2.png" alt="Chat agent trong Amazon Quick" loading="lazy" onerror="this.parentNode.classList.add('err')"></div><figcaption>Chat agent. Ảnh: AWS News Blog</figcaption></figure>
+  </div>
+  <p class="src">Nguồn: aws.amazon.com/quick; AWS News Blog (09/10/2025); Amazon Quick browser extension (Firefox Add-ons)</p>
 </section>
 
 <!-- 5 -->
 <section class="slide q">
   <span class="prod">Amazon Quick</span>
-  <h2>Spaces và chat agent</h2>
+  <h2>Spaces</h2>
   <div class="two">
     <div class="col">
-      <p style="margin-bottom:10px">Space là nơi một nhóm gom tài liệu, dữ liệu và công cụ cho một mảng việc. Agent dùng Space làm ngữ cảnh để trả lời.</p>
-      <ul>
-        <li>Thêm vào Space: file tải lên, knowledge base (SharePoint, OneDrive, Google Drive, Confluence, S3, trang web), dashboard và topic, actions.</li>
-        <li>Giới hạn: 10.000 file, tổng 10 GB. PDF, Word, PowerPoint tối đa 500 MB/file, loại khác 50 MB.</li>
-        <li>Quyền: owner và viewer. Chia sẻ Space không tự cấp quyền xem dashboard bên trong.</li>
-        <li>Khi chọn một Space làm ngữ cảnh, agent chỉ dùng nội dung và actions của Space đó.</li>
-        <li>Từ 9/2026, thư mục trên máy (qua desktop app) có thể thành Space.</li>
+      <ul class="tight">
+        <li>Không gian chung của một nhóm. Thêm vào: file, knowledge base (SharePoint, OneDrive, Google Drive, Confluence, S3, web), dashboard, actions.</li>
+        <li>Chọn Space làm ngữ cảnh thì agent chỉ trả lời trong phạm vi Space đó.</li>
+        <li>Tối đa 10.000 file, 10 GB. Quyền owner và viewer.</li>
       </ul>
+      <div class="uc"><h4>Dùng khi nào</h4><ul>
+        <li>Gom kiến thức của nhóm vào một chỗ để mọi người hỏi đáp, thay vì tìm trong nhiều thư mục.</li>
+        <li>Dùng chung agent và automation trong nhóm; kiến thức tích luỹ dần qua nhiều người.</li>
+        <li>Biến một thư mục trên máy thành Space có thể tìm kiếm (desktop app, từ 9/2026).</li>
+      </ul></div>
     </div>
     <figure class="shot"><div class="frame"><img src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2025/10/02/2025_quick-suite_space-1.png" alt="Màn hình Space trong Amazon Quick" loading="lazy" onerror="this.parentNode.classList.add('err')"></div><figcaption>Ảnh: AWS News Blog</figcaption></figure>
   </div>
-  <p class="src">Nguồn: docs.aws.amazon.com/quick: "Working with spaces", "Managing a space"; AWS What's New (09/09/2026)</p>
-  <aside class="notes">Space không chỉ là thư mục chứa file. Ngoài file còn có nguồn dữ liệu như SharePoint, dashboard và các hành động mà agent được phép làm.</aside>
+  <p class="src">Nguồn: docs.aws.amazon.com/quick: "Working with spaces", "Managing a space"; aws.amazon.com/quick; AWS What's New (09/09/2026)</p>
+  <aside class="notes">Chia sẻ Space không tự cấp quyền xem dashboard bên trong; quyền của từng tài nguyên giữ riêng.</aside>
 </section>
 
 <!-- 6 -->
@@ -214,7 +257,7 @@ body[data-notes="1"] #help{right:374px}
       <rect class="bx" x="380" y="142" width="140" height="40" rx="4"/><text class="s" x="392" y="167">Flows</text>
       <rect class="bx" x="380" y="202" width="140" height="40" rx="4"/><text class="s" x="392" y="227">Automate</text>
       <text class="s" x="0" y="320">Quick Index không lưu bảng số liệu cho dashboard.</text>
-      <text class="s" x="0" y="342">Số liệu của Quick Sight đi qua dataset (slide 8).</text>
+      <text class="s" x="0" y="342">Số liệu của Quick Sight đi qua dataset.</text>
     </svg>
     </div>
   </div>
@@ -228,18 +271,22 @@ body[data-notes="1"] #help{right:374px}
   <h2>Quick Research</h2>
   <div class="two">
     <div class="col">
-      <ul>
-        <li>Nhận một đề tài, chia thành các chủ đề nhỏ và lập kế hoạch nghiên cứu. Người dùng chỉnh kế hoạch trước khi chạy.</li>
-        <li>Agent chạy nền và trả về báo cáo. Mỗi nhận định có trích dẫn đến nguồn gốc.</li>
-        <li>Nguồn: dữ liệu nội bộ (Space, knowledge base, dashboard), web và tin tức từ hơn 200 đầu báo, dữ liệu bên thứ ba S&amp;P Global, FactSet, IDC (cần có subscription), US Patents, PubMed.</li>
-        <li>Từ 12/2025, Research có thể là một bước trong Quick Flows để chạy theo lịch.</li>
-        <li>AWS nêu các mục đích: phân tích thị trường, rủi ro và tuân thủ, tối ưu vận hành, tìm hiểu khách hàng.</li>
+      <ul class="tight">
+        <li>Nhận một đề tài, lập kế hoạch nghiên cứu. Người dùng chỉnh kế hoạch rồi agent chạy nền.</li>
+        <li>Kết quả là báo cáo, mỗi nhận định có trích dẫn đến nguồn gốc.</li>
+        <li>Nguồn: dữ liệu nội bộ, web và tin tức hơn 200 đầu báo, S&amp;P Global, FactSet, IDC (cần subscription), US Patents, PubMed.</li>
       </ul>
+      <div class="uc"><h4>Dùng khi nào</h4><ul>
+        <li>Phân tích thị trường, đối thủ, xu hướng ngành; dự báo tăng trưởng và đề xuất chiến lược.</li>
+        <li>Rà soát rủi ro và tuân thủ: quy định, kiểm tra due diligence, tra cứu bằng sáng chế.</li>
+        <li>Tìm nguyên nhân gây kém hiệu quả, cơ hội về giá và doanh thu.</li>
+        <li>Tìm hiểu khách hàng: nhu cầu, khó khăn, vị thế so với đối thủ, phục vụ bán hàng.</li>
+      </ul></div>
     </div>
     <figure class="shot"><div class="frame"><img src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2025/10/07/2025_quick-suite_research_1-2.png" alt="Quick Research tạo kế hoạch nghiên cứu từ một yêu cầu" loading="lazy" onerror="this.parentNode.classList.add('err')"></div><figcaption>Kế hoạch nghiên cứu được tạo từ một yêu cầu. Ảnh: AWS News Blog</figcaption></figure>
   </div>
-  <p class="src">Nguồn: aws.amazon.com/quick/research; docs.aws.amazon.com/quick: "Using Amazon Quick Research"; AWS What's New (08/12/2025)</p>
-  <aside class="notes">Khác với chat: chat trả lời ngay, Research chạy nhiều bước và trả về tài liệu dùng lại được. Nguồn trả phí như FactSet chỉ dùng được nếu công ty đã có subscription với nhà cung cấp đó.</aside>
+  <p class="src">Nguồn: aws.amazon.com/quick/research; aws.amazon.com/quick; docs.aws.amazon.com/quick: "Using Amazon Quick Research"</p>
+  <aside class="notes">Khác chat: chat trả lời ngay, Research chạy nhiều bước và trả về tài liệu dùng lại được. Nguồn trả phí như FactSet chỉ dùng được nếu công ty đã mua dữ liệu đó.</aside>
 </section>
 
 <!-- 8 -->
@@ -248,18 +295,22 @@ body[data-notes="1"] #help{right:374px}
   <h2>Quick Sight</h2>
   <div class="two">
     <div class="col">
-      <ul>
-        <li>Là Amazon QuickSight trước đây. Dashboard, dataset và phân quyền hiện có được giữ nguyên.</li>
-        <li>Dữ liệu lấy từ data source: Redshift, Athena, S3, RDS/Aurora, Snowflake, file Excel/CSV. Database nằm trong VPC cần cấu hình VPC connection.</li>
-        <li>Dataset có thể lưu vào SPICE (bộ nhớ của Quick Sight, làm mới theo lịch) hoặc truy vấn trực tiếp mỗi lần mở.</li>
-        <li>Topic gắn tên nghiệp vụ cho các cột để người dùng hỏi số liệu bằng câu tự nhiên.</li>
-        <li>Dashboard và topic có thể gắn vào Space. Chiều ngược lại thì không: Space không phải nguồn dữ liệu của Quick Sight.</li>
+      <ul class="tight">
+        <li>Là Amazon QuickSight trước đây, dashboard cũ giữ nguyên.</li>
+        <li>Lấy số liệu từ database, kho dữ liệu hoặc file Excel/CSV qua dataset. Space không phải nguồn dữ liệu của Quick Sight.</li>
+        <li>Topic giúp hỏi số liệu bằng câu tự nhiên.</li>
       </ul>
+      <div class="uc"><h4>Dùng khi nào</h4><ul>
+        <li>Tạo dashboard và bản tóm tắt cho lãnh đạo từ câu mô tả.</li>
+        <li>Hỏi số liệu bằng câu tự nhiên, nhận biểu đồ và phần giải thích.</li>
+        <li>Phân tích giả định (what-if) bằng tính năng Scenarios.</li>
+        <li>Từ dashboard, tạo ticket hoặc cảnh báo bằng một thao tác.</li>
+      </ul></div>
     </div>
     <figure class="shot"><div class="frame"><img src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2025/10/05/2025_quicksuite_quicksight_1-1.gif" alt="Hỏi số liệu bằng ngôn ngữ tự nhiên trong Quick Sight" loading="lazy" onerror="this.parentNode.classList.add('err')"></div><figcaption>Hỏi bằng câu tự nhiên, nhận biểu đồ và tóm tắt. Ảnh: AWS News Blog</figcaption></figure>
   </div>
-  <p class="src">Nguồn: AWS Business Intelligence Blog "Amazon QuickSight evolves to Amazon Quick Suite"; docs.aws.amazon.com/quick: "Managing a space", "Creating a dataset"</p>
-  <aside class="notes">Câu hỏi đã gặp: Quick Sight có lấy dữ liệu từ Space không? Không. File trong Space đi vào Quick Index để agent đọc, không thành bảng để vẽ. Muốn vẽ từ Excel thì tải file đó lên làm dataset.</aside>
+  <p class="src">Nguồn: AWS News Blog (09/10/2025); AWS Business Intelligence Blog; docs.aws.amazon.com/quick: "Creating a dataset"</p>
+  <aside class="notes">Câu hỏi đã gặp: Quick Sight có lấy dữ liệu từ Space không? Không. File trong Space chỉ để agent đọc. Muốn vẽ từ Excel thì tải file đó lên làm dataset. Database trong mạng nội bộ cần VPC connection.</aside>
 </section>
 
 <!-- 9 -->
@@ -268,17 +319,20 @@ body[data-notes="1"] #help{right:374px}
   <h2>Quick Flows</h2>
   <div class="two wide-r">
     <div class="col">
-      <ul>
-        <li>Người dùng mô tả công việc bằng lời, Quick tạo ra flow gồm các bước nhập liệu, xử lý và kết quả.</li>
-        <li>Không cần biết lập trình.</li>
-        <li>Flow có thể chia sẻ cho đồng nghiệp, chạy từ thư viện hoặc gọi từ chat.</li>
-        <li>Có thể chạy theo lịch. Research có thể là một bước trong flow.</li>
+      <ul class="tight">
+        <li>Mô tả công việc bằng lời, Quick tạo flow gồm các bước nhập liệu, xử lý, kết quả. Không cần lập trình.</li>
+        <li>Chia sẻ flow cho đồng nghiệp, chạy từ thư viện hoặc từ chat, hoặc chạy theo lịch.</li>
+        <li>Có trong cả gói Free.</li>
       </ul>
-      <p class="small" style="margin-top:12px">Phù hợp với việc lặp lại của một người hoặc một nhóm: tổng hợp, tóm tắt, gửi báo cáo.</p>
+      <div class="uc"><h4>Dùng khi nào</h4><ul>
+        <li>Các việc vặt lặp lại hằng ngày của một người hoặc một nhóm.</li>
+        <li>Tạo báo cáo nghiên cứu định kỳ: đặt Quick Research làm một bước, chạy theo lịch.</li>
+        <li>Đóng gói một cách làm hay thành flow để cả nhóm dùng lại.</li>
+      </ul></div>
     </div>
-    <figure class="shot"><div class="frame"><img src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2025/10/02/2025_quick-suite_flows_4.png" alt="Một flow nhiều bước trong Quick Flows" loading="lazy" onerror="this.parentNode.classList.add('err')"></div><figcaption>Flow được tạo từ mô tả, gồm bước nhập, xử lý và kết quả. Ảnh: AWS News Blog</figcaption></figure>
+    <figure class="shot"><div class="frame"><img src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2025/10/02/2025_quick-suite_flows_4.png" alt="Một flow nhiều bước trong Quick Flows" loading="lazy" onerror="this.parentNode.classList.add('err')"></div><figcaption>Flow được tạo từ mô tả. Ảnh: AWS News Blog</figcaption></figure>
   </div>
-  <p class="src">Nguồn: AWS News Blog (09/10/2025); AWS What's New "Quick Research in Quick Flows" (08/12/2025)</p>
+  <p class="src">Nguồn: AWS News Blog (09/10/2025); aws.amazon.com/quick; AWS What's New "Quick Research in Quick Flows" (08/12/2025)</p>
 </section>
 
 <!-- 10 -->
@@ -287,18 +341,22 @@ body[data-notes="1"] #help{right:374px}
   <h2>Quick Automate</h2>
   <div class="two wide-r">
     <div class="col">
-      <ul>
-        <li>Dành cho đội kỹ thuật, tự động hoá quy trình nhiều bước, đi qua nhiều phòng ban và hệ thống, có thể dùng nhiều agent.</li>
-        <li>Có giám sát, debug, quản lý phiên bản và triển khai.</li>
-        <li>Phân quyền theo vai trò. Có bước chuyển cho người duyệt trước khi chạy tiếp (human-in-the-loop).</li>
-        <li>Có trong gói Professional và Enterprise.</li>
+      <ul class="tight">
+        <li>Tự động hoá quy trình nhiều bước, qua nhiều phòng ban và hệ thống. Thiết lập bằng mô tả hoặc từ tài liệu quy trình có sẵn.</li>
+        <li>Chuyển các trường hợp ngoại lệ cho người duyệt. Có phân quyền, quản lý phiên bản, nhật ký và báo cáo.</li>
       </ul>
-      <p class="quote" style="margin-top:14px">Ví dụ AWS nêu: nhóm Finance của Amazon dùng Quick Automate để đối soát hàng nghìn hoá đơn mỗi tháng.</p>
+      <div class="uc"><h4>Dùng khi nào</h4><ul>
+        <li>Đối soát hoá đơn: nhóm Finance của Amazon xử lý hàng nghìn hoá đơn mỗi tháng.</li>
+        <li>Ngân hàng: xử lý hồ sơ vay, hồ sơ tín dụng, quản lý tài khoản.</li>
+        <li>Bảo hiểm: xử lý bồi thường, quản lý hợp đồng, thẩm định.</li>
+        <li>Chăm sóc khách hàng: Propulse Lab xử lý hơn 1.600 ticket mỗi tháng, có người kiểm tra.</li>
+        <li>Phân tích tài chính và tự gửi bản tóm tắt cho các bên liên quan.</li>
+      </ul></div>
     </div>
     <figure class="shot"><div class="frame"><img src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2025/10/02/2025_quick-suite_automate_4.png" alt="Kế hoạch tự động hoá trong Quick Automate" loading="lazy" onerror="this.parentNode.classList.add('err')"></div><figcaption>Ảnh: AWS News Blog</figcaption></figure>
   </div>
-  <p class="src">Nguồn: AWS News Blog (09/10/2025); aboutamazon.com "Amazon Quick Suite"; aws.amazon.com/quick/faqs</p>
-  <aside class="notes">Khác Flows: Flows cho người dùng thường, tạo bằng lời, chạy tuần tự. Automate cho quy trình xuyên phòng ban, có rẽ nhánh, người duyệt, theo dõi và quản lý phiên bản.</aside>
+  <p class="src">Nguồn: aws.amazon.com/quick/automate; aws.amazon.com/quick; aboutamazon.com; AWS News Blog (09/10/2025)</p>
+  <aside class="notes">Khác Flows: Flows cho việc đơn giản của cá nhân hoặc nhóm. Automate cho quy trình xuyên phòng ban, có rẽ nhánh, người duyệt, theo dõi. Automate có trong gói Professional và Enterprise.</aside>
 </section>
 
 <!-- 11 -->
@@ -327,6 +385,26 @@ body[data-notes="1"] #help{right:374px}
   </div>
   <p class="src">Nguồn: aboutamazon.com; docs.aws.amazon.com/quick: "Managing a space"; aws.amazon.com/quick/faqs; AWS What's New (09/09/2026)</p>
   <aside class="notes">Cập nhật 9/2026: agent có thể chạy theo lịch trên cloud khi tắt máy, kết quả trả về feed; có tích hợp Microsoft Purview DLP. Giá có thể thay đổi, kiểm tra trang pricing trước khi báo cáo.</aside>
+</section>
+
+<!-- Q-roles -->
+<section class="slide q">
+  <span class="prod">Amazon Quick</span>
+  <h2>Gợi ý theo vai trò</h2>
+  <table>
+    <tr><th style="width:200px">Vai trò</th><th>Chức năng nên dùng</th><th>Ví dụ công việc</th></tr>
+    <tr><td><b>BA</b></td><td>Spaces, Research, Apps, Quick Sight</td><td>Gom tài liệu yêu cầu vào một Space để hỏi đáp; nghiên cứu thị trường, đối thủ; tạo form tiếp nhận yêu cầu; hỏi số liệu bằng câu tự nhiên</td></tr>
+    <tr><td><b>Nghiệp vụ</b></td><td>Automate, Flows, Quick Sight</td><td>Quy trình xử lý hồ sơ có người duyệt; đối soát; báo cáo định kỳ; dashboard theo dõi chỉ tiêu</td></tr>
+    <tr><td><b>Văn phòng</b></td><td>Chat, extension, desktop app, Flows</td><td>Soạn tài liệu, slide, bảng tính từ hội thoại; chuẩn bị họp và tổng hợp việc cần làm; tóm tắt email và văn bản</td></tr>
+  </table>
+  <p class="small" style="margin-top:16px">Cách chia theo vai trò là gợi ý của người trình bày. Các ví dụ công việc lấy từ các slide trước.</p>
+</section>
+
+<!-- K0 -->
+<section class="slide divider k">
+  <p class="part">Phần 2</p>
+  <h1>Kiro</h1>
+  <p class="aud">Kiro IDE, Kiro CLI và Kiro Crew, dành cho IT và lập trình viên</p>
 </section>
 
 <!-- 12 -->
@@ -486,6 +564,31 @@ fileMatchPattern: "**/*Resource.java"
   <p class="src">Nguồn: kiro.dev/ide; kiro.dev/docs/ide/experimental/focus-mode</p>
 </section>
 
+<!-- K-cli -->
+<section class="slide k">
+  <span class="prod">Kiro CLI</span>
+  <h2>Kiro CLI</h2>
+  <div class="two">
+    <div class="col">
+      <ul class="tight">
+        <li>Cài đặt: <code>curl -fsSL https://cli.kiro.dev/install | bash</code>. Chạy trên macOS, Linux, Windows.</li>
+        <li>Dùng chung steering, hooks, specs, MCP với IDE. Spec trong terminal bằng <code>/spec new</code>.</li>
+        <li>Custom agent với quyền tool và prompt riêng cho từng loại việc.</li>
+        <li>Planning agent: xem trước thay đổi mà không sửa code, duyệt rồi mới chạy.</li>
+        <li>Chạy nhiều task song song trong sandbox local hoặc cloud.</li>
+        <li>Dùng được trong IDE hỗ trợ ACP: JetBrains, Eclipse, Zed.</li>
+      </ul>
+      <div class="uc"><h4>Dùng khi nào</h4><ul>
+        <li>Làm việc với agent ngay trong terminal.</li>
+        <li>Chạy không giao diện (headless) trong CI/CD: tìm và sửa lỗi build, tự tạo pull request.</li>
+        <li>Giao task dài cho cloud session rồi theo dõi từ nơi khác.</li>
+      </ul></div>
+    </div>
+    <figure class="shot"><div class="frame"><img src="https://kiro.dev/images/cli/plan.png?h=6e611d75" alt="Planning agent của Kiro CLI" loading="lazy" onerror="this.parentNode.classList.add('err')"></div><figcaption>Planning agent tra cứu API trước khi đề xuất thay đổi. Ảnh: kiro.dev</figcaption></figure>
+  </div>
+  <p class="src">Nguồn: kiro.dev/cli; kiro.dev/docs/cli/v3</p>
+</section>
+
 <!-- 17 -->
 <section class="slide k">
   <span class="prod">Kiro Crew</span>
@@ -584,52 +687,28 @@ fileMatchPattern: "**/*Resource.java"
 </section>
 
 <!-- 22 -->
-<section class="slide">
-  <h2>Các trường hợp sử dụng được nhà cung cấp nêu</h2>
+<section class="slide k">
+  <span class="prod">Kiro</span>
+  <h2>Chọn công cụ nào trong Kiro</h2>
   <table>
-    <tr><th style="width:190px">Sản phẩm</th><th>Trường hợp</th><th style="width:270px">Nguồn</th></tr>
-    <tr><td>Quick Automate</td><td>Nhóm Finance của Amazon đối soát hàng nghìn hoá đơn mỗi tháng</td><td>aboutamazon.com</td></tr>
-    <tr><td>Quick Research</td><td>Phân tích thị trường và đối thủ; rủi ro, tuân thủ, due diligence; tìm hiểu khách hàng</td><td>aws.amazon.com/quick/research</td></tr>
-    <tr><td>Quick Flows</td><td>Tự động tạo báo cáo nghiên cứu theo lịch</td><td>AWS What's New (12/2025)</td></tr>
-    <tr><td>Kiro specs</td><td>Tính năng cần suy nghĩ kỹ, refactor cần lập kế hoạch, tìm hiểu hành vi của hệ thống hiện có</td><td>SD Times, trích lời Kiro</td></tr>
-    <tr><td>Kiro hooks</td><td>Cập nhật test khi lưu file, cập nhật README khi API đổi</td><td>SD Times, trích lời Kiro</td></tr>
-    <tr><td>Kiro Crew</td><td>Phân loại hàng đợi ticket; điều tra sự cố trên nhiều repo; migration nhiều giờ có checkpoint; kiểm tra PR và sửa test lỗi trước giờ làm</td><td>kiro.dev/blog/introducing-kiro-crew</td></tr>
+    <tr><th style="width:170px">Công cụ</th><th>Phù hợp khi</th><th style="width:330px">Ví dụ nhà cung cấp nêu</th></tr>
+    <tr><td><b>Kiro IDE</b></td><td>Làm tính năng mới, cần lập kế hoạch và duyệt từng bước; cần kiểm chứng bằng property-based test</td><td>Tính năng cần suy nghĩ kỹ, refactor cần lập kế hoạch, tìm hiểu hành vi của hệ thống hiện có</td></tr>
+    <tr><td><b>Kiro CLI</b></td><td>Quen làm việc trong terminal; tự động hoá trong CI/CD; dùng với JetBrains, Zed qua ACP</td><td>Tìm và sửa lỗi CI rồi tạo pull request ở chế độ headless</td></tr>
+    <tr><td><b>Steering, hooks</b></td><td>Chuẩn hoá cách làm của cả nhóm</td><td>Cập nhật test khi lưu file, cập nhật README khi API đổi</td></tr>
+    <tr><td><b>Kiro Crew</b></td><td>Việc kéo dài nhiều giờ hoặc nhiều ngày, chạy theo lịch, cần chạy khi không ngồi máy</td><td>Phân loại ticket; điều tra sự cố trên nhiều repo; migration có checkpoint; kiểm tra PR và sửa test lỗi trước giờ làm</td></tr>
   </table>
-</section>
-
-<!-- 23 -->
-<section class="slide">
-  <h2>Hướng áp dụng tại CloudNexus</h2>
-  <p class="small" style="margin-bottom:12px">Ý kiến của người trình bày, cần thảo luận thêm.</p>
-  <div class="two">
-    <div class="col">
-      <h3>Kiro</h3>
-      <ul>
-        <li>Dùng spec-driven cho các dự án triển khai lên cloud: requirements, design và tasks làm tài liệu bàn giao cho khách hàng.</li>
-        <li>Viết bộ steering chung theo quy ước của CloudNexus (IaC, cấu trúc repo, quy tắc bảo mật) để dùng lại giữa các dự án.</li>
-        <li>Thử Kiro Crew trên máy nội bộ để theo dõi PR, pipeline và deployment, chưa kết nối hệ thống của khách hàng.</li>
-      </ul>
-    </div>
-    <div class="col">
-      <h3>Amazon Quick</h3>
-      <ul>
-        <li>Tìm hiểu Quick như một dịch vụ có thể tư vấn và triển khai cho khách hàng dùng AWS.</li>
-        <li>Thử một Space cho tài liệu nội bộ của CloudNexus và Research cho việc tìm hiểu thị trường.</li>
-        <li>Với dashboard từ database của khách hàng: VPC connection, SPICE làm mới theo lịch, hoặc tách kho báo cáo riêng.</li>
-      </ul>
-    </div>
-  </div>
+  <p class="src">Nguồn: kiro.dev/cli; kiro.dev/blog/introducing-kiro-crew; SD Times "Amazon launches spec-driven AI IDE, Kiro"</p>
 </section>
 
 <!-- 24 -->
 <section class="slide">
   <h2>Demo</h2>
   <ol style="padding-left:26px">
+    <li>Amazon Quick: tạo Space từ vài tài liệu, hỏi đáp; chạy Research; tạo một flow bằng mô tả.</li>
     <li>Kiro IDE: tạo spec cho một API nhỏ, xem requirements.md, duyệt, sang design và tasks, chạy một task.</li>
     <li>Steering và hook: sửa một file Resource, xem docs/API.md được cập nhật.</li>
     <li>Kiro CLI: mở lại spec vừa tạo bằng <code>kiro-cli chat</code>.</li>
     <li>Kiro Crew: ghi một lesson, giao hai việc song song, xem màn hình Activity, tạo một cron job.</li>
-    <li>Amazon Quick (nếu có tài khoản): tạo Space, chạy Research, tạo một flow bằng mô tả.</li>
   </ol>
   <p class="small" style="margin-top:16px">Kịch bản chi tiết và file mẫu: higa.pages.dev/work/ và higa.pages.dev/demo/aws-kiro-quick/</p>
 </section>
