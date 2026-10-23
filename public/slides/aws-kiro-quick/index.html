@@ -406,7 +406,7 @@ body[data-notes="1"] #help{right:374px}
         <li>Công cụ phát triển phần mềm bằng AI agent của AWS. Có IDE, CLI, Web, ứng dụng di động và Kiro Crew.</li>
         <li>Các giao diện dùng chung một agent harness, giao tiếp qua Agent Client Protocol (ACP). Cấu hình trong thư mục <code>.kiro</code> dùng chung.</li>
         <li>Cloud session: agent chạy trong sandbox trên cloud của Kiro. Có thể bắt đầu trên web rồi theo dõi từ điện thoại, CLI hoặc IDE.</li>
-        <li>Model: Claude Opus 4.8 hoặc chế độ Auto.</li>
+        <li>Model: nhiều lựa chọn từ Anthropic, OpenAI và các model khác, hoặc chế độ Auto (slide sau).</li>
         <li>IDE dựa trên Code OSS, dùng được extension Open VSX và cấu hình VS Code.</li>
         <li>Đăng nhập bằng GitHub, Google, AWS Builder ID hoặc IAM Identity Center. Không cần tài khoản AWS.</li>
       </ul>
@@ -426,6 +426,26 @@ body[data-notes="1"] #help{right:374px}
   </div>
   <p class="src">Nguồn: kiro.dev/ide (mục Common questions); kiro.dev/blog/introducing-kiro-crew</p>
   <aside class="notes">Cloud session chạy trên cloud của Kiro; Kiro Crew chạy trên máy hoặc server do mình quản lý. Nếu bị hỏi "code có ra ngoài không" thì hai trường hợp trả lời khác nhau.</aside>
+</section>
+
+<!-- K-models -->
+<section class="slide k">
+  <span class="prod">Kiro</span>
+  <h2>Model trong Kiro</h2>
+  <table>
+    <tr><th style="width:170px">Nhóm</th><th>Model và hệ số credit (so với Auto = 1.0x)</th></tr>
+    <tr><td><b>Auto</b></td><td>Tự chọn model phù hợp cho từng task, cân bằng chất lượng và chi phí. <b>1.0x</b></td></tr>
+    <tr><td><b>Anthropic</b></td><td>Claude Opus 5.5 <b>2.0x</b>, Sonnet 5.5 <b>1.3x</b>, Haiku 4.5 <b>0.4x</b>. Các bản trước: Opus 5, 4.8, 4.7, 4.6, 4.5 <b>2.2x</b>; Sonnet 5, 4.6, 4.5, 4.0 <b>1.3x</b>. Claude Fable 5.1 <b>6x</b> đang preview cho Kiro Enterprise.</td></tr>
+    <tr><td><b>OpenAI</b></td><td>GPT-5.6 Sol <b>4.4x</b>, Terra <b>2.2x</b>, Luna <b>0.6x</b>. Request trên 272K token tính gấp đôi.</td></tr>
+    <tr><td><b>Model khác</b></td><td>Kimi K3 <b>2.4x</b>, GLM-5 <b>0.5x</b>, DeepSeek 3.2 <b>0.25x</b>, MiniMax M2.5 <b>0.25x</b>, MiniMax M2.1 <b>0.15x</b>, Qwen3 Coder Next <b>0.05x</b></td></tr>
+    <tr><td><b>Gói Free</b></td><td>Auto, Claude Sonnet 4.5 và 4.0, DeepSeek 3.2, MiniMax M2.5 và M2.1, GLM-5, Qwen3 Coder Next</td></tr>
+  </table>
+  <ul class="tight" style="margin-top:14px">
+    <li>Đổi model được trên IDE, CLI, Web, Crew và Mobile. Chọn mức suy luận (reasoning effort) trên IDE, CLI và Web.</li>
+    <li>Context từ 128K đến 1M token tuỳ model. Phần lớn có ở region US và EU; một số chỉ ở US.</li>
+  </ul>
+  <p class="src">Nguồn: kiro.dev/docs/models (cập nhật 22/10/2026). Danh sách và hệ số có thể thay đổi.</p>
+  <aside class="notes">Hệ số credit cho biết mỗi prompt tốn bao nhiêu so với Auto. Ví dụ Opus 5.5 tốn gấp đôi Auto, Qwen3 Coder Next chỉ bằng 5%. Việc thường ngày dùng Auto; việc khó (kiến trúc, refactor lớn) chọn Opus hoặc GPT-5.6 Sol.</aside>
 </section>
 
 <!-- 13 -->
@@ -722,7 +742,7 @@ fileMatchPattern: "**/*Resource.java"
       <ul class="small">
         <li style="font-size:15px">kiro.dev/ide, kiro.dev/crew</li>
         <li style="font-size:15px">kiro.dev/docs/specs, kiro.dev/docs/steering, kiro.dev/docs/hooks</li>
-        <li style="font-size:15px">kiro.dev/docs/cli/v3</li>
+        <li style="font-size:15px">kiro.dev/docs/cli/v3, kiro.dev/docs/models</li>
         <li style="font-size:15px">kiro.dev/blog/introducing-kiro-crew</li>
         <li style="font-size:15px">kiro.dev/docs/crew/features/cron</li>
         <li style="font-size:15px">github.com/kirodotdev/KiroCrew</li>
