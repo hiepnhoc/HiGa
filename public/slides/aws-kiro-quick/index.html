@@ -606,7 +606,7 @@ fileMatchPattern: "**/*Resource.java"
     <div class="col">
       <ul>
         <li>Ra mắt 4/8/2026, mã nguồn mở theo giấy phép Apache 2.0. Bắt đầu từ dự án nội bộ MeshClaw, đã có hơn 39.000 người trong Amazon sử dụng.</li>
-        <li>Phục vụ công việc kéo dài nhiều phiên: tiếp tục chạy khi người dùng không online, có bộ nhớ, lịch chạy và điều phối nhiều agent.</li>
+        <li>Chạy nền như một dịch vụ: tự nhận việc theo lịch hoặc sự kiện khi người dùng không ngồi trước máy, có bộ nhớ qua nhiều phiên và điều phối nhiều agent.</li>
         <li>Chạy trên máy hoặc server do người dùng quản lý, không cần tài khoản AWS. Chạy trên Kiro CLI, dùng lại cấu hình <code>.kiro</code>.</li>
         <li>Truy cập qua ứng dụng Mac, web dashboard, CLI, Slack, Telegram, Discord, Teams.</li>
       </ul>
@@ -615,6 +615,24 @@ fileMatchPattern: "**/*Resource.java"
   </div>
   <p class="src">Nguồn: kiro.dev/blog/introducing-kiro-crew (04/08/2026); kiro.dev/crew</p>
   <aside class="notes">Ví dụ trong bài giới thiệu của Kiro: chiều thứ Sáu có sự cố latency, người dùng nhắn cho Crew tìm lại cách xử lý lần trước, viết lại và gửi cho đồng nghiệp, rồi về nghỉ.</aside>
+</section>
+
+<!-- K-cli-vs-crew -->
+<section class="slide k">
+  <span class="prod">Kiro Crew</span>
+  <h2>Kiro CLI và Kiro Crew cùng chạy trên máy: khác gì</h2>
+  <table>
+    <tr><th style="width:190px"></th><th>Kiro CLI</th><th>Kiro Crew</th></tr>
+    <tr><td><b>Cách chạy</b></td><td>Một phiên mở trong terminal, kết thúc khi xong việc hoặc đóng terminal</td><td>Gateway chạy nền như một dịch vụ (<code>kirocrew gateway</code>, cài thành service)</td></tr>
+    <tr><td><b>Ai bắt đầu việc</b></td><td>Người dùng gõ lệnh, hoặc script/CI gọi ở chế độ headless</td><td>Người dùng, hoặc tự động theo cron, webhook, heartbeat</td></tr>
+    <tr><td><b>Khi rời bàn phím</b></td><td>Task đang chạy thì chạy tiếp, không tự nhận việc mới; cần duyệt thì chờ ở terminal</td><td>Vẫn nhận việc theo lịch, sự kiện; duyệt và giao việc từ dashboard, Slack, điện thoại</td></tr>
+    <tr><td><b>Khi tắt máy</b></td><td>Dừng</td><td>Cũng dừng. Chạy 24/7 thì đặt trên VM hoặc server, hoặc dùng cloud session</td></tr>
+    <tr><td><b>Bộ nhớ</b></td><td>Theo phiên, cộng steering</td><td>Memory, lesson, skill giữ qua nhiều phiên</td></tr>
+    <tr><td><b>Theo dõi</b></td><td>Màn hình terminal</td><td>Dashboard: Activity, Schedule, audit log</td></tr>
+  </table>
+  <p class="small" style="margin-top:14px">CLI là công cụ dùng khi đang làm việc. Crew là trợ lý chạy thường trực, tự nhận việc và nhận lệnh từ nhiều kênh.</p>
+  <p class="src">Nguồn: kiro.dev/cli; kiro.dev/docs/crew/interfaces/cli-reference; kiro.dev/docs/crew/running-24-7; kiro.dev/blog/introducing-kiro-crew</p>
+  <aside class="notes">"Không online" nghĩa là không ngồi trước máy, không phải tắt máy. Crew chạy trên laptop thì tắt laptop là Crew dừng. Muốn chạy suốt đêm thì đặt Crew trên một VM.</aside>
 </section>
 
 <!-- 18 -->
