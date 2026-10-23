@@ -4,934 +4,680 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Amazon Quick & Kiro — agentic AI của AWS</title>
+<title>Amazon Quick và Kiro</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#13192E; --bg-2:#1B2342; --bg-3:#242E55;
-  --paper:#EEF0F6; --paper-2:#B8BED4; --paper-3:#7E86A6;
-  --kiro:#9D86FF; --kiro-2:#6A4DE8; --kiro-ink:#2B1F6B;
-  --quick:#FFB24A; --quick-2:#E8902A; --quick-ink:#4A2E05;
-  --mint:#5FD6C1;
-  --line:rgba(238,240,246,.14);
-  --display:"Space Grotesk",system-ui,sans-serif;
-  --body:"IBM Plex Sans",system-ui,sans-serif;
+  --bg:#ffffff; --bg-2:#f3f4f7; --bg-3:#e8eaf0;
+  --paper:#1d2433; --paper-2:#3d4659; --paper-3:#6b7489;
+  --line:#d9dce4;
+  --quick:#b85f00; --kiro:#5a3ec8; --mint:#0f7f6b;
+  --body:"Be Vietnam Pro",system-ui,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;background:var(--bg);color:var(--paper);font-family:var(--body);overflow:hidden}
-
+html,body{height:100%;background:#d5d8df;color:var(--paper);font-family:var(--body);overflow:hidden}
 #stage{position:fixed;inset:0;overflow:hidden}
-#deck{position:absolute;left:50%;top:50%;width:1280px;height:720px;transform-origin:center center;transform:translate(-50%,-50%) scale(1)}
-.slide{position:absolute;inset:0;padding:56px 80px 72px;display:none;flex-direction:column}
+#deck{position:absolute;left:50%;top:50%;width:1280px;height:720px;background:var(--bg);box-shadow:0 2px 12px rgba(0,0,0,.12);transform-origin:center center;transform:translate(-50%,-50%) scale(1)}
+.slide{position:absolute;inset:0;padding:44px 72px 64px;display:none;flex-direction:column}
 .slide.on{display:flex}
-.slide > .notes{display:none}
+.slide>.notes{display:none}
 
-h1,h2,h3{font-family:var(--display);line-height:1.1;letter-spacing:-.01em}
-h1{font-size:72px;font-weight:700}
-h2{font-size:42px;font-weight:600;margin-bottom:22px}
-h3{font-size:21px;font-weight:600;margin-bottom:8px}
-p,li{font-size:21px;line-height:1.45;color:var(--paper-2)}
-p strong,li strong{color:var(--paper);font-weight:600}
-.lead{font-size:26px;color:var(--paper);max-width:28em}
+.prod{position:absolute;top:22px;right:72px;font-size:14px;font-weight:600;color:var(--paper-3)}
+.q .prod{color:var(--quick)} .k .prod{color:var(--kiro)}
+h1{font-size:54px;font-weight:700;line-height:1.15}
+h2{font-size:34px;font-weight:700;line-height:1.2;margin-bottom:22px;padding-bottom:12px;border-bottom:2px solid var(--bg-3)}
+.q h2{border-bottom-color:#f1d7b8} .k h2{border-bottom-color:#d9d1f5}
+h3{font-size:20px;font-weight:600;margin-bottom:8px;color:var(--paper)}
+p,li,td,th{font-size:19px;line-height:1.5;color:var(--paper-2)}
+b{color:var(--paper);font-weight:600}
+ul{padding-left:22px}
+li{margin-bottom:8px}
+li::marker{color:var(--paper-3)}
+.q li::marker{color:var(--quick)} .k li::marker{color:var(--kiro)}
+code{font-family:var(--mono);font-size:.88em;background:var(--bg-2);padding:1px 5px;border-radius:3px}
 .small{font-size:16px;color:var(--paper-3)}
-.mono{font-family:var(--mono)}
-ul{list-style:none}
-ul.plain li{padding-left:22px;position:relative;margin-bottom:10px}
-ul.plain li::before{content:"";position:absolute;left:0;top:.58em;width:10px;height:10px;border-radius:2px;background:var(--paper-3)}
-.k ul.plain li::before{background:var(--kiro)}
-.q ul.plain li::before{background:var(--quick)}
+.quote{font-size:19px;color:var(--paper);border-left:3px solid var(--line);padding:4px 0 4px 16px;margin-bottom:14px;font-style:italic}
+.q .quote{border-left-color:var(--quick)} .k .quote{border-left-color:var(--kiro)}
 
-.kicker{font-family:var(--display);font-size:18px;font-weight:600;margin-bottom:12px;display:inline-flex;align-items:center;gap:10px}
-.kicker i{display:inline-block;width:28px;height:4px;border-radius:2px;background:var(--paper-3)}
-.k .kicker{color:var(--kiro)} .k .kicker i{background:var(--kiro)}
-.q .kicker{color:var(--quick)} .q .kicker i{background:var(--quick)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:36px;flex:1;min-height:0}
+.two.wide-l{grid-template-columns:1.15fr .85fr}
+.two.wide-r{grid-template-columns:.9fr 1.1fr}
+.col{min-height:0}
 
-.cols{display:grid;gap:40px;flex:1;min-height:0}
-.cols-2{grid-template-columns:1fr 1fr}
+figure.shot{display:flex;flex-direction:column;min-height:0;height:100%;margin:0}
+figure.shot .frame{flex:1;min-height:0;border:1px solid var(--line);border-radius:6px;background:var(--bg-2);display:flex;align-items:center;justify-content:center;overflow:hidden}
+figure.shot img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+figure.shot figcaption{font-size:13px;color:var(--paper-3);margin-top:6px}
+figure.shot .frame.err img{display:none}
+figure.shot .frame.err::after{content:"Không tải được ảnh. Xem ảnh gốc tại nguồn ghi bên dưới.";font-size:15px;color:var(--paper-3);padding:20px;text-align:center}
 
-/* feature slide: text left, diagram right */
-.feat{display:grid;grid-template-columns:430px 1fr;gap:40px;flex:1;min-height:0}
-.feat ul.plain li{font-size:19px;margin-bottom:9px;line-height:1.42}
-.feat .say{margin-top:14px;padding:12px 16px;border-radius:8px;background:var(--bg-2);font-size:17px;line-height:1.4;color:var(--paper)}
-.k .say{border-left:3px solid var(--kiro)} .q .say{border-left:3px solid var(--quick)}
-.dg{min-height:0;display:flex;align-items:center;justify-content:center}
-.dg svg{width:100%;height:100%;max-height:100%}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;font-size:17px;line-height:1.4}
+th{font-weight:600;color:var(--paper);background:var(--bg-2)}
+td.c,th.c{text-align:center}
 
-.tile{background:var(--bg-2);border-left:4px solid var(--paper-3);padding:18px 22px;border-radius:0 8px 8px 0}
-.tile h3{margin-bottom:6px}
-.tile p{font-size:18px;line-height:1.4}
-.k .tile{border-left-color:var(--kiro)} .q .tile{border-left-color:var(--quick)}
-.grid-tiles{display:grid;gap:14px}
-.g2{grid-template-columns:1fr 1fr}
+pre{font-family:var(--mono);font-size:14px;line-height:1.55;background:#f6f7f9;border:1px solid var(--line);border-radius:6px;padding:14px 16px;color:#2b3242;white-space:pre;overflow:hidden}
+pre .h{color:var(--paper-3)}
 
-table{width:100%;border-collapse:collapse;font-size:19px}
-th,td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.35}
-th{font-family:var(--display);font-weight:600;color:var(--paper);font-size:20px}
-td{color:var(--paper-2)}
-td:first-child{color:var(--paper-3);width:150px}
-th.ck{color:var(--kiro)} th.cq{color:var(--quick)}
+.src{position:absolute;left:72px;right:140px;bottom:20px;font-size:12.5px;color:var(--paper-3);line-height:1.4}
+.pg{position:absolute;right:72px;bottom:20px;font-size:13px;color:var(--paper-3)}
 
-.tag{display:inline-block;font-family:var(--mono);font-size:15px;padding:3px 9px;border-radius:4px;background:var(--bg-3);color:var(--paper-2);margin:2px 4px 2px 0}
-.tag.q{background:rgba(255,178,74,.18);color:var(--quick)}
+.title{justify-content:center;padding:80px 96px}
+.title .sub{font-size:24px;color:var(--paper-2);margin-top:18px}
+.title .who{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);font-size:18px;color:var(--paper-3)}
+.agenda{list-style:none;padding:0;counter-reset:a}
+.agenda li{counter-increment:a;font-size:24px;padding:13px 0;margin:0;border-bottom:1px solid var(--line);color:var(--paper)}
+.agenda li::before{content:counter(a) ".";display:inline-block;width:44px;color:var(--paper-3)}
+.agenda li span{font-size:17px;color:var(--paper-3);margin-left:10px}
 
-.foot{position:absolute;left:80px;right:80px;bottom:26px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:14px;color:var(--paper-3)}
-#bar{position:fixed;left:0;top:0;height:4px;background:linear-gradient(90deg,var(--kiro),var(--quick));width:0;transition:width .25s;z-index:5}
+.flow{display:flex;gap:12px;margin-bottom:22px}
+.flow div{flex:1;border:1px solid var(--line);border-top:3px solid var(--kiro);border-radius:4px;padding:12px 14px;background:#fafafc}
+.flow div b{display:block;font-size:17px;margin-bottom:4px}
+.flow div span{font-size:15px;color:var(--paper-2);line-height:1.4;display:block}
+.flow div.last{border-top-color:var(--mint)}
 
-/* svg diagram vocabulary */
-svg text{font-family:var(--body)}
-.d .bx{fill:var(--bg-2);stroke:rgba(238,240,246,.22);stroke-width:1.5}
-.d .bq{fill:rgba(255,178,74,.10);stroke:var(--quick);stroke-width:1.5}
-.d .bk{fill:rgba(157,134,255,.12);stroke:var(--kiro);stroke-width:1.5}
-.d .bm{fill:rgba(95,214,193,.10);stroke:var(--mint);stroke-width:1.5}
-.d .fq{fill:var(--quick)} .d .fk{fill:var(--kiro)} .d .fm{fill:var(--mint)} .d .fp{fill:var(--paper-3)}
-.d .t{fill:var(--paper);font-size:15px;font-weight:600;font-family:var(--display)}
-.d .tl{fill:var(--paper);font-size:18px;font-weight:600;font-family:var(--display)}
-.d .s{fill:var(--paper-2);font-size:13px}
-.d .m{fill:var(--paper-3);font-size:12px;font-family:var(--mono)}
-.d .mq{fill:var(--quick);font-size:12px;font-family:var(--mono)}
-.d .mk{fill:var(--kiro);font-size:12px;font-family:var(--mono)}
-.d .mm{fill:var(--mint);font-size:12px;font-family:var(--mono)}
+.d .bx{fill:#f6f7f9;stroke:#c9cdd8;stroke-width:1.2}
+.d .bq{fill:#fdf3e6;stroke:#d99a4e;stroke-width:1.2}
+.d .bk{fill:#f1edfc;stroke:#9c88e6;stroke-width:1.2}
+.d .bm{fill:#e8f6f2;stroke:#5bb8a5;stroke-width:1.2}
+.d .t{fill:var(--paper);font-size:15px;font-weight:600;font-family:var(--body)}
+.d .s{fill:var(--paper-2);font-size:13px;font-family:var(--body)}
 .d .c{text-anchor:middle}
-.d .ln{stroke:var(--paper-3);stroke-width:1.5;fill:none}
-.d .lq{stroke:var(--quick)} .d .lk{stroke:var(--kiro)} .d .lm{stroke:var(--mint)}
-.d .dash{stroke-dasharray:5 4} .d .dot{stroke-dasharray:2 4}
-.d .code{fill:#0C1020;stroke:rgba(238,240,246,.12)}
-.d .cd{fill:var(--paper-2);font-size:12.5px;font-family:var(--mono);white-space:pre}
+.d .ln{stroke:#8a92a6;stroke-width:1.3;fill:none}
 
-/* title */
-.title{justify-content:center;padding:80px 100px}
-.title .brands{display:flex;gap:18px;margin:34px 0 40px}
-.brand{font-family:var(--display);font-weight:700;font-size:30px;padding:14px 26px;border-radius:10px}
-.brand.q{background:var(--quick);color:var(--quick-ink)}
-.brand.k{background:var(--kiro);color:var(--kiro-ink)}
-.title .meta{font-size:20px;color:var(--paper-3)}
-
-/* timeline */
-.tl{position:relative;margin-top:40px;height:300px}
-.tl .axis{position:absolute;left:0;right:0;top:150px;height:2px;background:var(--line)}
-.ev{position:absolute;width:250px}
-.ev .dt{width:16px;height:16px;border-radius:50%;background:var(--paper);position:absolute;left:-8px}
-.ev.up{bottom:150px;padding-bottom:28px}.ev.up .dt{bottom:-8px}
-.ev.dn{top:150px;padding-top:28px}.ev.dn .dt{top:-8px}
-.ev .dd{font-family:var(--mono);font-size:15px;color:var(--paper-3)}
-.ev .tt{font-family:var(--display);font-weight:600;font-size:20px;color:var(--paper);margin:2px 0}
-.ev .ss{font-size:16px;color:var(--paper-2);line-height:1.35}
-.ev.q .dt{background:var(--quick)} .ev.k .dt{background:var(--kiro)}
-
-/* spec flow */
-.flow{display:flex;align-items:stretch;margin:18px 0 26px}
-.flow .step{flex:1;background:var(--bg-2);padding:18px 18px 16px;position:relative;border-top:4px solid var(--kiro)}
-.flow .step + .step{margin-left:14px}
-.flow .step + .step::before{content:"";position:absolute;left:-14px;top:50%;width:14px;height:2px;background:var(--paper-3)}
-.flow .n{font-family:var(--mono);font-size:14px;color:var(--kiro)}
-.flow h3{font-size:20px;margin:4px 0 6px}
-.flow p{font-size:16px;line-height:1.35}
-.flow .step.verify{border-top-color:var(--mint)} .flow .step.verify .n{color:var(--mint)}
-.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
-.trio h3{font-size:20px} .trio p{font-size:18px}
-
-/* day timeline */
-.day{display:grid;grid-template-columns:120px 1fr;margin-top:6px}
-.day .h{font-family:var(--mono);font-size:17px;color:var(--paper-3);padding:11px 0;border-top:1px solid var(--line)}
-.day .c{padding:11px 0 11px 22px;border-top:1px solid var(--line);border-left:3px solid var(--kiro)}
-.day .c b{display:block;font-family:var(--display);font-weight:600;font-size:21px;color:var(--paper);margin-bottom:3px}
-.day .c span{font-size:18px;color:var(--paper-2);line-height:1.35}
-.day .c.you{border-left-color:var(--paper-3)} .day .c.you b{color:var(--paper-2)}
-
-.vs{display:grid;grid-template-columns:1fr 1fr;gap:40px;flex:1}
-.vs > div{padding:28px 32px;border-radius:12px;background:var(--bg-2)}
-.vs .q{border-top:6px solid var(--quick)} .vs .k{border-top:6px solid var(--kiro)}
-.vs h3{font-size:30px;margin-bottom:6px}
-.vs .who{font-size:19px;color:var(--paper-3);margin-bottom:18px}
-
-#notes{position:fixed;right:0;top:0;bottom:0;width:380px;background:#0C1020;border-left:1px solid var(--line);padding:28px 26px;overflow:auto;display:none;z-index:6;font-size:17px;line-height:1.5;color:var(--paper-2)}
-#notes h4{font-family:var(--display);color:var(--paper-3);font-weight:600;font-size:14px;margin-bottom:12px}
+#notes{position:fixed;right:0;top:0;bottom:0;width:360px;background:#fff;border-left:1px solid var(--line);padding:24px;overflow:auto;display:none;z-index:6;font-size:16px;line-height:1.55;color:var(--paper-2)}
+#notes h4{font-size:13px;color:var(--paper-3);margin-bottom:10px;font-weight:600}
 body[data-notes="1"] #notes{display:block}
-body[data-notes="1"] #stage{right:380px}
-#help{position:fixed;right:16px;top:12px;font-family:var(--mono);font-size:13px;color:var(--paper-3);opacity:.6;z-index:5}
-body[data-notes="1"] #help{right:396px}
-#help kbd{color:var(--paper-2)}
-#rot{position:fixed;left:0;right:0;bottom:36px;text-align:center;font-size:14px;color:var(--paper-3);display:none}
+body[data-notes="1"] #stage{right:360px}
+#help{position:fixed;right:14px;top:8px;font-size:12px;color:#5f6678;z-index:5}
+body[data-notes="1"] #help{right:374px}
+#rot{position:fixed;left:0;right:0;bottom:30px;text-align:center;font-size:14px;color:#555;display:none}
 @media (orientation:portrait) and (max-width:700px){#rot{display:block}#help{display:none}}
-@media (prefers-reduced-motion:reduce){#bar{transition:none}}
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7E86A6"/></marker>
-    <marker id="arq" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#FFB24A"/></marker>
-    <marker id="ark" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#9D86FF"/></marker>
-    <marker id="arm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5FD6C1"/></marker>
-  </defs>
-</svg>
-<div id="bar"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8a92a6"/></marker>
+</defs></svg>
 <div id="stage"><div id="deck">
 
 <!-- 1 -->
 <section class="slide title">
-  <p class="small mono">AWS agentic AI · 2026</p>
-  <h1>Hai "đồng nghiệp AI"<br>của AWS: Quick &amp; Kiro</h1>
-  <div class="brands"><span class="brand q">Amazon Quick</span><span class="brand k">Kiro · IDE · Crew</span></div>
-  <p class="lead">Từng tính năng làm gì, chạy thế nào, và những use case kinh điển đáng demo.</p>
-  <p class="meta" style="margin-top:36px">hiepln · Phòng PTSPS · ACBS · 10/2026</p>
-  <aside class="notes">Mở đầu: AWS gom agentic AI thành hai nhánh — Quick cho người làm nghiệp vụ, Kiro cho dev. Đi qua từng tính năng, mỗi tính năng một sơ đồ, cuối cùng là bảng chốt và demo.</aside>
+  <h1>Amazon Quick và Kiro</h1>
+  <p class="sub">Giới thiệu tính năng và các trường hợp sử dụng</p>
+  <p class="who">Phòng Phát triển Sản phẩm và Ứng dụng (PTSPS), ACBS<br>Tháng 10/2026</p>
+  <p class="small" style="margin-top:40px;font-size:14px">Phím ← → để chuyển slide, N để xem ghi chú, F để toàn màn hình.</p>
+  <aside class="notes">Buổi này giới thiệu hai sản phẩm AI agent của AWS. Số liệu lấy từ tài liệu chính thức của AWS và Kiro tại thời điểm 10/2026, nguồn ghi ở cuối mỗi slide.</aside>
 </section>
 
 <!-- 2 -->
 <section class="slide">
-  <h2>Cùng một hướng, hai đối tượng</h2>
-  <div class="vs">
-    <div class="q"><h3>Amazon Quick</h3><p class="who">Business user, knowledge worker</p>
-      <ul class="plain"><li>Hỏi dữ liệu công ty → báo cáo → hành động trên app</li><li>Kế thừa <strong>Amazon Q Business + QuickSight</strong></li><li>Chat, Spaces, Index, Research, Sight, Flows, Automate trong một workspace</li></ul></div>
-    <div class="k"><h3>Kiro</h3><p class="who">Developer, engineering team</p>
-      <ul class="plain"><li>Prompt → spec → code đã verify</li><li>Kế thừa <strong>Amazon Q Developer</strong> (ngừng 15/5/2026)</li><li>Một agent harness: IDE, CLI, Web, Mobile, <strong>Crew</strong></li></ul></div>
-  </div>
-  <aside class="notes">Quick là "Copilot phiên bản AWS" cho business; Kiro là coding agent. Cả hai đều là agent, đều hỗ trợ MCP.</aside>
+  <h2>Nội dung</h2>
+  <ol class="agenda">
+    <li>Tổng quan<span>Quick và Kiro dành cho ai</span></li>
+    <li>Amazon Quick<span>Spaces, Index, Research, Sight, Flows, Automate</span></li>
+    <li>Kiro IDE và Kiro CLI<span>Specs, Steering, Hooks</span></li>
+    <li>Kiro Crew<span>Agent chạy liên tục, nhiều phiên</span></li>
+    <li>Các trường hợp sử dụng và đề xuất cho phòng</li>
+    <li>Demo và thảo luận</li>
+  </ol>
 </section>
 
 <!-- 3 -->
 <section class="slide">
-  <h2>Dòng thời gian</h2>
-  <div class="tl">
-    <div class="axis"></div>
-    <div class="ev k up" style="left:0"><span class="dt"></span><div class="dd">07/2025</div><div class="tt">Kiro preview</div><div class="ss">IDE spec-driven ra mắt, waitlist</div></div>
-    <div class="ev q dn" style="left:230px"><span class="dt"></span><div class="dd">09/10/2025</div><div class="tt">Quick Suite GA</div><div class="ss">Gộp Q Business + QuickSight, thêm Research / Flows / Automate</div></div>
-    <div class="ev q up" style="left:470px"><span class="dt"></span><div class="dd">28/04/2026</div><div class="tt">Amazon Quick</div><div class="ss">Thêm tier Free / Plus cá nhân, connector Google Workspace, Teams, Zoom</div></div>
-    <div class="ev k dn" style="left:700px"><span class="dt"></span><div class="dd">15/05/2026</div><div class="tt">Q Developer sunset</div><div class="ss">Kiro là người kế nhiệm phía dev</div></div>
-    <div class="ev k up" style="left:900px"><span class="dt"></span><div class="dd">04/08/2026</div><div class="tt">Kiro Crew</div><div class="ss">Open source (Apache 2.0), từ dự án nội bộ MeshClaw</div></div>
-  </div>
-  <aside class="notes">Hai mốc gần nhất: Q Developer bị khai tử (ai còn dùng phải chuyển), và Kiro Crew mới ra hơn 2 tháng.</aside>
+  <h2>Tổng quan</h2>
+  <table>
+    <tr><th style="width:200px"></th><th>Amazon Quick</th><th>Kiro</th></tr>
+    <tr><td><b>Dành cho</b></td><td>Người dùng nghiệp vụ, nhân viên văn phòng</td><td>Lập trình viên, nhóm phát triển phần mềm</td></tr>
+    <tr><td><b>Làm gì</b></td><td>Trả lời câu hỏi từ dữ liệu công ty, nghiên cứu, làm báo cáo, tự động hoá công việc trên các ứng dụng</td><td>Lập kế hoạch và viết code bằng AI agent, từ yêu cầu đến code đã kiểm thử</td></tr>
+    <tr><td><b>Ra mắt</b></td><td>9/10/2025 (tên Quick Suite), phát triển từ Amazon QuickSight</td><td>Bản preview 7/2025. Kiro Crew ra mắt 4/8/2026</td></tr>
+    <tr><td><b>Hình thức</b></td><td>Dịch vụ web, desktop app, extension trình duyệt</td><td>IDE, CLI, Web, ứng dụng di động, Kiro Crew</td></tr>
+    <tr><td><b>Gói</b></td><td>Free, Plus, Professional, Enterprise</td><td>Có gói miễn phí. Kiro Crew là mã nguồn mở</td></tr>
+  </table>
+  <p class="src">Nguồn: AWS News Blog (09/10/2025); aws.amazon.com/quick/faqs; kiro.dev/ide; kiro.dev/blog/introducing-kiro-crew</p>
+  <aside class="notes">Hai sản phẩm cùng hướng dùng AI agent để làm việc, nhưng khác đối tượng. Quick phát triển từ QuickSight nên dashboard cũ vẫn dùng được.</aside>
 </section>
 
-<!-- 4 Quick overview -->
+<!-- 4 -->
 <section class="slide q">
-  <span class="kicker"><i></i>Amazon Quick</span>
-  <h2>Bức tranh tổng thể</h2>
-  <div class="dg">
-  <svg class="d" viewBox="0 0 1120 440" role="img" aria-label="Kiến trúc Amazon Quick: nguồn dữ liệu vào Quick Index và Spaces, các tính năng dùng chung, hành động ra app ngoài">
-    <text class="m" x="0" y="14">NGUỒN</text>
-    <rect class="bx" x="0" y="28" width="200" height="66" rx="8"/><text class="t" x="16" y="56">File upload</text><text class="s" x="16" y="78">PDF, Word, Excel, audio…</text>
-    <rect class="bx" x="0" y="112" width="200" height="66" rx="8"/><text class="t" x="16" y="140">Knowledge base</text><text class="s" x="16" y="162">SharePoint, Drive, S3…</text>
-    <rect class="bx" x="0" y="196" width="200" height="66" rx="8"/><text class="t" x="16" y="224">Dữ liệu bảng</text><text class="s" x="16" y="246">Redshift, Athena, Snowflake</text>
-    <rect class="bx" x="0" y="280" width="200" height="66" rx="8"/><text class="t" x="16" y="308">Bên ngoài</text><text class="s" x="16" y="330">Web, FactSet, S&amp;P Global</text>
-    <g class="ln"><path d="M200 61 L270 150" marker-end="url(#ar)"/><path d="M200 145 L270 175" marker-end="url(#ar)"/><path d="M200 229 L270 205" marker-end="url(#ar)"/><path d="M200 313 L270 232" marker-end="url(#ar)"/></g>
-
-    <text class="m" x="272" y="14">NỀN TẢNG</text>
-    <rect class="bq" x="272" y="28" width="200" height="318" rx="10"/>
-    <text class="tl" x="292" y="62">Quick Index</text>
-    <text class="s" x="292" y="86">index tự động mọi thứ</text><text class="s" x="292" y="104">bạn đưa vào</text>
-    <rect class="bx" x="292" y="128" width="160" height="58" rx="6"/><text class="t" x="306" y="153">Spaces</text><text class="s" x="306" y="173">gom theo team / mảng</text>
-    <rect class="bm" x="292" y="200" width="160" height="78" rx="6"/><text class="t" x="306" y="225">Giữ quyền gốc</text><text class="s" x="306" y="245">không có quyền ở nguồn</text><text class="s" x="306" y="265">thì hỏi cũng không ra</text>
-    <text class="m" x="292" y="326">tính theo GB file nguồn</text>
-
-    <text class="m" x="542" y="14">TÍNH NĂNG</text>
-    <g>
-      <rect class="bx" x="542" y="28" width="220" height="52" rx="8"/><text class="t" x="558" y="52">Quick Chat</text><text class="s" x="558" y="70">hỏi nhanh, có ngữ cảnh</text>
-      <rect class="bx" x="542" y="94" width="220" height="52" rx="8"/><text class="t" x="558" y="118">Quick Research</text><text class="s" x="558" y="136">báo cáo có trích dẫn</text>
-      <rect class="bx" x="542" y="160" width="220" height="52" rx="8"/><text class="t" x="558" y="184">Quick Sight</text><text class="s" x="558" y="202">dashboard, hỏi số liệu</text>
-      <rect class="bx" x="542" y="226" width="220" height="52" rx="8"/><text class="t" x="558" y="250">Quick Flows</text><text class="s" x="558" y="268">tự động hoá bằng lời</text>
-      <rect class="bx" x="542" y="292" width="220" height="52" rx="8"/><text class="t" x="558" y="316">Quick Automate</text><text class="s" x="558" y="334">quy trình nhiều bước</text>
-    </g>
-    <g class="ln lq"><path d="M472 187 L542 54" marker-end="url(#arq)"/><path d="M472 187 L542 120" marker-end="url(#arq)"/><path d="M472 187 L542 186" marker-end="url(#arq)"/><path d="M472 187 L542 252" marker-end="url(#arq)"/><path d="M472 187 L542 318" marker-end="url(#arq)"/></g>
-
-    <text class="m" x="842" y="14">HÀNH ĐỘNG</text>
-    <rect class="bx" x="842" y="28" width="278" height="180" rx="10"/>
-    <text class="t" x="860" y="56">Actions · connector · MCP</text>
-    <text class="s" x="860" y="82">Jira — tạo ticket</text><text class="s" x="860" y="104">Slack, Teams — gửi tin</text><text class="s" x="860" y="126">Outlook — mail, lịch</text><text class="s" x="860" y="148">Salesforce, ServiceNow, Zendesk</text><text class="s" x="860" y="170">Bedrock, Textract, S3</text>
-    <text class="m" x="860" y="194">50+ connector · ~1.000 app qua MCP</text>
-    <g class="ln"><path d="M762 54 L842 96" marker-end="url(#ar)"/><path d="M762 252 L842 140" marker-end="url(#ar)"/><path d="M762 318 L842 170" marker-end="url(#ar)"/></g>
-
-    <text class="m" x="842" y="240">DÙNG Ở ĐÂU</text>
-    <rect class="bx" x="842" y="254" width="278" height="92" rx="10"/>
-    <text class="s" x="860" y="282">Web · desktop app</text><text class="s" x="860" y="304">Extension: gõ @Quick trên thanh địa chỉ</text><text class="s" x="860" y="326">Apps in Quick: app xây bằng lời</text>
-
-    <rect class="bx" x="0" y="372" width="1120" height="56" rx="8"/>
-    <text class="s" x="20" y="405">Giá: Free / Plus cá nhân · Professional $20 · Enterprise $40 /user/tháng · +$250/account/tháng · dữ liệu không dùng để train model</text>
-  </svg>
-  </div>
-  <aside class="notes">Đọc từ trái sang phải: dữ liệu đi vào Index qua Space và connector; các tính năng dùng chung index đó; Flows và Automate (và Chat) có thể gọi Actions để làm việc trên app thật. Các slide sau đi từng khối.</aside>
-</section>
-
-<!-- 5 Chat & Spaces -->
-<section class="slide q">
-  <span class="kicker"><i></i>Amazon Quick</span>
-  <h2>Quick Chat &amp; Spaces</h2>
-  <div class="feat">
-    <div>
-      <ul class="plain">
-        <li><strong>Chat</strong>: hỏi, giao việc cho agent. Một chat thường đính kèm tối đa 20 file.</li>
-        <li><strong>Space</strong>: kho tri thức của một team / mảng nghiệp vụ. Không chỉ là thư mục file — gom 4 loại knowledge.</li>
-        <li>Chọn Space làm ngữ cảnh → agent <strong>chỉ trả lời trong Space</strong> và chỉ dùng Actions gắn vào Space đó.</li>
-        <li>Tới 10.000 file, tổng 10 GB; PDF/Word/PPT ≤ 500 MB/file.</li>
-        <li>Share Space không tự cấp quyền dashboard bên trong — quyền tài nguyên giữ riêng.</li>
-      </ul>
-      <p class="say">Chat là chỗ hỏi; Space là kho tri thức có phân quyền, là ngữ cảnh để agent trả lời đúng mảng.</p>
-    </div>
-    <div class="dg">
-    <svg class="d" viewBox="0 0 620 440" role="img" aria-label="Một Space chứa file, knowledge base, dashboard, actions; agent chỉ trả lời trong Space; vai trò owner và viewer">
-      <rect class="bq" x="10" y="10" width="420" height="330" rx="12"/>
-      <text class="tl" x="30" y="42">Space · "PTSPS — Trái phiếu"</text>
-      <rect class="bx" x="30" y="62" width="186" height="124" rx="8"/><text class="t" x="46" y="90">File upload</text><text class="s" x="46" y="114">PDF, Word, PPT, Excel</text><text class="s" x="46" y="134">md, code, audio, video</text><text class="mq" x="46" y="166">Add knowledge</text>
-      <rect class="bx" x="226" y="62" width="186" height="124" rx="8"/><text class="t" x="242" y="90">Knowledge base</text><text class="s" x="242" y="114">SharePoint, OneDrive</text><text class="s" x="242" y="134">Drive, Confluence, S3</text><text class="s" x="242" y="154">web page</text>
-      <rect class="bx" x="30" y="198" width="186" height="124" rx="8"/><text class="t" x="46" y="226">Dashboard / Topic</text><text class="s" x="46" y="250">số liệu từ Quick Sight</text><text class="s" x="46" y="270">hỏi bằng lời</text>
-      <rect class="bx" x="226" y="198" width="186" height="124" rx="8"/><text class="t" x="242" y="226">Actions</text><text class="s" x="242" y="250">Jira, Slack, MCP…</text><text class="s" x="242" y="270">agent được phép</text><text class="s" x="242" y="290">làm gì trong Space</text>
-      <path class="ln lq" d="M430 175 L468 175" marker-end="url(#arq)"/>
-      <rect class="bx" x="470" y="120" width="146" height="110" rx="10"/>
-      <text class="t c" x="543" y="152">Chat agent</text><text class="s c" x="543" y="176">chỉ dùng ngữ cảnh</text><text class="s c" x="543" y="194">của Space này</text><text class="m c" x="543" y="216">focus khi mở Space</text>
-      <rect class="bm" x="10" y="358" width="300" height="72" rx="8"/><text class="t" x="26" y="384">Owner / co-owner</text><text class="s" x="26" y="408">thêm/xoá knowledge, share, xoá Space</text>
-      <rect class="bx" x="320" y="358" width="296" height="72" rx="8"/><text class="t" x="336" y="384">Viewer</text><text class="s" x="336" y="408">hỏi, tải file, dùng làm ngữ cảnh</text>
-    </svg>
-    </div>
-  </div>
-  <aside class="notes">Câu hay bị hỏi: "Space có phải folder không?" — Không hẳn: ngoài file còn có knowledge base nối nguồn sống (SharePoint…), dashboard, và Actions. Và Space chính là thứ giới hạn phạm vi trả lời + phạm vi hành động của agent.</aside>
-</section>
-
-<!-- 6 Quick Index -->
-<section class="slide q">
-  <span class="kicker"><i></i>Amazon Quick</span>
-  <h2>Quick Index</h2>
-  <div class="feat">
-    <div>
-      <ul class="plain">
-        <li>Lớp index <strong>chạy ngầm, tự động</strong> — nhưng chỉ index những gì bạn đưa vào (upload hoặc connector), không tự quét cả công ty.</li>
-        <li>Thấy nó qua trạng thái file: Uploading → Processing → Text ready → Ready.</li>
-        <li><strong>Giữ quyền gốc</strong> của nguồn: không có quyền trên SharePoint thì hỏi trong Quick cũng không ra.</li>
-        <li>Không chọn embedding / chunking / vector DB — đổi lại không phải vận hành.</li>
-        <li>Dung lượng theo GB file gốc: Pro 25 GB/user, Enterprise 50 GB/user; vượt $5/GB/tháng, auto-purchase mặc định.</li>
-      </ul>
-      <p class="say">Quick Index là kho index tự động; mình chỉ "cho ăn" qua Space và connector.</p>
-    </div>
-    <div class="dg">
-    <svg class="d" viewBox="0 0 620 440" role="img" aria-label="Nguồn dữ liệu đi vào Quick Index qua các trạng thái xử lý, giữ quyền gốc, rồi phục vụ Chat, Research, Flows, Automate, Apps">
-      <g>
-        <rect class="bx" x="0" y="20" width="150" height="44" rx="6"/><text class="s" x="14" y="47">File upload</text>
-        <rect class="bx" x="0" y="76" width="150" height="44" rx="6"/><text class="s" x="14" y="103">SharePoint</text>
-        <rect class="bx" x="0" y="132" width="150" height="44" rx="6"/><text class="s" x="14" y="159">Google Drive</text>
-        <rect class="bx" x="0" y="188" width="150" height="44" rx="6"/><text class="s" x="14" y="215">Amazon S3</text>
-        <rect class="bx" x="0" y="244" width="150" height="44" rx="6"/><text class="s" x="14" y="271">Confluence</text>
-        <rect class="bx" x="0" y="300" width="150" height="44" rx="6"/><text class="s" x="14" y="327">Web page</text>
-      </g>
-      <g class="ln"><path d="M150 42 L208 150"/><path d="M150 98 L208 160"/><path d="M150 154 L208 170"/><path d="M150 210 L208 180"/><path d="M150 266 L208 190"/><path d="M150 322 L208 200" marker-end="url(#ar)"/></g>
-      <rect class="bq" x="210" y="20" width="190" height="276" rx="12"/>
-      <text class="tl" x="228" y="52">Quick Index</text>
-      <rect class="bx" x="228" y="72" width="154" height="34" rx="17"/><text class="s c" x="305" y="94">Uploading</text>
-      <rect class="bx" x="228" y="124" width="154" height="34" rx="17"/><text class="s c" x="305" y="146">Processing</text>
-      <rect class="bx" x="228" y="176" width="154" height="34" rx="17"/><text class="s c" x="305" y="198">Text ready</text>
-      <rect class="bq" x="228" y="228" width="154" height="34" rx="17"/><text class="t c" x="305" y="250">Ready</text>
-      <g class="ln lq"><path d="M305 106 L305 122" marker-end="url(#arq)"/><path d="M305 158 L305 174" marker-end="url(#arq)"/><path d="M305 210 L305 226" marker-end="url(#arq)"/></g>
-      <text class="m" x="228" y="284">text trước, ảnh sau</text>
-      <rect class="bm" x="210" y="310" width="190" height="52" rx="8"/><text class="t" x="226" y="333">Giữ ACL nguồn gốc</text><text class="s" x="226" y="352">ai thấy phần nấy</text>
-      <g>
-        <rect class="bx" x="470" y="30" width="150" height="44" rx="6"/><text class="t" x="486" y="58">Chat</text>
-        <rect class="bx" x="470" y="90" width="150" height="44" rx="6"/><text class="t" x="486" y="118">Research</text>
-        <rect class="bx" x="470" y="150" width="150" height="44" rx="6"/><text class="t" x="486" y="178">Flows</text>
-        <rect class="bx" x="470" y="210" width="150" height="44" rx="6"/><text class="t" x="486" y="238">Automate</text>
-        <rect class="bx" x="470" y="270" width="150" height="44" rx="6"/><text class="t" x="486" y="298">Apps in Quick</text>
-      </g>
-      <g class="ln lq"><path d="M400 160 L468 52" marker-end="url(#arq)"/><path d="M400 160 L468 112" marker-end="url(#arq)"/><path d="M400 160 L468 172" marker-end="url(#arq)"/><path d="M400 160 L468 232" marker-end="url(#arq)"/><path d="M400 160 L468 292" marker-end="url(#arq)"/></g>
-      <rect class="bx" x="0" y="384" width="620" height="50" rx="8"/>
-      <text class="m" x="16" y="414">Pro 25 GB/user · Ent 50 GB/user · bậc 0,25 GB · vượt $5/GB/tháng · trần 2 TB</text>
-    </svg>
-    </div>
-  </div>
-  <aside class="notes">Nếu bị hỏi "có thay được Bedrock Knowledge Bases không": Quick Index là cho người dùng cuối trong Quick; Bedrock KB là cho dev build app riêng — khác mục đích. Admin quản dung lượng ở Manage Quick → Subscriptions → Index capacity.</aside>
-</section>
-
-<!-- 7 Quick Research -->
-<section class="slide q">
-  <span class="kicker"><i></i>Amazon Quick</span>
-  <h2>Quick Research</h2>
-  <div class="feat">
-    <div>
-      <ul class="plain">
-        <li>Agent <strong>deep research</strong>: đưa một đề tài, nó lên plan, đi nhiều nguồn, trả về <strong>báo cáo có trích dẫn</strong>.</li>
-        <li>Bạn sửa plan trước khi chạy và góp ý giữa chừng.</li>
-        <li>Nguồn: nội bộ (Space, KB, dashboard), web + tin tức 200+ đầu báo, dữ liệu bên thứ ba: FactSet, S&amp;P Global, IDC (cần subscription sẵn), US Patents, PubMed.</li>
-        <li>Chạy được như <strong>một bước trong Flows</strong> → báo cáo định kỳ.</li>
-        <li>Tính bằng agent hours: Pro ~2 giờ/tháng, thêm ~$6/giờ.</li>
-      </ul>
-      <p class="say">Chat hỏi gì đáp nấy; Research là giao đề tài, nhận về tài liệu dùng lại được.</p>
-    </div>
-    <div class="dg">
-    <svg class="d" viewBox="0 0 620 440" role="img" aria-label="Quy trình Quick Research: mục tiêu, kế hoạch, người dùng chỉnh, ba nhóm nguồn, báo cáo có trích dẫn">
-      <rect class="bx" x="0" y="10" width="180" height="66" rx="8"/><text class="m" x="16" y="32">1</text><text class="t" x="16" y="52">Mục tiêu</text><text class="s" x="16" y="68">một câu đề tài</text>
-      <path class="ln" d="M180 43 L218 43" marker-end="url(#ar)"/>
-      <rect class="bq" x="220" y="10" width="180" height="66" rx="8"/><text class="mq" x="236" y="32">2</text><text class="t" x="236" y="52">Research plan</text><text class="s" x="236" y="68">chia chủ đề con</text>
-      <rect class="bm" x="440" y="10" width="180" height="66" rx="8"/><text class="mm" x="456" y="32">bạn</text><text class="t" x="456" y="52">Sửa plan</text><text class="s" x="456" y="68">thêm file, đổi trọng tâm</text>
-      <path class="ln lm" d="M400 34 L438 34" marker-end="url(#arm)"/>
-      <path class="ln lm dash" d="M530 76 Q470 112 400 64" marker-end="url(#arm)"/>
-      <g class="ln lq"><path d="M310 76 L95 146" marker-end="url(#arq)"/><path d="M310 76 L310 146" marker-end="url(#arq)"/><path d="M310 76 L525 146" marker-end="url(#arq)"/></g>
-      <text class="mq" x="322" y="118">3 · chạy nhiều bước</text>
-      <rect class="bq" x="0" y="148" width="190" height="104" rx="8"/><text class="t" x="16" y="174">Nội bộ</text><text class="s" x="16" y="198">Space, knowledge base</text><text class="s" x="16" y="218">dashboard, Snowflake</text><text class="s" x="16" y="238">file upload, Actions</text>
-      <rect class="bx" x="215" y="148" width="190" height="104" rx="8"/><text class="t" x="231" y="174">Web</text><text class="s" x="231" y="198">web search</text><text class="s" x="231" y="218">tin tức thời gian thực</text><text class="s" x="231" y="238">200+ đầu báo</text>
-      <rect class="bk" x="430" y="148" width="190" height="104" rx="8"/><text class="t" x="446" y="174">Bên thứ ba</text><text class="s" x="446" y="198">FactSet, S&amp;P Global, IDC</text><text class="s" x="446" y="218">US Patents, PubMed</text><text class="mk" x="446" y="240">premium: cần mua sẵn</text>
-      <g class="ln"><path d="M95 252 L230 302" marker-end="url(#ar)"/><path d="M310 252 L310 302" marker-end="url(#ar)"/><path d="M525 252 L390 302" marker-end="url(#ar)"/></g>
-      <rect class="bq" x="110" y="304" width="400" height="128" rx="10"/>
-      <text class="mq" x="128" y="328">4</text><text class="tl" x="148" y="330">Báo cáo có trích dẫn</text>
-      <rect class="bx" x="128" y="346" width="250" height="10" rx="3"/><rect class="fq" x="384" y="346" width="22" height="10" rx="3"/>
-      <rect class="bx" x="128" y="366" width="210" height="10" rx="3"/><rect class="fq" x="344" y="366" width="22" height="10" rx="3"/><rect class="fq" x="370" y="366" width="22" height="10" rx="3"/>
-      <rect class="bx" x="128" y="386" width="270" height="10" rx="3"/><rect class="fq" x="404" y="386" width="22" height="10" rx="3"/>
-      <text class="s" x="128" y="420">mỗi kết luận → bấm ra nguồn gốc</text>
-    </svg>
-    </div>
-  </div>
-  <aside class="notes">Gợi ý ACBS: nếu công ty đã có FactSet hoặc S&amp;P Global, Research trộn được báo cáo nội bộ của phòng phân tích với dữ liệu đó và tin tức, ra bản tổng hợp ngành có trích dẫn. Cần hỏi bộ phận mua data trước.</aside>
-</section>
-
-<!-- 8 Quick Sight -->
-<section class="slide q">
-  <span class="kicker"><i></i>Amazon Quick</span>
-  <h2>Quick Sight — dữ liệu đi từ đâu</h2>
-  <div class="feat">
-    <div>
-      <ul class="plain">
-        <li>Là <strong>QuickSight cũ</strong>, và <strong>không có dữ liệu riêng</strong> — đọc từ nguồn bạn nối vào.</li>
-        <li><strong>Data source</strong>: Redshift, Athena/S3, RDS/Aurora, Snowflake, BigQuery, Excel/CSV. DB private trong VPC cần <strong>VPC connection</strong>.</li>
-        <li><strong>Dataset</strong>: SPICE (copy vào bộ nhớ, refresh theo lịch, nhanh) hoặc Direct query (luôn mới, nhưng đè tải DB). Có row-level security.</li>
-        <li><strong>Topic</strong>: tên nghiệp vụ cho cột → hỏi bằng lời ra biểu đồ.</li>
-        <li><strong>Một chiều</strong>: dashboard/topic gắn vào Space; Space không làm nguồn dữ liệu cho Sight.</li>
-      </ul>
-      <p class="say">Số liệu để vẽ phải đi qua dataset. Space chứa dashboard, không cấp dữ liệu cho nó.</p>
-    </div>
-    <div class="dg">
-    <svg class="d" viewBox="0 0 620 440" role="img" aria-label="Quick Sight: data source vào dataset SPICE hoặc direct query, ra topic và dashboard, gắn một chiều vào Space">
-      <text class="m" x="0" y="12">DATA SOURCE</text>
-      <rect class="bx" x="0" y="22" width="130" height="44" rx="6"/><text class="s" x="12" y="49">RDS · VPC</text>
-      <rect class="bx" x="0" y="78" width="130" height="44" rx="6"/><text class="s" x="12" y="105">Redshift</text>
-      <rect class="bx" x="0" y="134" width="130" height="44" rx="6"/><text class="s" x="12" y="161">Athena · S3</text>
-      <rect class="bx" x="0" y="190" width="130" height="44" rx="6"/><text class="s" x="12" y="217">Excel / CSV</text>
-      <g class="ln"><path d="M130 44 L166 110"/><path d="M130 100 L166 120"/><path d="M130 156 L166 140"/><path d="M130 212 L166 150" marker-end="url(#ar)"/></g>
-      <text class="m" x="170" y="12">DATASET</text>
-      <rect class="bq" x="168" y="22" width="156" height="212" rx="10"/>
-      <rect class="bx" x="180" y="34" width="132" height="88" rx="8"/><text class="t" x="192" y="58">SPICE</text><text class="s" x="192" y="80">copy in-memory</text><text class="s" x="192" y="98">refresh theo lịch</text><text class="mq" x="192" y="114">nhanh</text>
-      <rect class="bx" x="180" y="134" width="132" height="88" rx="8"/><text class="t" x="192" y="158">Direct query</text><text class="s" x="192" y="180">query thẳng DB</text><text class="s" x="192" y="198">mỗi lần mở</text><text class="mq" x="192" y="214">luôn mới</text>
-      <g class="ln lq"><path d="M324 80 L364 66" marker-end="url(#arq)"/><path d="M324 170 L364 182" marker-end="url(#arq)"/></g>
-      <rect class="bq" x="366" y="22" width="116" height="92" rx="10"/><text class="t" x="380" y="48">Topic</text><text class="s" x="380" y="70">tên nghiệp vụ</text><text class="s" x="380" y="88">cho từng cột</text>
-      <rect class="bx" x="366" y="130" width="116" height="104" rx="10"/><text class="t" x="380" y="154">Dashboard</text>
-      <line class="ln" x1="380" y1="222" x2="468" y2="222"/>
-      <rect class="fq" x="384" y="194" width="14" height="28" rx="2"/><rect class="fq" x="404" y="178" width="14" height="44" rx="2"/><rect class="fq" x="424" y="186" width="14" height="36" rx="2"/><rect class="fq" x="444" y="168" width="14" height="54" rx="2"/>
-      <path class="ln lq" d="M482 68 L506 68" marker-end="url(#arq)"/>
-      <rect class="bx" x="508" y="22" width="112" height="92" rx="10"/><text class="s" x="520" y="48">"Phí T9 theo</text><text class="s" x="520" y="66">chi nhánh?"</text><polyline class="ln lq" points="520,100 540,90 560,94 580,80 606,84"/>
-      <g class="ln lq"><path d="M424 114 L424 128"/><path d="M424 234 L424 318" marker-end="url(#arq)"/><path d="M450 114 Q500 200 470 318" marker-end="url(#arq)"/></g>
-      <text class="mq" x="476" y="270">gắn vào</text>
-      <rect class="bq" x="168" y="320" width="452" height="114" rx="12"/>
-      <text class="tl" x="186" y="350">Space</text>
-      <rect class="bx" x="186" y="366" width="130" height="34" rx="17"/><text class="s c" x="251" y="388">File · KB</text>
-      <rect class="bx" x="330" y="366" width="130" height="34" rx="17"/><text class="s c" x="395" y="388">Dashboard ✓</text>
-      <rect class="bx" x="474" y="366" width="130" height="34" rx="17"/><text class="s c" x="539" y="388">Topic ✓</text>
-      <path class="ln dash" d="M200 320 L230 240" marker-end="url(#ar)"/>
-      <text class="m" x="236" y="284">✗ không làm nguồn</text><text class="m" x="236" y="300">dữ liệu cho Sight</text>
-      <rect class="bm" x="0" y="250" width="150" height="184" rx="10"/>
-      <text class="t" x="12" y="276">Gợi ý ACBS</text><text class="s" x="12" y="300">DB giao dịch ở RDS</text><text class="s" x="12" y="318">private → VPC</text><text class="s" x="12" y="336">connection.</text><text class="s" x="12" y="362">SPICE refresh đêm,</text><text class="s" x="12" y="380">hoặc đẩy sang</text><text class="s" x="12" y="398">Redshift / Athena</text><text class="s" x="12" y="416">làm kho báo cáo.</text>
-    </svg>
-    </div>
-  </div>
-  <aside class="notes">Câu hay bị hỏi: "Quick Sight lấy dữ liệu ở đâu?" — từ data source mình nối (RDS, Redshift, S3…), qua dataset. "Lấy từ Space được không?" — không: Space chỉ chứa dashboard/topic đã có; file trong Space vào Quick Index để agent đọc, không thành bảng để vẽ. Excel muốn vẽ thì upload làm dataset trong Sight. Chưa xác nhận được Chat có tự vẽ biểu đồ từ Excel trong Space — nên thử trước.</aside>
-</section>
-
-<!-- 9 Flows & Automate -->
-<section class="slide q">
-  <span class="kicker"><i></i>Amazon Quick</span>
-  <h2>Quick Flows &amp; Quick Automate</h2>
-  <div class="feat">
-    <div>
-      <ul class="plain">
-        <li><strong>Flows</strong>: ai cũng tạo được, <strong>mô tả bằng lời</strong>. Bước có thể là chat, Research, Action. Chạy tay hoặc theo lịch, share cho cả phòng. Có cả ở tier Free.</li>
-        <li><strong>Automate</strong>: cho team kỹ thuật, quy trình nhiều bước, nhiều hệ thống, nhiều agent. Có rẽ nhánh, <strong>human-in-the-loop</strong> duyệt trước khi chạy tiếp.</li>
-        <li>Automate có monitoring, debug, versioning, phân quyền, deploy — cần tier Enterprise.</li>
-      </ul>
-      <p class="say">Flows thay Zapier cho việc cá nhân; Automate cho quy trình xuyên phòng ban cần kiểm soát.</p>
-    </div>
-    <div class="dg">
-    <svg class="d" viewBox="0 0 620 440" role="img" aria-label="Hai làn: Quick Flows tuyến tính bốn bước; Quick Automate có rẽ nhánh và người duyệt">
-      <rect class="bq" x="0" y="0" width="620" height="190" rx="12"/>
-      <text class="t" x="18" y="30">Quick Flows</text><text class="m" x="130" y="30">tạo bằng lời · ai cũng làm được</text>
-      <rect class="bx" x="18" y="60" width="120" height="70" rx="8"/><text class="mq" x="30" y="80">trigger</text><text class="t" x="30" y="102">8h mỗi sáng</text><text class="s" x="30" y="120">hoặc bấm tay</text>
-      <rect class="bx" x="166" y="60" width="132" height="70" rx="8"/><text class="mq" x="178" y="80">bước 1</text><text class="t" x="178" y="102">Research</text><text class="s" x="178" y="120">tin ngành hôm nay</text>
-      <rect class="bx" x="326" y="60" width="124" height="70" rx="8"/><text class="mq" x="338" y="80">bước 2</text><text class="t" x="338" y="102">Tóm tắt</text><text class="s" x="338" y="120">5 gạch đầu dòng</text>
-      <rect class="bx" x="478" y="60" width="124" height="70" rx="8"/><text class="mq" x="490" y="80">action</text><text class="t" x="490" y="102">Gửi Outlook</text><text class="s" x="490" y="120">cho cả phòng</text>
-      <g class="ln lq"><path d="M138 95 L164 95" marker-end="url(#arq)"/><path d="M298 95 L324 95" marker-end="url(#arq)"/><path d="M450 95 L476 95" marker-end="url(#arq)"/></g>
-      <text class="m" x="18" y="168">chia sẻ flow · chạy theo lịch · Research là một bước</text>
-
-      <rect class="bx" x="0" y="210" width="620" height="226" rx="12"/>
-      <text class="t" x="18" y="240">Quick Automate</text><text class="m" x="148" y="240">quy trình nhiều hệ thống · Enterprise</text>
-      <rect class="bx" x="18" y="268" width="104" height="70" rx="8"/><text class="t" x="30" y="296">Hoá đơn</text><text class="s" x="30" y="316">về mailbox</text>
-      <rect class="bk" x="142" y="268" width="120" height="70" rx="8"/><text class="t" x="154" y="296">Agent đọc</text><text class="s" x="154" y="316">Textract</text>
-      <rect class="bk" x="282" y="268" width="110" height="70" rx="8"/><text class="t" x="294" y="296">Đối chiếu</text><text class="s" x="294" y="316">với ERP</text>
-      <polygon class="bq" points="440,273 470,303 440,333 410,303"/><text class="t c" x="440" y="308">?</text>
-      <rect class="bx" x="496" y="256" width="114" height="44" rx="8"/><text class="s" x="508" y="283">khớp → ghi sổ</text>
-      <rect class="bm" x="496" y="314" width="114" height="44" rx="8"/><text class="s" x="508" y="341">lệch → duyệt</text>
-      <g class="ln"><path d="M122 303 L140 303" marker-end="url(#ar)"/><path d="M262 303 L280 303" marker-end="url(#ar)"/><path d="M392 303 L408 303" marker-end="url(#ar)"/><path d="M470 303 L494 278" marker-end="url(#ar)"/></g>
-      <path class="ln lm" d="M470 303 L494 336" marker-end="url(#arm)"/>
-      <line class="ln dash" x1="18" y1="380" x2="602" y2="380"/>
-      <text class="m" x="18" y="410">monitoring · debug · versioning · role · deploy · audit</text>
-    </svg>
-    </div>
-  </div>
-  <aside class="notes">Làn dưới là use case kinh điển của AWS: team Finance của Amazon đối soát hàng nghìn hoá đơn mỗi tháng. Flow làn trên là ví dụ minh hoạ, làm được ngay ở tier Free.</aside>
-</section>
-
-<!-- 10 Kết nối & giá -->
-<section class="slide q">
-  <span class="kicker"><i></i>Amazon Quick</span>
-  <h2>Kết nối &amp; chi phí</h2>
-  <div class="cols cols-2">
-    <div>
-      <h3>Hơn 50 connector sẵn, ~1.000 app qua MCP</h3>
-      <p style="margin:10px 0 14px">
-        <span class="tag q">SharePoint</span><span class="tag q">Google Drive</span><span class="tag q">Outlook</span><span class="tag q">Snowflake</span><span class="tag q">Databricks</span><span class="tag q">Redshift</span><span class="tag q">S3</span><span class="tag q">ServiceNow</span><span class="tag q">Salesforce</span><span class="tag q">Jira</span><span class="tag q">Slack</span><span class="tag q">Zendesk</span><span class="tag q">Teams</span><span class="tag q">Zoom</span>
-      </p>
-      <ul class="plain">
-        <li><strong>Action</strong>, không chỉ đọc: tạo ticket Jira, cập nhật Salesforce, gửi Slack, tạo incident ServiceNow.</li>
-        <li>Dịch vụ AWS: Bedrock, Textract, Comprehend, S3.</li>
-        <li>Prompt và dữ liệu khách hàng không dùng để train model.</li>
-      </ul>
-    </div>
-    <div>
-      <h3>Giá theo user</h3>
+  <span class="prod">Amazon Quick</span>
+  <h2>Amazon Quick là gì</h2>
+  <div class="two wide-l">
+    <div class="col">
+      <p class="quote">"An AI assistant for work that turns questions into answers", và có thể thực hiện hành động như đặt lịch họp, theo dõi đầu việc.</p>
       <table>
-        <tr><td>Free / Plus</td><td>Cá nhân, không cần AWS account; chat, research, Spaces, Flows</td></tr>
-        <tr><td>Professional</td><td><strong>$20</strong>/user/tháng — Sight, Research, Flows, kèm agent hours</td></tr>
-        <tr><td>Enterprise</td><td><strong>$40</strong>/user/tháng — thêm Automate, tạo dashboard, quản trị knowledge base</td></tr>
-        <tr><td>Account</td><td>+$250/tháng hạ tầng; Index vượt pool $5/GB; Research thêm ~$6/giờ</td></tr>
+        <tr><td style="width:170px"><b>Chat, Spaces</b></td><td>Hỏi đáp trên dữ liệu, không gian chung theo nhóm</td></tr>
+        <tr><td><b>Quick Index</b></td><td>Kho tìm kiếm chung cho tài liệu, file, database, email</td></tr>
+        <tr><td><b>Quick Research</b></td><td>Nghiên cứu nhiều nguồn, báo cáo có trích dẫn</td></tr>
+        <tr><td><b>Quick Sight</b></td><td>BI: dashboard, hỏi số liệu bằng ngôn ngữ tự nhiên</td></tr>
+        <tr><td><b>Quick Flows</b></td><td>Tự động hoá việc lặp lại bằng cách mô tả</td></tr>
+        <tr><td><b>Quick Automate</b></td><td>Tự động hoá quy trình nhiều bước, nhiều hệ thống</td></tr>
       </table>
-      <p class="small" style="margin-top:12px">Tính năng agentic phụ thuộc region — kiểm tra trước khi hứa với nghiệp vụ.</p>
     </div>
+    <figure class="shot"><div class="frame"><img src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2025/10/01/2025_quick-suite_1.png" alt="Giao diện Amazon Quick" loading="lazy" onerror="this.parentNode.classList.add('err')"></div><figcaption>Ảnh: AWS News Blog</figcaption></figure>
   </div>
-  <aside class="notes">Câu hay gặp: "dùng ở VN được không?" — BI dùng được ở region sẵn có; agentic phụ thuộc region.</aside>
+  <p class="src">Nguồn: aws.amazon.com/quick/faqs; AWS News Blog "Announcing Amazon Quick Suite" (09/10/2025)</p>
+  <aside class="notes">Đi nhanh bảng này, mỗi dòng có một slide riêng phía sau.</aside>
 </section>
 
-<!-- 11 Quick use cases -->
+<!-- 5 -->
 <section class="slide q">
-  <span class="kicker"><i></i>Amazon Quick</span>
-  <h2>Use case kinh điển</h2>
-  <div class="grid-tiles g2" style="flex:1">
-    <div class="tile"><h3>Đối soát hoá đơn hàng loạt</h3><p>Finance của Amazon dùng Quick Automate đối soát hàng nghìn hoá đơn mỗi tháng — đọc file, khớp hệ thống, đẩy ngoại lệ cho người duyệt.</p></div>
-    <div class="tile"><h3>Tổng hợp xuyên hệ thống</h3><p>Demo của AWS: kéo insight và đề xuất workflow từ 5–6 hệ thống trong ~5 phút, thay vì 30–45 phút làm tay.</p></div>
-    <div class="tile"><h3>Báo cáo research định kỳ</h3><p>Research chạy trong Flows theo lịch: báo cáo thị trường / đối thủ có trích dẫn, chia sẻ cho cả phòng.</p></div>
-    <div class="tile"><h3>Ops văn phòng hằng ngày</h3><p>Tóm tắt email, trả lời tin nhắn, cập nhật ticket, soạn content — dùng dữ liệu nội bộ, ngay trong tab trình duyệt.</p></div>
-  </div>
-  <p class="small" style="margin-top:16px">Gợi ý cho công ty chứng khoán: Space theo mảng (trái phiếu, CS, phân tích); Research báo cáo ngành từ tài liệu nội bộ + FactSet/web; Flows tổng hợp ticket CS mỗi sáng; Automate luồng duyệt đa cấp.</p>
-  <aside class="notes">Ba tile đầu là ví dụ chính thức của AWS; dòng cuối là ý tưởng của mình cho ACBS, nói rõ là chưa làm.</aside>
-</section>
-
-<!-- 12 Kiro harness -->
-<section class="slide k">
-  <span class="kicker"><i></i>Kiro</span>
-  <h2>Một agent harness, nhiều bề mặt</h2>
-  <div class="feat">
-    <div>
-      <ul class="plain">
-        <li>Kiro không còn là "một IDE": một <strong>agent harness</strong> nói chuyện qua ACP, các giao diện chỉ là cửa vào.</li>
-        <li><strong>Cloud session</strong>: giao task trên web, gập laptop, check lại từ điện thoại, terminal hay IDE.</li>
-        <li>Cùng steering, skills, MCP ở mọi bề mặt — cấu hình <span class="mono">.kiro</span> đi theo.</li>
-        <li><strong>Model</strong>: Claude Opus 4.8 hoặc Auto. <strong>Powers</strong>: gói context + tool theo domain, gắn khi cần.</li>
-        <li>Cloud session chạy trên <strong>cloud của Kiro</strong>; Crew chạy trên <strong>máy bạn</strong>. Không cần AWS account; có free tier.</li>
+  <span class="prod">Amazon Quick</span>
+  <h2>Spaces và chat agent</h2>
+  <div class="two">
+    <div class="col">
+      <p style="margin-bottom:10px">Space là nơi một nhóm gom tài liệu, dữ liệu và công cụ cho một mảng việc. Agent dùng Space làm ngữ cảnh để trả lời.</p>
+      <ul>
+        <li>Thêm vào Space: file tải lên, knowledge base (SharePoint, OneDrive, Google Drive, Confluence, S3, trang web), dashboard và topic, actions.</li>
+        <li>Giới hạn: 10.000 file, tổng 10 GB. PDF, Word, PowerPoint tối đa 500 MB/file, loại khác 50 MB.</li>
+        <li>Quyền: owner và viewer. Chia sẻ Space không tự cấp quyền xem dashboard bên trong.</li>
+        <li>Khi chọn một Space làm ngữ cảnh, agent chỉ dùng nội dung và actions của Space đó.</li>
+        <li>Từ 9/2026, thư mục trên máy (qua desktop app) có thể thành Space.</li>
       </ul>
     </div>
-    <div class="dg">
-      <svg class="d" viewBox="0 0 620 440" role="img" aria-label="Kiro agent harness ở giữa, năm bề mặt IDE CLI Web Mobile Crew và cloud session nối vào">
-        <rect x="190" y="170" width="240" height="96" rx="12" fill="#6A4DE8"/>
-        <text class="c" x="310" y="208" font-size="21" font-weight="600" fill="#fff" font-family="Space Grotesk,sans-serif">Kiro agent harness</text>
-        <text class="c" x="310" y="234" font-size="13" fill="#E6E0FF">ACP · steering · skills · MCP · Powers</text>
-        <rect class="bk" x="10" y="30" width="150" height="62" rx="8"/><text class="t c" x="85" y="58">IDE</text><text class="s c" x="85" y="78">ngồi cùng agent</text>
-        <rect class="bk" x="235" y="30" width="150" height="62" rx="8"/><text class="t c" x="310" y="58">CLI</text><text class="s c" x="310" y="78">kiro-cli</text>
-        <rect class="bk" x="460" y="30" width="150" height="62" rx="8"/><text class="t c" x="535" y="58">Web</text><text class="s c" x="535" y="78">trình duyệt</text>
-        <rect class="bk" x="10" y="344" width="150" height="62" rx="8"/><text class="t c" x="85" y="372">Mobile</text><text class="s c" x="85" y="392">check từ điện thoại</text>
-        <rect class="bk" x="460" y="344" width="150" height="62" rx="8"/><text class="t c" x="535" y="372">Crew</text><text class="s c" x="535" y="392">chạy khi bạn vắng</text>
-        <g class="ln"><path d="M110 92 L230 168" marker-end="url(#ar)"/><path d="M310 92 L310 168" marker-end="url(#ar)"/><path d="M510 92 L390 168" marker-end="url(#ar)"/><path d="M110 344 L230 268" marker-end="url(#ar)"/><path d="M510 344 L390 268" marker-end="url(#ar)"/></g>
-        <rect class="bm" x="225" y="344" width="170" height="62" rx="8"/><text class="t c" x="310" y="370" style="fill:var(--mint)">Cloud session</text><text class="s c" x="310" y="390">sandbox, thuộc account</text>
-        <path class="ln lm" d="M310 266 L310 342" marker-end="url(#arm)"/>
-      </svg>
-    </div>
+    <figure class="shot"><div class="frame"><img src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2025/10/02/2025_quick-suite_space-1.png" alt="Màn hình Space trong Amazon Quick" loading="lazy" onerror="this.parentNode.classList.add('err')"></div><figcaption>Ảnh: AWS News Blog</figcaption></figure>
   </div>
-  <aside class="notes">Crew chỉ là bề mặt mới nhất, dùng lại nguyên harness và cấu hình .kiro — đó là lý do demo IDE trước rồi sang Crew vẫn liền mạch.</aside>
+  <p class="src">Nguồn: docs.aws.amazon.com/quick: "Working with spaces", "Managing a space"; AWS What's New (09/09/2026)</p>
+  <aside class="notes">Space không chỉ là thư mục chứa file. Ngoài file còn có nguồn dữ liệu như SharePoint, dashboard và các hành động mà agent được phép làm.</aside>
 </section>
 
-<!-- 13 Specs -->
+<!-- 6 -->
+<section class="slide q">
+  <span class="prod">Amazon Quick</span>
+  <h2>Quick Index</h2>
+  <div class="two wide-l">
+    <div class="col">
+      <ul>
+        <li>Gom tài liệu, file, database và email thành một kho tìm kiếm chung. Chat, Research, Flows và Automate đều dùng kho này.</li>
+        <li>Chạy tự động, nhưng chỉ index dữ liệu được đưa vào qua tải file hoặc knowledge base.</li>
+        <li>Trạng thái file: Uploading, Processing, Text ready, Ready.</li>
+        <li>Giữ quyền truy cập của nguồn gốc: người không có quyền ở nguồn thì không xem được qua Quick.</li>
+        <li>Dung lượng tính theo kích thước file gốc: 25 GB/người (Professional), 50 GB/người (Enterprise). Vượt mức tính 5 USD/GB/tháng.</li>
+      </ul>
+    </div>
+    <div class="col" style="display:flex;align-items:center">
+    <svg class="d" viewBox="0 0 520 380" width="100%" role="img" aria-label="Nguồn dữ liệu vào Quick Index rồi tới các tính năng">
+      <rect class="bx" x="0" y="20" width="140" height="40" rx="4"/><text class="s" x="12" y="45">File tải lên</text>
+      <rect class="bx" x="0" y="72" width="140" height="40" rx="4"/><text class="s" x="12" y="97">SharePoint</text>
+      <rect class="bx" x="0" y="124" width="140" height="40" rx="4"/><text class="s" x="12" y="149">OneDrive, Drive</text>
+      <rect class="bx" x="0" y="176" width="140" height="40" rx="4"/><text class="s" x="12" y="201">Amazon S3</text>
+      <rect class="bx" x="0" y="228" width="140" height="40" rx="4"/><text class="s" x="12" y="253">Confluence, web</text>
+      <g class="ln"><path d="M140 40 L188 140"/><path d="M140 92 L188 145"/><path d="M140 144 L188 150"/><path d="M140 196 L188 155"/><path d="M140 248 L188 160" marker-end="url(#ar)"/></g>
+      <rect class="bq" x="190" y="90" width="140" height="120" rx="6"/>
+      <text class="t c" x="260" y="140">Quick Index</text><text class="s c" x="260" y="164">giữ quyền gốc</text>
+      <g class="ln"><path d="M330 150 L378 42" marker-end="url(#ar)"/><path d="M330 150 L378 102" marker-end="url(#ar)"/><path d="M330 150 L378 162" marker-end="url(#ar)"/><path d="M330 150 L378 222" marker-end="url(#ar)"/></g>
+      <rect class="bx" x="380" y="22" width="140" height="40" rx="4"/><text class="s" x="392" y="47">Chat</text>
+      <rect class="bx" x="380" y="82" width="140" height="40" rx="4"/><text class="s" x="392" y="107">Research</text>
+      <rect class="bx" x="380" y="142" width="140" height="40" rx="4"/><text class="s" x="392" y="167">Flows</text>
+      <rect class="bx" x="380" y="202" width="140" height="40" rx="4"/><text class="s" x="392" y="227">Automate</text>
+      <text class="s" x="0" y="320">Quick Index không lưu bảng số liệu cho dashboard.</text>
+      <text class="s" x="0" y="342">Số liệu của Quick Sight đi qua dataset (slide 8).</text>
+    </svg>
+    </div>
+  </div>
+  <p class="src">Nguồn: AWS News Blog (09/10/2025); aws.amazon.com/quick/index; docs.aws.amazon.com/quick: "Manage index data capacity"</p>
+  <aside class="notes">Người dùng không cấu hình index trực tiếp, chỉ thấy qua trạng thái file. Admin quản lý dung lượng ở Manage Quick, Subscriptions, Index capacity. Không chọn được model embedding hay cách chia đoạn.</aside>
+</section>
+
+<!-- 7 -->
+<section class="slide q">
+  <span class="prod">Amazon Quick</span>
+  <h2>Quick Research</h2>
+  <div class="two">
+    <div class="col">
+      <ul>
+        <li>Nhận một đề tài, chia thành các chủ đề nhỏ và lập kế hoạch nghiên cứu. Người dùng chỉnh kế hoạch trước khi chạy.</li>
+        <li>Agent chạy nền và trả về báo cáo. Mỗi nhận định có trích dẫn đến nguồn gốc.</li>
+        <li>Nguồn: dữ liệu nội bộ (Space, knowledge base, dashboard), web và tin tức từ hơn 200 đầu báo, dữ liệu bên thứ ba S&amp;P Global, FactSet, IDC (cần có subscription), US Patents, PubMed.</li>
+        <li>Từ 12/2025, Research có thể là một bước trong Quick Flows để chạy theo lịch.</li>
+        <li>AWS nêu các mục đích: phân tích thị trường, rủi ro và tuân thủ, tối ưu vận hành, tìm hiểu khách hàng.</li>
+      </ul>
+    </div>
+    <figure class="shot"><div class="frame"><img src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2025/10/07/2025_quick-suite_research_1-2.png" alt="Quick Research tạo kế hoạch nghiên cứu từ một yêu cầu" loading="lazy" onerror="this.parentNode.classList.add('err')"></div><figcaption>Kế hoạch nghiên cứu được tạo từ một yêu cầu. Ảnh: AWS News Blog</figcaption></figure>
+  </div>
+  <p class="src">Nguồn: aws.amazon.com/quick/research; docs.aws.amazon.com/quick: "Using Amazon Quick Research"; AWS What's New (08/12/2025)</p>
+  <aside class="notes">Khác với chat: chat trả lời ngay, Research chạy nhiều bước và trả về tài liệu dùng lại được. Nguồn trả phí như FactSet chỉ dùng được nếu công ty đã có subscription với nhà cung cấp đó.</aside>
+</section>
+
+<!-- 8 -->
+<section class="slide q">
+  <span class="prod">Amazon Quick</span>
+  <h2>Quick Sight</h2>
+  <div class="two">
+    <div class="col">
+      <ul>
+        <li>Là Amazon QuickSight trước đây. Dashboard, dataset và phân quyền hiện có được giữ nguyên.</li>
+        <li>Dữ liệu lấy từ data source: Redshift, Athena, S3, RDS/Aurora, Snowflake, file Excel/CSV. Database nằm trong VPC cần cấu hình VPC connection.</li>
+        <li>Dataset có thể lưu vào SPICE (bộ nhớ của Quick Sight, làm mới theo lịch) hoặc truy vấn trực tiếp mỗi lần mở.</li>
+        <li>Topic gắn tên nghiệp vụ cho các cột để người dùng hỏi số liệu bằng câu tự nhiên.</li>
+        <li>Dashboard và topic có thể gắn vào Space. Chiều ngược lại thì không: Space không phải nguồn dữ liệu của Quick Sight.</li>
+      </ul>
+    </div>
+    <figure class="shot"><div class="frame"><img src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2025/10/05/2025_quicksuite_quicksight_1-1.gif" alt="Hỏi số liệu bằng ngôn ngữ tự nhiên trong Quick Sight" loading="lazy" onerror="this.parentNode.classList.add('err')"></div><figcaption>Hỏi bằng câu tự nhiên, nhận biểu đồ và tóm tắt. Ảnh: AWS News Blog</figcaption></figure>
+  </div>
+  <p class="src">Nguồn: AWS Business Intelligence Blog "Amazon QuickSight evolves to Amazon Quick Suite"; docs.aws.amazon.com/quick: "Managing a space", "Creating a dataset"</p>
+  <aside class="notes">Câu hỏi đã gặp: Quick Sight có lấy dữ liệu từ Space không? Không. File trong Space đi vào Quick Index để agent đọc, không thành bảng để vẽ. Muốn vẽ từ Excel thì tải file đó lên làm dataset.</aside>
+</section>
+
+<!-- 9 -->
+<section class="slide q">
+  <span class="prod">Amazon Quick</span>
+  <h2>Quick Flows</h2>
+  <div class="two wide-r">
+    <div class="col">
+      <ul>
+        <li>Người dùng mô tả công việc bằng lời, Quick tạo ra flow gồm các bước nhập liệu, xử lý và kết quả.</li>
+        <li>Không cần biết lập trình.</li>
+        <li>Flow có thể chia sẻ cho đồng nghiệp, chạy từ thư viện hoặc gọi từ chat.</li>
+        <li>Có thể chạy theo lịch. Research có thể là một bước trong flow.</li>
+      </ul>
+      <p class="small" style="margin-top:12px">Phù hợp với việc lặp lại của một người hoặc một nhóm: tổng hợp, tóm tắt, gửi báo cáo.</p>
+    </div>
+    <figure class="shot"><div class="frame"><img src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2025/10/02/2025_quick-suite_flows_4.png" alt="Một flow nhiều bước trong Quick Flows" loading="lazy" onerror="this.parentNode.classList.add('err')"></div><figcaption>Flow được tạo từ mô tả, gồm bước nhập, xử lý và kết quả. Ảnh: AWS News Blog</figcaption></figure>
+  </div>
+  <p class="src">Nguồn: AWS News Blog (09/10/2025); AWS What's New "Quick Research in Quick Flows" (08/12/2025)</p>
+</section>
+
+<!-- 10 -->
+<section class="slide q">
+  <span class="prod">Amazon Quick</span>
+  <h2>Quick Automate</h2>
+  <div class="two wide-r">
+    <div class="col">
+      <ul>
+        <li>Dành cho đội kỹ thuật, tự động hoá quy trình nhiều bước, đi qua nhiều phòng ban và hệ thống, có thể dùng nhiều agent.</li>
+        <li>Có giám sát, debug, quản lý phiên bản và triển khai.</li>
+        <li>Phân quyền theo vai trò. Có bước chuyển cho người duyệt trước khi chạy tiếp (human-in-the-loop).</li>
+        <li>Có trong gói Professional và Enterprise.</li>
+      </ul>
+      <p class="quote" style="margin-top:14px">Ví dụ AWS nêu: nhóm Finance của Amazon dùng Quick Automate để đối soát hàng nghìn hoá đơn mỗi tháng.</p>
+    </div>
+    <figure class="shot"><div class="frame"><img src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2025/10/02/2025_quick-suite_automate_4.png" alt="Kế hoạch tự động hoá trong Quick Automate" loading="lazy" onerror="this.parentNode.classList.add('err')"></div><figcaption>Ảnh: AWS News Blog</figcaption></figure>
+  </div>
+  <p class="src">Nguồn: AWS News Blog (09/10/2025); aboutamazon.com "Amazon Quick Suite"; aws.amazon.com/quick/faqs</p>
+  <aside class="notes">Khác Flows: Flows cho người dùng thường, tạo bằng lời, chạy tuần tự. Automate cho quy trình xuyên phòng ban, có rẽ nhánh, người duyệt, theo dõi và quản lý phiên bản.</aside>
+</section>
+
+<!-- 11 -->
+<section class="slide q">
+  <span class="prod">Amazon Quick</span>
+  <h2>Kết nối và gói dịch vụ</h2>
+  <div class="two">
+    <div class="col">
+      <h3>Kết nối</h3>
+      <ul>
+        <li>Hơn 50 connector có sẵn: SharePoint, Snowflake, Google Drive, OneDrive, Outlook, ServiceNow, Databricks, Redshift, S3...</li>
+        <li>Actions cho phép đọc và ghi dữ liệu trên ứng dụng SaaS và MCP server.</li>
+        <li>Connector do AWS làm sẵn cho từng ứng dụng. MCP là chuẩn mở: hệ thống nào có MCP server, kể cả hệ thống nội bộ tự viết, đều kết nối được.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>Gói dịch vụ</h3>
+      <ul>
+        <li>Free, Plus (dùng thử 30 ngày), Professional, Enterprise.</li>
+        <li>Professional và Enterprise có thêm Quick Sight, Quick Automate, kết nối nguồn dữ liệu AWS, đăng nhập qua hệ thống định danh của công ty, quản trị nâng cao.</li>
+        <li>Agent hours từ 9/2026: Professional 8 giờ/tháng, Enterprise 18 giờ/tháng.</li>
+        <li>AWS không dùng dữ liệu khách hàng để huấn luyện model ở mọi gói.</li>
+      </ul>
+      <p class="small">Giá chi tiết: aws.amazon.com/quick/pricing</p>
+    </div>
+  </div>
+  <p class="src">Nguồn: aboutamazon.com; docs.aws.amazon.com/quick: "Managing a space"; aws.amazon.com/quick/faqs; AWS What's New (09/09/2026)</p>
+  <aside class="notes">Cập nhật 9/2026: agent có thể chạy theo lịch trên cloud khi tắt máy, kết quả trả về feed; có tích hợp Microsoft Purview DLP. Giá có thể thay đổi, kiểm tra trang pricing trước khi báo cáo.</aside>
+</section>
+
+<!-- 12 -->
 <section class="slide k">
-  <span class="kicker"><i></i>Kiro IDE</span>
+  <span class="prod">Kiro</span>
+  <h2>Kiro là gì</h2>
+  <div class="two wide-l">
+    <div class="col">
+      <ul>
+        <li>Công cụ phát triển phần mềm bằng AI agent của AWS. Có IDE, CLI, Web, ứng dụng di động và Kiro Crew.</li>
+        <li>Các giao diện dùng chung một agent harness, giao tiếp qua Agent Client Protocol (ACP). Cấu hình trong thư mục <code>.kiro</code> dùng chung.</li>
+        <li>Cloud session: agent chạy trong sandbox trên cloud của Kiro. Có thể bắt đầu trên web rồi theo dõi từ điện thoại, CLI hoặc IDE.</li>
+        <li>Model: Claude Opus 4.8 hoặc chế độ Auto.</li>
+        <li>IDE dựa trên Code OSS, dùng được extension Open VSX và cấu hình VS Code.</li>
+        <li>Đăng nhập bằng GitHub, Google, AWS Builder ID hoặc IAM Identity Center. Không cần tài khoản AWS.</li>
+      </ul>
+    </div>
+    <div class="col" style="display:flex;align-items:center">
+    <svg class="d" viewBox="0 0 440 340" width="100%" role="img" aria-label="Các giao diện của Kiro dùng chung một agent harness">
+      <rect class="bk" x="140" y="135" width="160" height="70" rx="6"/><text class="t c" x="220" y="166">Agent harness</text><text class="s c" x="220" y="188">ACP, .kiro</text>
+      <rect class="bx" x="0" y="20" width="110" height="44" rx="4"/><text class="s c" x="55" y="47">IDE</text>
+      <rect class="bx" x="165" y="20" width="110" height="44" rx="4"/><text class="s c" x="220" y="47">CLI</text>
+      <rect class="bx" x="330" y="20" width="110" height="44" rx="4"/><text class="s c" x="385" y="47">Web</text>
+      <rect class="bx" x="0" y="276" width="110" height="44" rx="4"/><text class="s c" x="55" y="303">Mobile</text>
+      <rect class="bx" x="330" y="276" width="110" height="44" rx="4"/><text class="s c" x="385" y="303">Kiro Crew</text>
+      <rect class="bm" x="165" y="276" width="110" height="44" rx="4"/><text class="s c" x="220" y="303">Cloud session</text>
+      <g class="ln"><path d="M70 64 L175 133" marker-end="url(#ar)"/><path d="M220 64 L220 133" marker-end="url(#ar)"/><path d="M370 64 L265 133" marker-end="url(#ar)"/><path d="M70 276 L175 207" marker-end="url(#ar)"/><path d="M370 276 L265 207" marker-end="url(#ar)"/><path d="M220 205 L220 274" marker-end="url(#ar)"/></g>
+    </svg>
+    </div>
+  </div>
+  <p class="src">Nguồn: kiro.dev/ide (mục Common questions); kiro.dev/blog/introducing-kiro-crew</p>
+  <aside class="notes">Cloud session chạy trên cloud của Kiro; Kiro Crew chạy trên máy hoặc server do mình quản lý. Nếu bị hỏi "code có ra ngoài không" thì hai trường hợp trả lời khác nhau.</aside>
+</section>
+
+<!-- 13 -->
+<section class="slide k">
+  <span class="prod">Kiro IDE và CLI</span>
   <h2>Spec-driven development</h2>
   <div class="flow">
-    <div class="step"><div class="n">Prompt</div><h3>Một câu yêu cầu</h3><p>"Thêm endpoint tính phí cho một lệnh…"</p></div>
-    <div class="step"><div class="n">requirements.md</div><h3>User story + EARS</h3><p>WHEN … THEN hệ thống SHALL … — bạn duyệt trước khi đi tiếp.</p></div>
-    <div class="step"><div class="n">design.md</div><h3>Kiến trúc</h3><p>Trade-off, ràng buộc, data model, sequence.</p></div>
-    <div class="step"><div class="n">tasks.md</div><h3>Task tuần tự</h3><p>Mỗi task link về requirement & design; agent chạy song song.</p></div>
-    <div class="step verify"><div class="n">Verify</div><h3>Property-based test</h3><p>Công cụ deterministic chứng minh code đúng ý.</p></div>
+    <div><b>Yêu cầu</b><span>Một câu mô tả tính năng cần làm</span></div>
+    <div><b>requirements.md</b><span>User story, tiêu chí chấp nhận theo cú pháp EARS</span></div>
+    <div><b>design.md</b><span>Thiết kế, ràng buộc, mô hình dữ liệu</span></div>
+    <div><b>tasks.md</b><span>Danh sách task, mỗi task gắn với yêu cầu</span></div>
+    <div class="last"><b>Kiểm chứng</b><span>Property-based test so code với đặc tả</span></div>
   </div>
-  <div class="trio">
-    <div><h3>Ba mức tuỳ việc</h3><p>Agent session cho fix nhanh · Quick spec để làm rõ ý · Full spec flow cho feature lớn.</p></div>
-    <div><h3>Spec sống cùng code</h3><p>Đổi yêu cầu → sửa spec trước, code sau. Spec là tài liệu cho team đọc.</p></div>
-    <div><h3>IDE, CLI và Web</h3><p>CLI v3: <span class="mono">/spec new &lt;tên&gt;</span>, cùng <span class="mono">.kiro/specs</span>. Property-based test hiện chỉ có trên IDE.</p></div>
-  </div>
-  <aside class="notes">Slide demo chính: prompt → dừng ở requirements.md đọc to 2 criteria EARS → duyệt → design → tasks → chạy task 1.</aside>
-</section>
-
-<!-- 14 Hooks -->
-<section class="slide k">
-  <span class="kicker"><i></i>Kiro IDE</span>
-  <h2>Agent Hooks</h2>
-  <div class="feat">
-    <div>
-      <ul class="plain">
-        <li>Agent <strong>chạy theo sự kiện</strong>, không cần ai gõ prompt.</li>
-        <li>Sự kiện: lưu file (<span class="mono">PostFileSave</span>), trước/sau tool call, kết thúc session.</li>
-        <li><strong>Matcher</strong> regex lọc file hoặc tool. <strong>Action</strong>: <span class="mono">agent</span> (chèn prompt) hoặc <span class="mono">command</span> (chạy shell).</li>
-        <li>File JSON trong <span class="mono">.kiro/hooks/</span>, commit cùng repo → cả team dùng chung.</li>
-        <li>Tạo bằng lời: "Ask Kiro to create a hook".</li>
+  <div class="two">
+    <div class="col">
+      <ul>
+        <li>Người dùng duyệt từng tài liệu trước khi agent viết code.</li>
+        <li>Ba mức: chat trực tiếp cho việc nhỏ, Quick spec, hoặc spec đầy đủ cho tính năng lớn.</li>
+        <li>Tài liệu lưu trong <code>.kiro/specs/</code>, dùng chung giữa IDE và CLI.</li>
+        <li>Trên CLI (v3) dùng lệnh <code>/spec new &lt;tên&gt;</code>.</li>
       </ul>
-      <p class="say">Giống git hook gọi được AI: một sự kiện → một hành động, trong lúc code. Cần nhiều bước hay chạy theo lịch → Crew hoặc Quick.</p>
     </div>
-    <div class="dg">
-    <svg class="d" viewBox="0 0 620 440" role="img" aria-label="Hook: sự kiện qua matcher tới action agent hoặc command; ví dụ file JSON">
-      <rect class="bx" x="0" y="30" width="170" height="104" rx="8"/><text class="mk" x="14" y="52">trigger</text><text class="t" x="14" y="76">Sự kiện</text><text class="s" x="14" y="98">PostFileSave</text><text class="s" x="14" y="116">Pre/PostToolUse · Stop</text>
-      <path class="ln lk" d="M170 82 L214 82" marker-end="url(#ark)"/>
-      <rect class="bk" x="216" y="30" width="170" height="104" rx="8"/><text class="mk" x="230" y="52">matcher</text><text class="t" x="230" y="76">Lọc</text><text class="s" x="230" y="98">regex đường dẫn</text><text class="s" x="230" y="116">hoặc tool ID</text>
-      <path class="ln lk" d="M386 70 L430 46" marker-end="url(#ark)"/><path class="ln lk" d="M386 96 L430 118" marker-end="url(#ark)"/>
-      <rect class="bx" x="432" y="10" width="188" height="62" rx="8"/><text class="t" x="446" y="36">agent</text><text class="s" x="446" y="56">chèn prompt cho Kiro</text>
-      <rect class="bx" x="432" y="92" width="188" height="62" rx="8"/><text class="t" x="446" y="118">command</text><text class="s" x="446" y="138">chạy shell, vd mvn test</text>
-      <rect class="code" x="0" y="180" width="620" height="256" rx="10"/>
-      <text class="m" x="18" y="204">.kiro/hooks/update-api-docs.json</text>
-      <text class="cd" x="18" y="232">{ "version": "v1",</text>
-      <text class="cd" x="18" y="254">  "hooks": [{</text>
-      <text class="cd" x="18" y="276">    "name": "Cập nhật docs/API.md khi sửa Resource",</text>
-      <text class="cd" x="18" y="298">    "trigger": <tspan style="fill:var(--kiro)">"PostFileSave"</tspan>,</text>
-      <text class="cd" x="18" y="320">    "matcher": <tspan style="fill:var(--kiro)">"src/main/java/.*Resource\\.java$"</tspan>,</text>
-      <text class="cd" x="18" y="342">    "action": { "type": <tspan style="fill:var(--mint)">"agent"</tspan>,</text>
-      <text class="cd" x="18" y="364">      "prompt": "Đọc các *Resource.java, cập nhật</text>
-      <text class="cd" x="18" y="386">                 bảng endpoint trong docs/API.md" }</text>
-      <text class="cd" x="18" y="408">  }] }</text>
-    </svg>
+    <div class="col">
+      <table>
+        <tr><th></th><th class="c">IDE</th><th class="c">CLI</th><th class="c">Web</th></tr>
+        <tr><td>Feature, Bugfix, Quick spec</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td></tr>
+        <tr><td>Chạy task song song</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td></tr>
+        <tr><td>Analyze Requirements</td><td class="c">✓</td><td class="c">✓</td><td class="c"></td></tr>
+        <tr><td>Property-based testing</td><td class="c">✓</td><td class="c"></td><td class="c"></td></tr>
+      </table>
     </div>
   </div>
-  <aside class="notes">Demo: đổi path trong FeeResource.java, lưu → hook chạy → mở docs/API.md đã cập nhật. File JSON trên hình nằm trong demo kit.</aside>
+  <p class="src">Nguồn: kiro.dev/docs/specs; kiro.dev/docs/cli/v3; kiro.dev/ide</p>
+  <aside class="notes">Phần demo chính: nhập yêu cầu, dừng ở requirements.md để cả phòng đọc tiêu chí chấp nhận, duyệt, rồi sang design và tasks.</aside>
 </section>
 
-<!-- 15 Steering -->
+<!-- 14 -->
 <section class="slide k">
-  <span class="kicker"><i></i>Kiro IDE</span>
+  <span class="prod">Kiro IDE và CLI</span>
   <h2>Steering</h2>
-  <div class="feat">
-    <div>
-      <ul class="plain">
-        <li>Markdown trong <span class="mono">.kiro/steering/</span> cho Kiro <strong>kiến thức bền vững</strong> về project: không phải giải thích lại mỗi chat.</li>
-        <li>Ba file nền: <strong>product</strong> (mục đích), <strong>tech</strong> (stack, ràng buộc), <strong>structure</strong> (layout, naming). Bấm "Generate Steering Docs" là có.</li>
-        <li>Chế độ nạp: <span class="mono">always</span>, <span class="mono">fileMatch</span> theo pattern, <span class="mono">manual</span> gọi bằng #tên, <span class="mono">auto</span> theo mô tả.</li>
-        <li>Global ở <span class="mono">~/.kiro/steering</span>; workspace thắng khi xung đột. Hỗ trợ cả AGENTS.md.</li>
-      </ul>
-      <p class="say">Như knowledge base thu gọn của dự án, viết dạng quy tắc, luôn nạp sẵn chứ không đi tìm — nên giữ ngắn.</p>
-    </div>
-    <div class="dg">
-    <svg class="d" viewBox="0 0 620 440" role="img" aria-label="Các file steering với chế độ nạp khác nhau đi vào ngữ cảnh mỗi request rồi tới agent">
-      <text class="m" x="0" y="14">.kiro/steering/</text>
-      <rect class="bk" x="0" y="26" width="250" height="48" rx="6"/><text class="t" x="14" y="55">product.md</text><text class="mk" x="168" y="55">always</text>
-      <rect class="bk" x="0" y="84" width="250" height="48" rx="6"/><text class="t" x="14" y="113">tech.md</text><text class="mk" x="168" y="113">always</text>
-      <rect class="bk" x="0" y="142" width="250" height="48" rx="6"/><text class="t" x="14" y="171">structure.md</text><text class="mk" x="168" y="171">always</text>
-      <rect class="bx" x="0" y="200" width="250" height="56" rx="6"/><text class="t" x="14" y="224">api-rules.md</text><text class="m" x="14" y="244">fileMatch **/*Resource.java</text>
-      <rect class="bx" x="0" y="266" width="250" height="56" rx="6"/><text class="t" x="14" y="290">release.md</text><text class="m" x="14" y="310">manual · gọi #release</text>
-      <text class="m" x="0" y="350">~/.kiro/steering/</text>
-      <rect class="bx" x="0" y="362" width="250" height="48" rx="6"/><text class="t" x="14" y="391">global.md</text><text class="m" x="168" y="391">mọi repo</text>
-      <g class="ln lk"><path d="M250 50 L322 170"/><path d="M250 108 L322 180"/><path d="M250 166 L322 190" marker-end="url(#ark)"/></g>
-      <path class="ln dash" d="M250 228 L322 210" marker-end="url(#ar)"/>
-      <path class="ln dot" d="M250 294 L322 228" marker-end="url(#ar)"/>
-      <path class="ln" d="M250 386 L322 248" marker-end="url(#ar)"/>
-      <rect class="bx" x="324" y="140" width="130" height="130" rx="10"/>
-      <text class="t c" x="389" y="180">Ngữ cảnh</text><text class="s c" x="389" y="202">mỗi request</text><text class="m c" x="389" y="236">nạp đúng phần</text><text class="m c" x="389" y="252">cần dùng</text>
-      <path class="ln lk" d="M454 205 L486 205" marker-end="url(#ark)"/>
-      <rect class="bk" x="488" y="150" width="132" height="110" rx="10"/>
-      <text class="t c" x="554" y="186">Agent</text><text class="s c" x="554" y="210">code theo</text><text class="s c" x="554" y="228">convention team</text>
-      <text class="mk" x="330" y="310">—— always</text><text class="m" x="330" y="330">- - fileMatch</text><text class="m" x="330" y="350">···· manual</text>
-    </svg>
-    </div>
-  </div>
-  <aside class="notes">Demo kit có sẵn product/tech/structure cho fee-demo (BigDecimal, Quarkus 3, jqwik). Khi prompt mới ra đúng record *Response, có test — chỉ vào đây.</aside>
-</section>
-
-<!-- 16 Autopilot & Focus -->
-<section class="slide k">
-  <span class="kicker"><i></i>Kiro IDE</span>
-  <h2>Autopilot &amp; Agent Focus Mode</h2>
-  <div class="feat">
-    <div>
-      <ul class="plain">
-        <li><strong>Supervised</strong>: duyệt từng diff — hợp khi mới làm quen hoặc code nhạy cảm.</li>
-        <li><strong>Autopilot</strong>: tự chạy task lớn; vẫn dừng hỏi khi chạy script / command.</li>
-        <li><strong>Agent Focus Mode</strong> (experimental): command center quản lý nhiều agent trên nhiều repo, sandbox local hoặc cloud; quay về IDE đầy đủ khi cần sửa tay, debug.</li>
-        <li>Thêm: thả ảnh UI / whiteboard để bám theo, đọc lỗi diagnostics, sinh commit message, hiện credit từng prompt.</li>
+  <div class="two">
+    <div class="col">
+      <ul>
+        <li>Các file markdown mô tả quy ước của dự án. Agent đọc trước khi làm việc nên không cần nhắc lại trong mỗi lần chat.</li>
+        <li>Vị trí: <code>.kiro/steering/</code> trong dự án, hoặc <code>~/.kiro/steering/</code> dùng cho mọi dự án. Khi trùng, file của dự án được ưu tiên.</li>
+        <li>Ba file cơ bản: product.md, tech.md, structure.md. IDE tạo được bằng "Generate Steering Docs".</li>
+        <li>Chế độ nạp: always (mặc định), fileMatch theo mẫu đường dẫn, manual (gọi bằng #tên), auto.</li>
+        <li>Nội dung được đưa nguyên văn vào ngữ cảnh, nên viết ngắn gọn.</li>
       </ul>
     </div>
-    <div class="dg">
-    <svg class="d" viewBox="0 0 620 440" role="img" aria-label="So sánh supervised duyệt sau mỗi bước với autopilot chỉ hỏi khi chạy command; bên dưới là command center với ba agent">
-      <text class="t" x="0" y="22">Supervised</text>
-      <line class="ln" x1="20" y1="58" x2="600" y2="58"/>
-      <g><circle class="fk" cx="40" cy="58" r="10"/><circle class="fk" cx="170" cy="58" r="10"/><circle class="fk" cx="300" cy="58" r="10"/><circle class="fk" cx="430" cy="58" r="10"/><circle class="fk" cx="560" cy="58" r="10"/></g>
-      <g><rect class="fm" x="98" y="48" width="20" height="20" rx="3"/><rect class="fm" x="228" y="48" width="20" height="20" rx="3"/><rect class="fm" x="358" y="48" width="20" height="20" rx="3"/><rect class="fm" x="488" y="48" width="20" height="20" rx="3"/></g>
-      <text class="mm" x="0" y="96">■ bạn duyệt sau mỗi bước sửa file</text>
-      <text class="t" x="0" y="134">Autopilot</text>
-      <line class="ln lk" x1="20" y1="170" x2="600" y2="170"/>
-      <g><circle class="fk" cx="40" cy="170" r="10"/><circle class="fk" cx="170" cy="170" r="10"/><circle class="fk" cx="300" cy="170" r="10"/><circle class="fk" cx="430" cy="170" r="10"/><circle class="fk" cx="560" cy="170" r="10"/></g>
-      <rect class="fm" x="358" y="160" width="20" height="20" rx="3"/><text class="mm" x="330" y="200">chạy command?</text>
-      <rect class="bx" x="0" y="230" width="620" height="206" rx="12"/>
-      <text class="t" x="18" y="258">Agent Focus Mode — command center</text><text class="m" x="356" y="258">experimental</text>
-      <rect class="bk" x="18" y="278" width="186" height="140" rx="8"/><text class="t" x="32" y="304">fpt-gateway</text><text class="s" x="32" y="328">task 3 / 7</text><text class="s" x="32" y="348">đang chạy</text><text class="mk" x="32" y="400">local sandbox</text>
-      <rect class="bm" x="217" y="278" width="186" height="140" rx="8"/><text class="t" x="231" y="304">mobile-api</text><text class="s" x="231" y="328">chờ bạn duyệt diff</text><text class="s" x="231" y="348">12 file</text><text class="mm" x="231" y="400">cloud session</text>
-      <rect class="bx" x="416" y="278" width="186" height="140" rx="8"/><text class="t" x="430" y="304">docs</text><text class="s" x="430" y="328">xong</text><text class="s" x="430" y="348">PR đã mở</text><text class="m" x="430" y="400">cloud session</text>
-    </svg>
+    <div class="col">
+<pre><span class="h"># .kiro/steering/tech.md  (ví dụ)</span>
+---
+inclusion: always
+---
+# Công nghệ
+- Java 21, Quarkus 3.x, Maven
+- Tiền tệ dùng BigDecimal,
+  không dùng double
+- Test: JUnit 5 + RestAssured
+- Không thêm dependency khi
+  chưa trao đổi
+
+<span class="h"># .kiro/steering/api-rules.md</span>
+---
+inclusion: fileMatch
+fileMatchPattern: "**/*Resource.java"
+---</pre>
     </div>
   </div>
-  <aside class="notes">Tên repo trong hình chỉ là minh hoạ. Nói rõ Focus Mode còn experimental, đừng hứa dùng production.</aside>
+  <p class="src">Nguồn: kiro.dev/docs/steering. Nội dung file là ví dụ do người trình bày soạn.</p>
+  <aside class="notes">Có thể hiểu steering như một knowledge base thu gọn của dự án, nhưng viết dưới dạng quy tắc để agent làm theo, và luôn được nạp sẵn thay vì tra cứu khi cần. Tài liệu dài thì để chỗ khác và tham chiếu bằng #[[file:...]].</aside>
 </section>
 
-<!-- 17 IDE use cases -->
+<!-- 15 -->
 <section class="slide k">
-  <span class="kicker"><i></i>Kiro IDE</span>
-  <h2>Use case kinh điển</h2>
-  <div class="grid-tiles g2" style="flex:1">
-    <div class="tile"><h3>Feature phức tạp trên codebase lớn</h3><p>Spec → design → tasks → nhiều agent build song song → verify. Ít vòng lặp hơn vibe coding, có tài liệu để review.</p></div>
-    <div class="tile"><h3>Refactor cần plan trước</h3><p>Spec mô tả hành vi hiện tại của hệ thống cũ trước khi đụng vào — hữu ích với service legacy không ai nhớ.</p></div>
-    <div class="tile"><h3>Giữ chuẩn team bằng hook</h3><p>Test, doc, security scan tự chạy khi save / commit — người mới cũng không bỏ sót.</p></div>
-    <div class="tile"><h3>Chuẩn hoá output AI</h3><p>Steering ép naming, library, pattern của team → output đúng convention, giảm comment trong code review.</p></div>
-  </div>
-  <p class="small" style="margin-top:16px">Ví dụ gần: service Quarkus mới cần bộ API đầy đủ — viết spec từ Figma + tài liệu nghiệp vụ, Kiro sinh requirements, mình duyệt rồi mới cho build.</p>
-  <aside class="notes">Dòng cuối là ví dụ sát việc của phòng — luồng có Figma và danh sách API sẵn là đầu vào spec-driven thích nhất.</aside>
-</section>
-
-<!-- 18 Crew vs -->
-<section class="slide k">
-  <span class="kicker"><i></i>Kiro Crew</span>
-  <h2>Workspace cho việc lớn hơn một session</h2>
-  <div class="cols cols-2">
-    <table>
-      <tr><th></th><th class="ck">Kiro IDE</th><th class="ck">Autopilot</th><th class="ck">Kiro Crew</th></tr>
-      <tr><td>Phạm vi</td><td>Bạn ngồi cùng agent</td><td>1 task, 1 session</td><td>Nhiều session, repo, ngày</td></tr>
-      <tr><td>Khi offline</td><td>Dừng</td><td>Dừng</td><td>Chạy tiếp</td></tr>
-      <tr><td>Memory</td><td>Theo session</td><td>Theo session</td><td>Bền vững, tự học</td></tr>
-      <tr><td>Nhiều agent</td><td>Focus mode</td><td>Không</td><td>Crew điều phối</td></tr>
-      <tr><td>Lịch / webhook</td><td>Không</td><td>Không</td><td>Có</td></tr>
-    </table>
-    <div>
-      <h3>Kịch bản mở đầu của AWS</h3>
-      <p style="margin-bottom:14px">Chiều thứ Sáu, đồng nghiệp ping một latency spike. Bạn nhớ case tương tự: metric nào, test nào, log ở đâu — chỉ là phải mở 5 tool cùng lúc.</p>
-      <p style="margin-bottom:14px">Với Crew: nhắn một câu, Crew tìm lại lần trước đã làm gì, viết lên, gửi cho đồng nghiệp. Bạn tắt máy; tối thấy note "đã resolve".</p>
-      <p class="small">Ra 4/8/2026 · từ dự án nội bộ MeshClaw (39.000 builder) · Apache 2.0 · chạy trên Kiro CLI, đọc lại <span class="mono">.kiro</span> sẵn có.</p>
-    </div>
-  </div>
-  <aside class="notes">Crew không phải IDE mới: là lớp orchestration ở trên, dùng lại harness. Bạn đang là "integration layer" giữa các tool — Crew nhận phần đó.</aside>
-</section>
-
-<!-- 19 Crew memory -->
-<section class="slide k">
-  <span class="kicker"><i></i>Kiro Crew</span>
-  <h2>Tự học: memory, lesson, skill</h2>
-  <div class="feat">
-    <div>
-      <ul class="plain">
-        <li><strong>Memory</strong> mang preference, context project, lịch sử vào session mới — không bắt đầu lạnh.</li>
-        <li>Sửa sai một lần → <strong>lesson</strong> bền vững, scope global hoặc workspace.</li>
-        <li>Việc lặp lại → <strong>skill</strong> dùng lại được.</li>
-        <li>Tất cả <strong>hiển thị</strong>: bạn xem, sửa, xoá — quyết định Crew mang theo gì.</li>
-      </ul>
-      <p class="mono small">kirocrew learn add / list / remove</p>
-      <p class="say">Nói một lần, nhớ mãi — và mình vẫn kiểm soát nó nhớ gì.</p>
-    </div>
-    <div class="dg">
-    <svg class="d" viewBox="0 0 620 440" role="img" aria-label="Vòng lặp: session mới, lesson từ sửa sai, skill từ việc lặp lại, memory, quay lại session">
-      <rect class="bk" x="225" y="10" width="170" height="70" rx="10"/><text class="t c" x="310" y="40">Session mới</text><text class="s c" x="310" y="62">nạp memory + lessons</text>
-      <rect class="bk" x="440" y="185" width="170" height="70" rx="10"/><text class="t c" x="525" y="215">Lesson</text><text class="s c" x="525" y="237">từ lần bạn sửa sai</text>
-      <rect class="bk" x="225" y="360" width="170" height="70" rx="10"/><text class="t c" x="310" y="390">Skill</text><text class="s c" x="310" y="412">từ việc lặp lại</text>
-      <rect class="bk" x="10" y="185" width="170" height="70" rx="10"/><text class="t c" x="95" y="215">Memory</text><text class="s c" x="95" y="237">preference · project</text>
-      <g class="ln lk"><path d="M395 50 Q510 70 525 183" marker-end="url(#ark)"/><path d="M525 255 Q510 370 397 395" marker-end="url(#ark)"/><path d="M225 395 Q110 370 95 257" marker-end="url(#ark)"/><path d="M95 185 Q110 70 223 50" marker-end="url(#ark)"/></g>
-      <text class="mk" x="478" y="100">"đừng dùng double"</text>
-      <text class="mk" x="452" y="340">deploy UAT 3 bước</text>
-      <text class="mk" x="26" y="340">lịch sử dự án</text>
-      <circle cx="310" cy="220" r="78" fill="none" stroke="#5FD6C1" stroke-width="1.5" stroke-dasharray="4 4"/>
-      <text class="t c" x="310" y="214" style="fill:var(--mint)">Bạn xem,</text><text class="t c" x="310" y="236" style="fill:var(--mint)">sửa, xoá</text>
-    </svg>
-    </div>
-  </div>
-  <aside class="notes">Ví dụ trên vòng là minh hoạ. Demo: nhắn "từ giờ báo cáo tiếng Việt, luôn chạy mvn test trước khi nói xong" → kirocrew learn list thấy lesson.</aside>
-</section>
-
-<!-- 20 Crew schedule -->
-<section class="slide k">
-  <span class="kicker"><i></i>Kiro Crew</span>
-  <h2>Chạy khi bạn vắng: lịch, heartbeat, webhook</h2>
-  <div class="feat">
-    <div>
-      <ul class="plain">
-        <li><strong>Cron</strong>: job định kỳ — <span class="mono">kirocrew cron add "digest" "…" --cron "0 7 * * 1-5"</span>.</li>
-        <li><strong>Heartbeat</strong>: theo dõi PR / deployment tới khi đổi trạng thái rồi báo; lưu dạng checkbox trong <span class="mono">HEARTBEAT.md</span>.</li>
-        <li><strong>Webhook</strong> có xác thực: sự kiện bên ngoài mở việc mới.</li>
-        <li><strong>Task dài</strong>: checkpoint, validate, retry, chạy nhiều giờ.</li>
-        <li>Job không cần reasoning chạy script thuần — không tốn model.</li>
+  <span class="prod">Kiro IDE và CLI</span>
+  <h2>Agent hooks</h2>
+  <div class="two">
+    <div class="col">
+      <ul>
+        <li>Hook chạy tự động khi có sự kiện: sau khi lưu file (PostFileSave), trước hoặc sau khi agent dùng tool, khi kết thúc phiên.</li>
+        <li>Matcher lọc theo đường dẫn file hoặc tên tool (regex).</li>
+        <li>Hai loại hành động: <code>agent</code> gửi một prompt cho agent, <code>command</code> chạy lệnh shell.</li>
+        <li>Lưu dạng JSON trong <code>.kiro/hooks/</code>, có thể tạo bằng cách mô tả cho Kiro.</li>
+        <li>Mỗi hook gồm một sự kiện và một hành động, chỉ chạy trong phiên làm việc. Việc theo lịch hoặc theo sự kiện bên ngoài thì dùng Kiro Crew.</li>
       </ul>
     </div>
-    <div class="dg">
-    <svg class="d" viewBox="0 0 620 440" role="img" aria-label="Trục thời gian một ngày với bốn làn: cron, heartbeat, webhook, task dài">
-      <text class="t" x="0" y="66">Cron</text>
-      <text class="t" x="0" y="146">Heartbeat</text>
-      <text class="t" x="0" y="226">Webhook</text>
-      <text class="t" x="0" y="306">Task dài</text>
-      <g class="ln dot"><line x1="120" y1="60" x2="610" y2="60"/><line x1="120" y1="140" x2="610" y2="140"/><line x1="120" y1="220" x2="610" y2="220"/><line x1="120" y1="300" x2="610" y2="300"/></g>
-      <circle class="fk" cx="160" cy="60" r="9"/><text class="s" x="176" y="44">07:00 morning digest</text>
-      <g class="fp"><circle cx="240" cy="140" r="4"/><circle cx="270" cy="140" r="4"/><circle cx="300" cy="140" r="4"/><circle cx="330" cy="140" r="4"/><circle cx="360" cy="140" r="4"/><circle cx="390" cy="140" r="4"/><circle cx="420" cy="140" r="4"/></g>
-      <rect class="fm" x="444" y="130" width="20" height="20" rx="3"/><text class="s" x="300" y="122">mỗi 60s kiểm tra PR</text><text class="s" x="430" y="174">đổi trạng thái → báo Slack</text>
-      <path class="fk" d="M520 208 L532 220 L520 232 L508 220 Z"/><text class="s" x="390" y="204">16:00 alert từ CI</text><text class="s" x="540" y="246">mở task</text>
-      <rect x="240" y="290" width="240" height="20" rx="10" fill="rgba(157,134,255,.35)" stroke="#9D86FF"/>
-      <g class="fm"><circle cx="300" cy="300" r="5"/><circle cx="360" cy="300" r="5"/><circle cx="420" cy="300" r="5"/></g>
-      <text class="s" x="240" y="334">migration 09:00–15:00</text><text class="mm" x="240" y="352">● checkpoint · validate · retry</text>
-      <line class="ln" x1="120" y1="388" x2="610" y2="388"/>
-      <g class="m"><text x="112" y="410">06</text><text x="192" y="410">08</text><text x="272" y="410">10</text><text x="352" y="410">12</text><text x="432" y="410">14</text><text x="512" y="410">16</text><text x="592" y="410">18</text></g>
-      <g class="ln"><line x1="120" y1="383" x2="120" y2="393"/><line x1="200" y1="383" x2="200" y2="393"/><line x1="280" y1="383" x2="280" y2="393"/><line x1="360" y1="383" x2="360" y2="393"/><line x1="440" y1="383" x2="440" y2="393"/><line x1="520" y1="383" x2="520" y2="393"/><line x1="600" y1="383" x2="600" y2="393"/></g>
-    </svg>
+    <div class="col">
+<pre><span class="h"># .kiro/hooks/update-api-docs.json</span>
+{
+  "version": "v1",
+  "hooks": [{
+    "name": "Cập nhật docs/API.md",
+    "trigger": "PostFileSave",
+    "matcher": ".*Resource\\.java$",
+    "action": {
+      "type": "agent",
+      "prompt": "Đọc các file *Resource.java,
+                 cập nhật bảng endpoint
+                 trong docs/API.md"
+    }
+  }]
+}</pre>
+      <p class="small" style="margin-top:8px">Ví dụ Kiro nêu: cập nhật test khi lưu component, cập nhật README khi API thay đổi.</p>
     </div>
   </div>
-  <aside class="notes">Lệnh cron thật: kirocrew cron add "morning-digest" "…" --cron "0 7 * * 1-5" --timezone "Asia/Ho_Chi_Minh"; cron trigger &lt;id&gt; để chạy ngay khi demo. Heartbeat tạo bằng chat: "theo dõi PR #1, đổi trạng thái thì báo tôi".</aside>
+  <p class="src">Nguồn: kiro.dev/docs/hooks; SD Times "Amazon launches spec-driven AI IDE, Kiro"</p>
 </section>
 
-<!-- 21 Crew multi-agent -->
+<!-- 16 -->
 <section class="slide k">
-  <span class="kicker"><i></i>Kiro Crew</span>
-  <h2>Nhiều agent, điều phối qua ACP</h2>
-  <div class="feat">
-    <div>
-      <ul class="plain">
-        <li>Nhiều conversation chạy đồng thời, <strong>context tách biệt</strong>.</li>
-        <li>Conversation chính <strong>giao subagent</strong> (research, implement, review), kết quả trả về cha — cha giữ mục tiêu.</li>
-        <li><strong>Activity view</strong>: mỗi agent một card, thấy reasoning, từng tool call, kết quả theo thời gian thực.</li>
-        <li>Tool request có thể bắt buộc <strong>duyệt</strong>.</li>
-        <li><strong>Apps</strong>: DevFleets (worktree), Task Runner, Issue Radar, LaunchDarkly; tự xây bằng App SDK.</li>
-      </ul>
-      <p class="say">Không phải hộp đen: thấy từng bước agent nghĩ và làm.</p>
-    </div>
-    <div class="dg">
-    <svg class="d" viewBox="0 0 620 440" role="img" aria-label="Conversation chính giao ba subagent; một subagent dừng chờ duyệt; Activity view hiện mỗi agent một card">
-      <rect class="bk" x="200" y="6" width="220" height="70" rx="10"/><text class="t c" x="310" y="36">Conversation chính</text><text class="s c" x="310" y="58">giữ mục tiêu, gom kết quả</text>
-      <g class="ln lk"><path d="M260 76 L95 146" marker-end="url(#ark)"/><path d="M310 76 L310 146" marker-end="url(#ark)"/><path d="M360 76 L525 146" marker-end="url(#ark)"/></g>
-      <g class="ln dash"><path d="M120 146 L270 80" marker-end="url(#ar)"/><path d="M500 146 L350 80" marker-end="url(#ar)"/></g>
-      <text class="mk" x="318" y="118">ACP</text><text class="m" x="120" y="104">kết quả</text>
-      <rect class="bx" x="0" y="148" width="190" height="72" rx="8"/><text class="mk" x="14" y="168">subagent A</text><text class="t" x="14" y="190">Research</text><text class="s" x="14" y="208">cách viết test jqwik</text>
-      <rect class="bx" x="215" y="148" width="190" height="72" rx="8"/><text class="mk" x="229" y="168">subagent B</text><text class="t" x="229" y="190">Implement</text><text class="s" x="229" y="208">test lô lẻ</text>
-      <rect class="bx" x="430" y="148" width="190" height="72" rx="8"/><text class="mk" x="444" y="168">subagent C</text><text class="t" x="444" y="190">Review</text><text class="s" x="444" y="208">đọc diff, góp ý</text>
-      <path class="ln lm" d="M310 220 L310 244" marker-end="url(#arm)"/>
-      <rect class="bm" x="220" y="246" width="180" height="46" rx="8"/><text class="t c" x="310" y="266" style="font-size:14px">Duyệt?</text><text class="s c" x="310" y="284">chạy mvn test</text>
-      <rect class="bx" x="0" y="314" width="620" height="122" rx="10"/>
-      <text class="t" x="16" y="338">Activity view</text><text class="m" x="130" y="338">mỗi agent một card · thời gian thực</text>
-      <rect class="bk" x="16" y="352" width="186" height="70" rx="6"/><text class="m" x="28" y="372">A · reasoning</text><text class="s" x="28" y="392">web_search ×3</text><text class="s" x="28" y="410">read_file ×2</text>
-      <rect class="bm" x="217" y="352" width="186" height="70" rx="6"/><text class="mm" x="229" y="372">B · chờ duyệt</text><text class="s" x="229" y="392">write_file ✓</text><text class="s" x="229" y="410">shell: mvn test …</text>
-      <rect class="bx" x="418" y="352" width="186" height="70" rx="6"/><text class="m" x="430" y="372">C · xong</text><text class="s" x="430" y="392">3 góp ý</text><text class="s" x="430" y="410">gửi về cha</text>
-    </svg>
-    </div>
-  </div>
-  <aside class="notes">Demo: prompt "chạy song song hai việc: research jqwik + viết test lô lẻ" → mở Activity view. Điểm ăn tiền với người lo "AI tự chạy": thấy hết từng tool call.</aside>
-</section>
-
-<!-- 22 Crew security -->
-<section class="slide k">
-  <span class="kicker"><i></i>Kiro Crew</span>
-  <h2>Bảo mật nhiều lớp &amp; mô hình mở</h2>
-  <div class="feat">
-    <div>
-      <ul class="plain">
-        <li>Chạy trên hạ tầng <strong>bạn kiểm soát</strong>: laptop, VM, container — không cần AWS account, không control plane của AWS.</li>
-        <li>OS sandbox · command <strong>deny-by-default</strong> · chặn pattern đáng ngờ và sensitive path · validate input.</li>
-        <li>Redact credential · <strong>audit log có ký</strong> mọi action · dashboard bind local mặc định.</li>
-        <li>Apache 2.0, governance công khai — nhưng <strong>harness bên dưới vẫn đóng</strong>, cần Kiro account; ngốn token hơn CLI vì subagent chạy song song.</li>
+  <span class="prod">Kiro IDE</span>
+  <h2>Autopilot và Agent focus mode</h2>
+  <div class="two wide-r">
+    <div class="col">
+      <ul>
+        <li><b>Autopilot</b>: Kiro tự thực hiện các task lớn, vẫn hỏi trước khi chạy script hoặc lệnh. Tắt autopilot để duyệt từng thay đổi.</li>
+        <li><b>Agent focus mode</b> (đang thử nghiệm): quản lý nhiều agent trên nhiều repo từ một màn hình, chạy sandbox trên máy hoặc trên cloud.</li>
+        <li>Tính năng khác: Powers (gói kiến thức và công cụ theo lĩnh vực), MCP, đọc ảnh thiết kế, sinh commit message, xem credit đã dùng cho từng prompt.</li>
       </ul>
     </div>
-    <div class="dg">
-    <svg class="d" viewBox="0 0 620 440" role="img" aria-label="Các lớp bảo mật lồng nhau quanh agent: hạ tầng của bạn, OS sandbox, deny-by-default, approval; bên phải audit log có ký và redact credential">
-      <rect class="bx" x="0" y="0" width="430" height="436" rx="16"/><text class="m" x="18" y="24">Máy bạn kiểm soát · laptop / VM / container</text>
-      <rect class="bk" x="36" y="40" width="358" height="360" rx="14" style="fill:rgba(157,134,255,.06)"/><text class="mk" x="54" y="64">OS-level sandbox</text>
-      <rect class="bk" x="72" y="80" width="286" height="284" rx="12" style="fill:rgba(157,134,255,.09)"/><text class="mk" x="90" y="104">deny-by-default · chặn pattern</text><text class="mk" x="90" y="120">chặn sensitive path · validate</text>
-      <rect class="bm" x="108" y="138" width="214" height="190" rx="10"/><text class="mm" x="126" y="162">approval cho tool request</text>
-      <rect x="165" y="200" width="100" height="70" rx="10" fill="#6A4DE8"/><text class="c" x="215" y="241" font-size="17" font-weight="600" fill="#fff" font-family="Space Grotesk,sans-serif">Agent</text>
-      <g class="ln"><path d="M265 225 L464 120" marker-end="url(#ar)"/><path d="M265 245 L464 260" marker-end="url(#ar)"/></g>
-      <rect class="bx" x="466" y="80" width="154" height="84" rx="10"/><text class="t" x="482" y="110">Audit log</text><text class="s" x="482" y="132">có ký, mọi action</text><text class="s" x="482" y="150">xem lại được</text>
-      <rect class="bx" x="466" y="220" width="154" height="84" rx="10"/><text class="t" x="482" y="250">Redact</text><text class="s" x="482" y="272">credential khỏi</text><text class="s" x="482" y="290">log &amp; output</text>
-      <rect class="bx" x="466" y="350" width="154" height="86" rx="10"/><text class="t" x="482" y="380">Mã nguồn mở</text><text class="s" x="482" y="402">tự đọc từng lớp</text><text class="s" x="482" y="420">Apache 2.0</text>
-    </svg>
-    </div>
+    <figure class="shot"><div class="frame"><img src="https://kiro.dev/images/ide/afm.png?h=5a7b061b" alt="Giao diện Agent focus mode của Kiro" loading="lazy" onerror="this.parentNode.classList.add('err')"></div><figcaption>Agent focus mode. Ảnh: kiro.dev</figcaption></figure>
   </div>
-  <aside class="notes">Với công ty chứng khoán: "chạy local, audit log có ký, deny-by-default" là thứ đem nói với bảo mật. Nhưng nói thật: harness đóng, token vẫn đi qua Kiro.</aside>
+  <p class="src">Nguồn: kiro.dev/ide; kiro.dev/docs/ide/experimental/focus-mode</p>
 </section>
 
-<!-- 23 Day -->
+<!-- 17 -->
 <section class="slide k">
-  <span class="kicker"><i></i>Kiro Crew</span>
-  <h2>Một ngày với Crew</h2>
-  <div class="day">
-    <div class="h">07:00</div><div class="c"><b>Morning digest (cron)</b><span>Gom PR mở, CI đỏ, issue mới; tự fix flaky test; để sẵn danh sách cần bạn quyết.</span></div>
-    <div class="h">09:00</div><div class="c you"><b>Bạn</b><span>Đọc digest 5 phút. Giao: "migrate module X sang Quarkus 3.x, theo spec trong .kiro/specs".</span></div>
-    <div class="h">09:05–15:00</div><div class="c"><b>Migration (task dài)</b><span>Checkpoint, validate, retry; subagent song song cho research và implement. Bạn họp, Crew vẫn chạy.</span></div>
-    <div class="h">14:20</div><div class="c"><b>Heartbeat</b><span>PR của migration đổi trạng thái → review pass → Crew ping Slack kèm tóm tắt diff.</span></div>
-    <div class="h">17:40</div><div class="c you"><b>Đồng nghiệp ping incident</b><span>Bạn nhắn Crew: "điều tra latency spike như lần trước, viết report gửi anh A."</span></div>
-    <div class="h">18:30</div><div class="c"><b>Investigate nhiều repo</b><span>Issue Radar + memory lần trước → report có log, metric, hướng xử lý → gửi đúng người. Bạn đã về.</span></div>
+  <span class="prod">Kiro Crew</span>
+  <h2>Kiro Crew là gì</h2>
+  <div class="two">
+    <div class="col">
+      <ul>
+        <li>Ra mắt 4/8/2026, mã nguồn mở theo giấy phép Apache 2.0. Bắt đầu từ dự án nội bộ MeshClaw, đã có hơn 39.000 người trong Amazon sử dụng.</li>
+        <li>Dành cho công việc kéo dài nhiều phiên: tiếp tục chạy khi người dùng không online, có bộ nhớ, lịch chạy và điều phối nhiều agent.</li>
+        <li>Chạy trên máy hoặc server do người dùng quản lý, không cần tài khoản AWS. Chạy trên Kiro CLI, dùng lại cấu hình <code>.kiro</code>.</li>
+        <li>Truy cập qua ứng dụng Mac, web dashboard, CLI, Slack, Telegram, Discord, Teams.</li>
+      </ul>
+    </div>
+    <figure class="shot"><div class="frame"><img src="https://kiro.dev/images/crew/session-pr.png?h=db3a350a" alt="Màn hình phiên làm việc của Kiro Crew với một pull request đã merge" loading="lazy" onerror="this.parentNode.classList.add('err')"></div><figcaption>Danh sách phiên, hội thoại với agent và pull request đã merge. Ảnh: kiro.dev</figcaption></figure>
   </div>
-  <aside class="notes">Ghép từ ba use case chính thức của AWS (morning update, migration nhiều giờ, incident nhiều repo). Module / Quarkus là mình điền cho sát ngữ cảnh phòng.</aside>
+  <p class="src">Nguồn: kiro.dev/blog/introducing-kiro-crew (04/08/2026); kiro.dev/crew</p>
+  <aside class="notes">Ví dụ trong bài giới thiệu của Kiro: chiều thứ Sáu có sự cố latency, người dùng nhắn cho Crew tìm lại cách xử lý lần trước, viết lại và gửi cho đồng nghiệp, rồi về nghỉ.</aside>
 </section>
 
-<!-- 24 Chốt -->
+<!-- 18 -->
+<section class="slide k">
+  <span class="prod">Kiro Crew</span>
+  <h2>Bộ nhớ và học từ cách làm việc</h2>
+  <div class="two">
+    <div class="col">
+      <ul>
+        <li>Memory, lesson và skill được giữ qua các phiên và khi khởi động lại.</li>
+        <li>Khi người dùng sửa sai, Crew ghi lại thành lesson để áp dụng về sau.</li>
+        <li>Các việc lặp lại được tổng hợp thành skill có tên.</li>
+        <li>Quyết định kiến trúc, quy ước code và ngữ cảnh dự án được lưu trong knowledge graph, có tìm kiếm.</li>
+        <li>Người dùng xem, sửa và xoá được những gì Crew đã ghi nhớ. Lệnh: <code>kirocrew learn add | list | remove</code>.</li>
+      </ul>
+    </div>
+    <figure class="shot"><div class="frame"><img src="https://kiro.dev/images/crew/settings-memory-audit.png?h=a59a5d2a" alt="Lịch sử thay đổi bộ nhớ trong Kiro Crew" loading="lazy" onerror="this.parentNode.classList.add('err')"></div><figcaption>Lịch sử thay đổi bộ nhớ. Ảnh: kiro.dev</figcaption></figure>
+  </div>
+  <p class="src">Nguồn: kiro.dev/crew; kiro.dev/docs/crew/interfaces/cli-reference</p>
+</section>
+
+<!-- 19 -->
+<section class="slide k">
+  <span class="prod">Kiro Crew</span>
+  <h2>Lịch chạy, webhook và heartbeat</h2>
+  <div class="two">
+    <div class="col">
+      <ul>
+        <li><b>Cron</b>: việc định kỳ theo múi giờ, ví dụ báo cáo đầu ngày.</li>
+        <li><b>Heartbeat</b>: theo dõi trạng thái pull request, deployment, pipeline và báo khi có thay đổi.</li>
+        <li><b>Webhook</b>: sự kiện bên ngoài gọi vào endpoint có xác thực để bắt đầu việc.</li>
+        <li>Việc không cần suy luận chạy như script, không gọi model.</li>
+        <li>Task dài chạy qua các checkpoint, có kiểm tra và thử lại.</li>
+      </ul>
+<pre style="margin-top:8px">kirocrew cron add "bao-cao-sang" "..." \
+  --cron "0 7 * * 1-5" \
+  --timezone "Asia/Ho_Chi_Minh"</pre>
+    </div>
+    <figure class="shot"><div class="frame"><img src="https://kiro.dev/images/crew/schedule.png?h=c2aa5e15" alt="Trang Schedule của Kiro Crew với hai cron job" loading="lazy" onerror="this.parentNode.classList.add('err')"></div><figcaption>Trang Schedule. Ảnh: kiro.dev</figcaption></figure>
+  </div>
+  <p class="src">Nguồn: kiro.dev/crew; kiro.dev/docs/crew/features/cron</p>
+</section>
+
+<!-- 20 -->
+<section class="slide k">
+  <span class="prod">Kiro Crew</span>
+  <h2>Nhiều agent và Apps</h2>
+  <div class="two">
+    <div class="col">
+      <ul>
+        <li>Chạy nhiều hội thoại song song, mỗi hội thoại có ngữ cảnh riêng.</li>
+        <li>Giao việc cho subagent (nghiên cứu, viết code) rồi gom kết quả về hội thoại chính.</li>
+        <li>Màn hình Activity hiển thị suy luận, từng lần gọi tool và kết quả của mỗi agent.</li>
+        <li>Apps là giao diện riêng cho những việc không hợp với chat. Có sẵn: DevFleets (quản lý worktree), Task Runner (task dài), Issue Radar (phân loại issue và PR), LaunchDarkly (feature flag). Có App SDK để tự viết.</li>
+      </ul>
+    </div>
+    <figure class="shot"><div class="frame"><img src="https://kiro.dev/images/crew/issue-radar.png?h=9425a997" alt="Ứng dụng Issue Radar trong Kiro Crew" loading="lazy" onerror="this.parentNode.classList.add('err')"></div><figcaption>Issue Radar. Ảnh: kiro.dev</figcaption></figure>
+  </div>
+  <p class="src">Nguồn: kiro.dev/blog/introducing-kiro-crew; kiro.dev/crew</p>
+</section>
+
+<!-- 21 -->
+<section class="slide k">
+  <span class="prod">Kiro Crew</span>
+  <h2>Bảo mật</h2>
+  <div class="two">
+    <div class="col">
+      <ul>
+        <li>8 lớp bảo vệ, gồm: sandbox mức hệ điều hành, lệnh bị chặn mặc định, chặn mẫu lệnh đáng ngờ, kiểm tra đầu vào, chặn đường dẫn nhạy cảm, ẩn credential trong output.</li>
+        <li>Mọi hành động được ghi vào audit log có chữ ký.</li>
+        <li>Có thể yêu cầu duyệt trước khi agent dùng tool. Dashboard mặc định chỉ mở trên máy local.</li>
+        <li>Phần điều phối là mã nguồn mở. Crew chạy trên Kiro CLI và cần tài khoản Kiro.</li>
+      </ul>
+    </div>
+    <figure class="shot"><div class="frame" style="background:#fff"><img src="https://kiro.dev/images/crew/diagram-security.svg?h=75c02e10" alt="Sơ đồ 8 lớp bảo vệ của Kiro Crew" loading="lazy" onerror="this.parentNode.classList.add('err')"></div><figcaption>Một hành động của agent đi qua 8 lớp kiểm tra. Ảnh: kiro.dev</figcaption></figure>
+  </div>
+  <p class="src">Nguồn: kiro.dev/blog/introducing-kiro-crew; kiro.dev/crew</p>
+  <aside class="notes">Với môi trường công ty chứng khoán, cần trao đổi với bộ phận bảo mật trước khi cho Crew truy cập repo hoặc hệ thống của công ty.</aside>
+</section>
+
+<!-- 22 -->
 <section class="slide">
-  <h2>Chốt lại</h2>
-  <table style="font-size:20px">
-    <tr><th></th><th class="ck">Kiro IDE</th><th class="ck">Kiro Crew</th><th class="cq">Amazon Quick</th></tr>
-    <tr><td>Người dùng</td><td>Dev</td><td>Dev / team</td><td>Business user</td></tr>
-    <tr><td>Phạm vi</td><td>1 session, bạn ngồi cùng</td><td>Nhiều session, repo, chạy khi offline</td><td>Dữ liệu &amp; app doanh nghiệp</td></tr>
-    <tr><td>Cốt lõi</td><td>Specs · Hooks · Steering</td><td>Memory · Lịch · Multi-agent · Apps</td><td>Spaces · Index · Research · Sight · Flows · Automate</td></tr>
-    <tr><td>License</td><td>Proprietary, free tier</td><td>Apache 2.0 (harness đóng)</td><td>SaaS theo user</td></tr>
-    <tr><td>Use case</td><td>Build feature theo spec</td><td>Incident, migration, triage</td><td>Đối soát hoá đơn, research định kỳ</td></tr>
-    <tr><td>Lưu ý</td><td>Focus mode còn experimental</td><td>Ngốn token; gắn chặt Kiro</td><td>Agentic phụ thuộc region</td></tr>
+  <h2>Các trường hợp sử dụng được nhà cung cấp nêu</h2>
+  <table>
+    <tr><th style="width:190px">Sản phẩm</th><th>Trường hợp</th><th style="width:270px">Nguồn</th></tr>
+    <tr><td>Quick Automate</td><td>Nhóm Finance của Amazon đối soát hàng nghìn hoá đơn mỗi tháng</td><td>aboutamazon.com</td></tr>
+    <tr><td>Quick Research</td><td>Phân tích thị trường và đối thủ; rủi ro, tuân thủ, due diligence; tìm hiểu khách hàng</td><td>aws.amazon.com/quick/research</td></tr>
+    <tr><td>Quick Flows</td><td>Tự động tạo báo cáo nghiên cứu theo lịch</td><td>AWS What's New (12/2025)</td></tr>
+    <tr><td>Kiro specs</td><td>Tính năng cần suy nghĩ kỹ, refactor cần lập kế hoạch, tìm hiểu hành vi của hệ thống hiện có</td><td>SD Times, trích lời Kiro</td></tr>
+    <tr><td>Kiro hooks</td><td>Cập nhật test khi lưu file, cập nhật README khi API đổi</td><td>SD Times, trích lời Kiro</td></tr>
+    <tr><td>Kiro Crew</td><td>Phân loại hàng đợi ticket; điều tra sự cố trên nhiều repo; migration nhiều giờ có checkpoint; kiểm tra PR và sửa test lỗi trước giờ làm</td><td>kiro.dev/blog/introducing-kiro-crew</td></tr>
   </table>
-  <aside class="notes">Slide để chụp lại. "Bắt đầu từ đâu": Kiro IDE free tier thử spec trên một feature nhỏ; Quick thử tier Free cá nhân hoặc chờ region.</aside>
 </section>
 
-<!-- 25 Demo -->
+<!-- 23 -->
 <section class="slide">
-  <h2>Demo &amp; hỏi đáp</h2>
-  <div class="cols cols-2">
-    <div class="k">
-      <span class="kicker"><i></i>Kịch bản demo</span>
-      <ul class="plain">
-        <li><strong>Kiro IDE</strong>: prompt → requirements.md (EARS) → duyệt → design → tasks → chạy 1 task.</li>
-        <li><strong>Hook + steering</strong>: đổi path, lưu → API.md tự cập nhật; prompt mới ra đúng convention.</li>
-        <li><strong>Kiro Crew</strong>: lesson, 2 subagent + Activity view, cron morning digest, nhắn qua Slack.</li>
-        <li><strong>Quick</strong>: Space + Research có trích dẫn + Flow tạo bằng lời.</li>
+  <h2>Đề xuất cho phòng</h2>
+  <p class="small" style="margin-bottom:12px">Ý kiến của người trình bày, cần thảo luận thêm.</p>
+  <div class="two">
+    <div class="col">
+      <h3>Kiro</h3>
+      <ul>
+        <li>Thử spec-driven với một API mới đã có thiết kế Figma và danh sách API, so sánh với cách làm hiện tại.</li>
+        <li>Viết bộ steering chung cho các service Quarkus của phòng.</li>
+        <li>Thử Kiro Crew trên máy dev cho việc theo dõi PR và báo cáo đầu ngày, chưa kết nối hệ thống của công ty.</li>
       </ul>
     </div>
-    <div class="q">
-      <span class="kicker"><i></i>Đọc thêm</span>
-      <ul class="plain">
-        <li class="mono small">kiro.dev/ide · kiro.dev/crew · kiro.dev/docs</li>
-        <li class="mono small">github.com/kirodotdev/KiroCrew</li>
-        <li class="mono small">aws.amazon.com/quick</li>
-        <li class="mono small">docs.aws.amazon.com/quick/latest/userguide</li>
+    <div class="col">
+      <h3>Amazon Quick</h3>
+      <ul>
+        <li>Xác nhận region, gói dịch vụ và các nguồn dữ liệu được phép kết nối.</li>
+        <li>Thử một Space cho tài liệu nội bộ không nhạy cảm.</li>
+        <li>Nếu cần dashboard từ dữ liệu giao dịch: dùng VPC connection và SPICE làm mới ban đêm, hoặc tách kho báo cáo riêng.</li>
       </ul>
     </div>
   </div>
-  <p class="small">Kịch bản + demo kit: higa.pages.dev/work/ · higa.pages.dev/demo/aws-kiro-quick/ · Phím ← → chuyển, N ghi chú, F toàn màn hình</p>
-  <aside class="notes">Kết: hỏi phòng muốn thử cái nào trước. Ghi lại câu hỏi để cập nhật bài trên HiGa.</aside>
+</section>
+
+<!-- 24 -->
+<section class="slide">
+  <h2>Demo</h2>
+  <ol style="padding-left:26px">
+    <li>Kiro IDE: tạo spec cho một API nhỏ, xem requirements.md, duyệt, sang design và tasks, chạy một task.</li>
+    <li>Steering và hook: sửa một file Resource, xem docs/API.md được cập nhật.</li>
+    <li>Kiro CLI: mở lại spec vừa tạo bằng <code>kiro-cli chat</code>.</li>
+    <li>Kiro Crew: ghi một lesson, giao hai việc song song, xem màn hình Activity, tạo một cron job.</li>
+    <li>Amazon Quick (nếu có tài khoản): tạo Space, chạy Research, tạo một flow bằng mô tả.</li>
+  </ol>
+  <p class="small" style="margin-top:16px">Kịch bản chi tiết và file mẫu: higa.pages.dev/work/ và higa.pages.dev/demo/aws-kiro-quick/</p>
+</section>
+
+<!-- 25 -->
+<section class="slide">
+  <h2>Tài liệu tham khảo</h2>
+  <div class="two">
+    <div class="col">
+      <h3>Amazon Quick</h3>
+      <ul class="small">
+        <li style="font-size:15px">aws.amazon.com/blogs/aws/reimagine-the-way-you-work-with-ai-agents-in-amazon-quick-suite</li>
+        <li style="font-size:15px">aws.amazon.com/quick/faqs, aws.amazon.com/quick/pricing</li>
+        <li style="font-size:15px">aws.amazon.com/quick/research, aws.amazon.com/quick/index</li>
+        <li style="font-size:15px">docs.aws.amazon.com/quick/latest/userguide</li>
+        <li style="font-size:15px">aws.amazon.com/about-aws/whats-new/2026/09/amazon-quick-always-on-agents-sharper-feed-enterprise-controls</li>
+        <li style="font-size:15px">aboutamazon.com/news/aws/amazon-quick-suite-agentic-ai-aws-work</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>Kiro</h3>
+      <ul class="small">
+        <li style="font-size:15px">kiro.dev/ide, kiro.dev/crew</li>
+        <li style="font-size:15px">kiro.dev/docs/specs, kiro.dev/docs/steering, kiro.dev/docs/hooks</li>
+        <li style="font-size:15px">kiro.dev/docs/cli/v3</li>
+        <li style="font-size:15px">kiro.dev/blog/introducing-kiro-crew</li>
+        <li style="font-size:15px">kiro.dev/docs/crew/features/cron</li>
+        <li style="font-size:15px">github.com/kirodotdev/KiroCrew</li>
+      </ul>
+    </div>
+  </div>
+  <p class="src">Ảnh chụp màn hình thuộc AWS và Kiro, dùng cho mục đích giới thiệu nội bộ.</p>
 </section>
 
 </div></div>
 
-<aside id="notes"><h4>Ghi chú thuyết trình</h4><div id="notesBody"></div></aside>
-<div id="rot">Xoay ngang điện thoại để xem slide lớn hơn · chạm phải/trái để chuyển</div>
-<div id="help"><kbd>←</kbd> <kbd>→</kbd> chuyển · <kbd>N</kbd> ghi chú · <kbd>F</kbd> toàn màn hình · <kbd>Home</kbd>/<kbd>End</kbd></div>
+<aside id="notes"><h4>Ghi chú</h4><div id="notesBody"></div></aside>
+<div id="rot">Xoay ngang điện thoại để xem rõ hơn</div>
 
 <script>
 (function(){
   var slides=[].slice.call(document.querySelectorAll('.slide')),n=slides.length,i=0;
-  var deck=document.getElementById('deck'),stage=document.getElementById('stage'),bar=document.getElementById('bar'),notesBody=document.getElementById('notesBody');
-  slides.forEach(function(s,k){var f=document.createElement('div');f.className='foot';f.innerHTML='<span>Amazon Quick &amp; Kiro — PTSPS</span><span>'+(k+1)+' / '+n+'</span>';s.appendChild(f);});
-  function fit(){var r=stage.getBoundingClientRect(),s=Math.min(r.width/1280,r.height/720);deck.style.transform='translate(-50%,-50%) scale('+s+')';}
+  var deck=document.getElementById('deck'),stage=document.getElementById('stage'),notesBody=document.getElementById('notesBody');
+  slides.forEach(function(s,k){if(k===0)return;var p=document.createElement('div');p.className='pg';p.textContent=(k+1)+' / '+n;s.appendChild(p);});
+  function fit(){var r=stage.getBoundingClientRect(),s=Math.min(r.width/1280,r.height/720)*0.98;deck.style.transform='translate(-50%,-50%) scale('+s+')';}
   function show(k){k=Math.max(0,Math.min(n-1,k));slides[i].classList.remove('on');i=k;slides[i].classList.add('on');
-    bar.style.width=((i+1)/n*100)+'%';try{history.replaceState(null,'','#'+(i+1));}catch(e){}
-    var a=slides[i].querySelector('.notes');notesBody.textContent=a?a.textContent:'(không có ghi chú)';}
+    try{history.replaceState(null,'','#'+(i+1));}catch(e){}
+    var a=slides[i].querySelector('.notes');notesBody.textContent=a?a.textContent:'';}
   function go(d){show(i+d);}
   document.addEventListener('keydown',function(e){
     if(e.metaKey||e.ctrlKey||e.altKey)return;
@@ -939,14 +685,15 @@ body[data-notes="1"] #help{right:396px}
       case 'ArrowLeft':case 'ArrowUp':case 'PageUp':case 'Backspace':e.preventDefault();go(-1);break;
       case 'Home':show(0);break;case 'End':show(n-1);break;
       case 'n':case 'N':document.body.dataset.notes=document.body.dataset.notes==='1'?'0':'1';fit();break;
-      case 'f':case 'F':if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();break;}
+      case 'f':case 'F':try{if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen();}catch(e){}break;}
   });
   stage.addEventListener('click',function(e){if(e.target.closest('a'))return;var r=stage.getBoundingClientRect();go(e.clientX-r.left<r.width*.25?-1:1);});
   var tx=null;stage.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;},{passive:true});
   stage.addEventListener('touchend',function(e){if(tx===null)return;var dx=e.changedTouches[0].clientX-tx;tx=null;if(Math.abs(dx)>40)go(dx<0?1:-1);},{passive:true});
   window.addEventListener('resize',fit);
   window.addEventListener('hashchange',function(){var h=parseInt(location.hash.slice(1),10);if(!isNaN(h)&&h-1!==i)show(h-1);});
-  var h=NaN;try{h=parseInt(location.hash.slice(1),10);}catch(e){}slides[0].classList.add('on');fit();show(isNaN(h)?0:h-1);
+  var h=NaN;try{h=parseInt(location.hash.slice(1),10);}catch(e){}
+  slides[0].classList.add('on');fit();show(isNaN(h)?0:h-1);
 })();
 </script>
 </body>
