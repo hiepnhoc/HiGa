@@ -708,7 +708,7 @@ fileMatchPattern: "**/*Resource.java"
     <figure class="shot"><div class="frame" style="background:#fff"><img src="img/diagram-security.svg" data-remote="https://kiro.dev/images/crew/diagram-security.svg?h=75c02e10" alt="Sơ đồ 8 lớp bảo vệ của Kiro Crew" loading="lazy" onerror="imgFail(this)"></div><figcaption>Một hành động của agent đi qua 8 lớp kiểm tra. Ảnh: kiro.dev</figcaption></figure>
   </div>
   <p class="src">Nguồn: kiro.dev/blog/introducing-kiro-crew; kiro.dev/crew</p>
-  <aside class="notes">Trước khi cho Crew truy cập repo hoặc hệ thống của khách hàng, cần thống nhất với khách hàng về quyền truy cập và nơi chạy Crew.</aside>
+  <aside class="notes">Đây là hàng rào đặt quanh agent khi chạy trên máy: model quyết định làm gì, harness (Crew) quyết định có được làm hay không. Các lớp chặn chạy bằng code nên không phụ thuộc model có "nghe lời" hay không, kể cả khi model bị lừa qua nội dung lạ. Trước khi cho Crew truy cập repo hoặc hệ thống của khách hàng, cần thống nhất về quyền truy cập và nơi chạy Crew.</aside>
 </section>
 
 <!-- 22 -->

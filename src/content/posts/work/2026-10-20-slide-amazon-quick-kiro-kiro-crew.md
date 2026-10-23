@@ -19,7 +19,7 @@ ghi chú thuyết trình, `F` toàn màn hình, `#n` trên URL để nhảy th�
 
 **Bản offline (nhúng sẵn ảnh, một file):** [/slides/aws-kiro-quick/offline.html](/slides/aws-kiro-quick/offline.html)
 
-Bản hiện tại (23/10/2026): 29 slide, hai phần Amazon Quick và Kiro (IDE, CLI, Crew), mỗi slide ghi nguồn
+Bản hiện tại (23/10/2026): 30 slide, hai phần Amazon Quick và Kiro (IDE, CLI, Crew), mỗi slide ghi nguồn
 chính thức, ảnh chụp sản phẩm từ AWS và Kiro, có slide Model trong Kiro.
 
 ## Nội dung chính đã gom
