@@ -385,46 +385,52 @@ body[data-notes="1"] #help{right:396px}
 <!-- 8 Quick Sight -->
 <section class="slide q">
   <span class="kicker"><i></i>Amazon Quick</span>
-  <h2>Quick Sight</h2>
+  <h2>Quick Sight — dữ liệu đi từ đâu</h2>
   <div class="feat">
     <div>
       <ul class="plain">
-        <li>Chính là <strong>QuickSight cũ</strong> — dashboard, dataset, phân quyền giữ nguyên khi chuyển sang Quick.</li>
-        <li>Nối dữ liệu bảng: Redshift, Athena, S3, RDS, Snowflake, Databricks…</li>
-        <li><strong>Topic</strong> gắn nghĩa nghiệp vụ cho cột → hỏi số liệu bằng lời, trả về biểu đồ.</li>
-        <li>Forecast, phát hiện bất thường; dashboard gắn được vào Space để Chat/Research dùng.</li>
-        <li>Tạo / sửa dashboard cần tier Enterprise; Professional xem và hỏi.</li>
+        <li>Là <strong>QuickSight cũ</strong>, và <strong>không có dữ liệu riêng</strong> — đọc từ nguồn bạn nối vào.</li>
+        <li><strong>Data source</strong>: Redshift, Athena/S3, RDS/Aurora, Snowflake, BigQuery, Excel/CSV. DB private trong VPC cần <strong>VPC connection</strong>.</li>
+        <li><strong>Dataset</strong>: SPICE (copy vào bộ nhớ, refresh theo lịch, nhanh) hoặc Direct query (luôn mới, nhưng đè tải DB). Có row-level security.</li>
+        <li><strong>Topic</strong>: tên nghiệp vụ cho cột → hỏi bằng lời ra biểu đồ.</li>
+        <li><strong>Một chiều</strong>: dashboard/topic gắn vào Space; Space không làm nguồn dữ liệu cho Sight.</li>
       </ul>
-      <p class="say">BI cũ không mất, chỉ được nối thêm vào chat và agent.</p>
+      <p class="say">Số liệu để vẽ phải đi qua dataset. Space chứa dashboard, không cấp dữ liệu cho nó.</p>
     </div>
     <div class="dg">
-    <svg class="d" viewBox="0 0 620 440" role="img" aria-label="Quick Sight: nguồn dữ liệu bảng vào dataset và topic, ra dashboard và câu hỏi bằng lời trả về biểu đồ">
-      <g>
-        <rect class="bx" x="0" y="40" width="140" height="44" rx="6"/><text class="s" x="14" y="67">Redshift</text>
-        <rect class="bx" x="0" y="100" width="140" height="44" rx="6"/><text class="s" x="14" y="127">Athena · S3</text>
-        <rect class="bx" x="0" y="160" width="140" height="44" rx="6"/><text class="s" x="14" y="187">RDS PostgreSQL</text>
-        <rect class="bx" x="0" y="220" width="140" height="44" rx="6"/><text class="s" x="14" y="247">Snowflake</text>
-      </g>
-      <g class="ln"><path d="M140 62 L188 140"/><path d="M140 122 L188 150"/><path d="M140 182 L188 160"/><path d="M140 242 L188 170" marker-end="url(#ar)"/></g>
-      <rect class="bq" x="190" y="90" width="140" height="130" rx="10"/>
-      <text class="t" x="206" y="120">Dataset</text><text class="s" x="206" y="142">+ Topic</text><text class="s" x="206" y="164">tên cột theo</text><text class="s" x="206" y="182">nghĩa nghiệp vụ</text><text class="mq" x="206" y="206">SPICE / direct</text>
-      <path class="ln lq" d="M330 130 L376 100" marker-end="url(#arq)"/>
-      <path class="ln lq" d="M330 180 L376 262" marker-end="url(#arq)"/>
-      <rect class="bx" x="380" y="10" width="240" height="190" rx="10"/>
-      <text class="t" x="396" y="36">Dashboard</text>
-      <line class="ln" x1="400" y1="180" x2="604" y2="180"/>
-      <rect class="fq" x="410" y="132" width="24" height="48" rx="2"/><rect class="fq" x="444" y="104" width="24" height="76" rx="2"/><rect class="fq" x="478" y="118" width="24" height="62" rx="2"/><rect class="fq" x="512" y="80" width="24" height="100" rx="2"/><rect class="fp" x="546" y="64" width="24" height="116" rx="2" opacity=".6"/>
-      <text class="m" x="546" y="58">dự báo</text>
-      <rect class="bx" x="380" y="236" width="240" height="64" rx="10"/>
-      <text class="s" x="396" y="262">"Phí môi giới tháng 9</text><text class="s" x="396" y="282">theo chi nhánh?"</text>
-      <path class="ln" d="M500 300 L500 326" marker-end="url(#ar)"/>
-      <rect class="bq" x="380" y="328" width="240" height="104" rx="10"/>
-      <polyline class="ln lq" points="398,410 430,394 462,400 494,372 526,380 558,352 600,360"/>
-      <text class="t" x="396" y="352">Trả lời bằng biểu đồ</text>
+    <svg class="d" viewBox="0 0 620 440" role="img" aria-label="Quick Sight: data source vào dataset SPICE hoặc direct query, ra topic và dashboard, gắn một chiều vào Space">
+      <text class="m" x="0" y="12">DATA SOURCE</text>
+      <rect class="bx" x="0" y="22" width="130" height="44" rx="6"/><text class="s" x="12" y="49">RDS · VPC</text>
+      <rect class="bx" x="0" y="78" width="130" height="44" rx="6"/><text class="s" x="12" y="105">Redshift</text>
+      <rect class="bx" x="0" y="134" width="130" height="44" rx="6"/><text class="s" x="12" y="161">Athena · S3</text>
+      <rect class="bx" x="0" y="190" width="130" height="44" rx="6"/><text class="s" x="12" y="217">Excel / CSV</text>
+      <g class="ln"><path d="M130 44 L166 110"/><path d="M130 100 L166 120"/><path d="M130 156 L166 140"/><path d="M130 212 L166 150" marker-end="url(#ar)"/></g>
+      <text class="m" x="170" y="12">DATASET</text>
+      <rect class="bq" x="168" y="22" width="156" height="212" rx="10"/>
+      <rect class="bx" x="180" y="34" width="132" height="88" rx="8"/><text class="t" x="192" y="58">SPICE</text><text class="s" x="192" y="80">copy in-memory</text><text class="s" x="192" y="98">refresh theo lịch</text><text class="mq" x="192" y="114">nhanh</text>
+      <rect class="bx" x="180" y="134" width="132" height="88" rx="8"/><text class="t" x="192" y="158">Direct query</text><text class="s" x="192" y="180">query thẳng DB</text><text class="s" x="192" y="198">mỗi lần mở</text><text class="mq" x="192" y="214">luôn mới</text>
+      <g class="ln lq"><path d="M324 80 L364 66" marker-end="url(#arq)"/><path d="M324 170 L364 182" marker-end="url(#arq)"/></g>
+      <rect class="bq" x="366" y="22" width="116" height="92" rx="10"/><text class="t" x="380" y="48">Topic</text><text class="s" x="380" y="70">tên nghiệp vụ</text><text class="s" x="380" y="88">cho từng cột</text>
+      <rect class="bx" x="366" y="130" width="116" height="104" rx="10"/><text class="t" x="380" y="154">Dashboard</text>
+      <line class="ln" x1="380" y1="222" x2="468" y2="222"/>
+      <rect class="fq" x="384" y="194" width="14" height="28" rx="2"/><rect class="fq" x="404" y="178" width="14" height="44" rx="2"/><rect class="fq" x="424" y="186" width="14" height="36" rx="2"/><rect class="fq" x="444" y="168" width="14" height="54" rx="2"/>
+      <path class="ln lq" d="M482 68 L506 68" marker-end="url(#arq)"/>
+      <rect class="bx" x="508" y="22" width="112" height="92" rx="10"/><text class="s" x="520" y="48">"Phí T9 theo</text><text class="s" x="520" y="66">chi nhánh?"</text><polyline class="ln lq" points="520,100 540,90 560,94 580,80 606,84"/>
+      <g class="ln lq"><path d="M424 114 L424 128"/><path d="M424 234 L424 318" marker-end="url(#arq)"/><path d="M450 114 Q500 200 470 318" marker-end="url(#arq)"/></g>
+      <text class="mq" x="476" y="270">gắn vào</text>
+      <rect class="bq" x="168" y="320" width="452" height="114" rx="12"/>
+      <text class="tl" x="186" y="350">Space</text>
+      <rect class="bx" x="186" y="366" width="130" height="34" rx="17"/><text class="s c" x="251" y="388">File · KB</text>
+      <rect class="bx" x="330" y="366" width="130" height="34" rx="17"/><text class="s c" x="395" y="388">Dashboard ✓</text>
+      <rect class="bx" x="474" y="366" width="130" height="34" rx="17"/><text class="s c" x="539" y="388">Topic ✓</text>
+      <path class="ln dash" d="M200 320 L230 240" marker-end="url(#ar)"/>
+      <text class="m" x="236" y="284">✗ không làm nguồn</text><text class="m" x="236" y="300">dữ liệu cho Sight</text>
+      <rect class="bm" x="0" y="250" width="150" height="184" rx="10"/>
+      <text class="t" x="12" y="276">Gợi ý ACBS</text><text class="s" x="12" y="300">DB giao dịch ở RDS</text><text class="s" x="12" y="318">private → VPC</text><text class="s" x="12" y="336">connection.</text><text class="s" x="12" y="362">SPICE refresh đêm,</text><text class="s" x="12" y="380">hoặc đẩy sang</text><text class="s" x="12" y="398">Redshift / Athena</text><text class="s" x="12" y="416">làm kho báo cáo.</text>
     </svg>
     </div>
   </div>
-  <aside class="notes">Câu ví dụ trên hình là minh hoạ. Điểm nói: người không biết SQL vẫn hỏi được số liệu nếu team data dựng Topic tốt — Topic là chỗ đầu tư.</aside>
+  <aside class="notes">Câu hay bị hỏi: "Quick Sight lấy dữ liệu ở đâu?" — từ data source mình nối (RDS, Redshift, S3…), qua dataset. "Lấy từ Space được không?" — không: Space chỉ chứa dashboard/topic đã có; file trong Space vào Quick Index để agent đọc, không thành bảng để vẽ. Excel muốn vẽ thì upload làm dataset trong Sight. Chưa xác nhận được Chat có tự vẽ biểu đồ từ Excel trong Space — nên thử trước.</aside>
 </section>
 
 <!-- 9 Flows & Automate -->
@@ -524,7 +530,7 @@ body[data-notes="1"] #help{right:396px}
         <li><strong>Cloud session</strong>: giao task trên web, gập laptop, check lại từ điện thoại, terminal hay IDE.</li>
         <li>Cùng steering, skills, MCP ở mọi bề mặt — cấu hình <span class="mono">.kiro</span> đi theo.</li>
         <li><strong>Model</strong>: Claude Opus 4.8 hoặc Auto. <strong>Powers</strong>: gói context + tool theo domain, gắn khi cần.</li>
-        <li>Login GitHub / Google / Builder ID / IAM Identity Center; không cần AWS account; có free tier.</li>
+        <li>Cloud session chạy trên <strong>cloud của Kiro</strong>; Crew chạy trên <strong>máy bạn</strong>. Không cần AWS account; có free tier.</li>
       </ul>
     </div>
     <div class="dg">
@@ -560,7 +566,7 @@ body[data-notes="1"] #help{right:396px}
   <div class="trio">
     <div><h3>Ba mức tuỳ việc</h3><p>Agent session cho fix nhanh · Quick spec để làm rõ ý · Full spec flow cho feature lớn.</p></div>
     <div><h3>Spec sống cùng code</h3><p>Đổi yêu cầu → sửa spec trước, code sau. Spec là tài liệu cho team đọc.</p></div>
-    <div><h3>Thay vì vibe coding</h3><p>Codebase lớn, context dễ hiểu sai, quyết định không ai ghi lại — spec giữ lại hết.</p></div>
+    <div><h3>IDE, CLI và Web</h3><p>CLI v3: <span class="mono">/spec new &lt;tên&gt;</span>, cùng <span class="mono">.kiro/specs</span>. Property-based test hiện chỉ có trên IDE.</p></div>
   </div>
   <aside class="notes">Slide demo chính: prompt → dừng ở requirements.md đọc to 2 criteria EARS → duyệt → design → tasks → chạy task 1.</aside>
 </section>
@@ -578,7 +584,7 @@ body[data-notes="1"] #help{right:396px}
         <li>File JSON trong <span class="mono">.kiro/hooks/</span>, commit cùng repo → cả team dùng chung.</li>
         <li>Tạo bằng lời: "Ask Kiro to create a hook".</li>
       </ul>
-      <p class="say">Như một senior dev không bao giờ quên cập nhật test và tài liệu.</p>
+      <p class="say">Giống git hook gọi được AI: một sự kiện → một hành động, trong lúc code. Cần nhiều bước hay chạy theo lịch → Crew hoặc Quick.</p>
     </div>
     <div class="dg">
     <svg class="d" viewBox="0 0 620 440" role="img" aria-label="Hook: sự kiện qua matcher tới action agent hoặc command; ví dụ file JSON">
@@ -617,7 +623,7 @@ body[data-notes="1"] #help{right:396px}
         <li>Chế độ nạp: <span class="mono">always</span>, <span class="mono">fileMatch</span> theo pattern, <span class="mono">manual</span> gọi bằng #tên, <span class="mono">auto</span> theo mô tả.</li>
         <li>Global ở <span class="mono">~/.kiro/steering</span>; workspace thắng khi xung đột. Hỗ trợ cả AGENTS.md.</li>
       </ul>
-      <p class="say">Viết convention một lần, mọi agent — IDE, CLI, Crew — đều theo.</p>
+      <p class="say">Như knowledge base thu gọn của dự án, viết dạng quy tắc, luôn nạp sẵn chứ không đi tìm — nên giữ ngắn.</p>
     </div>
     <div class="dg">
     <svg class="d" viewBox="0 0 620 440" role="img" aria-label="Các file steering với chế độ nạp khác nhau đi vào ngữ cảnh mỗi request rồi tới agent">
