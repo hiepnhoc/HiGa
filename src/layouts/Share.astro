@@ -1,0 +1,42 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const { title, description } = Astro.props;
+const fullTitle = title ? `${title} · HiGa` : 'HiGa';
+---
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>{fullTitle}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="icon" href="/share/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <header class="site">
+      <div class="wrap">
+        <a class="brand" href="/share/">HiGa</a>
+        <span class="spacer"></span>
+      </div>
+    </header>
+    <main class="wrap">
+      <slot />
+    </main>
+    <footer class="site">
+      <div class="wrap">HiGa — bài chia sẻ công khai</div>
+    </footer>
+    <script is:inline>
+      // Link tới slide, demo, ảnh trong bài chia sẻ → đi qua /share/ để không bị yêu cầu đăng nhập
+      document.querySelectorAll('a[href^="/slides/"],a[href^="/demo/"],img[src^="/img/"],a[href^="/img/"]').forEach(function (el) {
+        var attr = el.tagName === 'IMG' ? 'src' : 'href';
+        el.setAttribute(attr, '/share' + el.getAttribute(attr));
+      });
+    </script>
+  </body>
+</html>

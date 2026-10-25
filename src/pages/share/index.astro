@@ -1,0 +1,20 @@
+---
+import Share from '../../layouts/Share.astro';
+import { allPosts, fmtDate, plain, splitId } from '../../lib/posts';
+const posts = (await allPosts()).filter((p) => p.data.share);
+---
+<Share title="Bài chia sẻ">
+  <h1>Bài chia sẻ</h1>
+  <ul class="post-list">
+    {posts.length === 0 && <li class="muted">Chưa có bài nào được chia sẻ.</li>}
+    {posts.map((p) => (
+      <li>
+        <div class="row">
+          <span class="date">{fmtDate(p.data.date)}</span>
+          <a class="title" href={`/share/${splitId(p.id).slug}/`}>{p.data.title}</a>
+        </div>
+        {p.data.tldr && <div class="tldr">{plain(p.data.tldr)}</div>}
+      </li>
+    ))}
+  </ul>
+</Share>

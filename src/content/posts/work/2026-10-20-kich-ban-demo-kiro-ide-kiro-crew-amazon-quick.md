@@ -1,6 +1,7 @@
 ---
 title: Kịch bản demo Kiro IDE, Kiro Crew, Amazon Quick — từng bước, prompt sẵn, dự phòng
 date: 2026-10-20
+share: true
 tags: [aws, kiro, kiro-crew, amazon-quick, demo, quarkus, presentation]
 status: wip
 tldr: >-

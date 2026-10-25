@@ -17,6 +17,8 @@ const posts = defineCollection({
     // 1–3 dòng: đọc là nhớ lại được bài nói gì
     tldr: z.string().optional(),
     draft: z.boolean().default(false),
+    // true: có thêm bản công khai tại /share/<slug>/ (không cần đăng nhập, xem CLAUDE.md)
+    share: z.boolean().default(false),
   }),
 });
 

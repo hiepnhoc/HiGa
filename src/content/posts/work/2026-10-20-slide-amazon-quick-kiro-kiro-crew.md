@@ -2,6 +2,7 @@
 title: Slide trình bày Amazon Quick, Kiro IDE và Kiro Crew — tính năng và use case kinh điển
 date: 2026-10-20
 updated: 2026-10-25
+share: true
 tags: [aws, kiro, kiro-crew, amazon-quick, agentic-ai, slide, presentation]
 tldr: >-
   Deck trình bày cho CloudNexus: Quick (business user) vs Kiro (dev); Kiro IDE với Specs/Hooks/Steering;

@@ -1,0 +1,5 @@
+# Bản công khai: /share/* đi qua Cloudflare Access (Bypass), nội dung lấy từ đường dẫn gốc
+/share/slides/*   /slides/:splat   200
+/share/demo/*     /demo/:splat     200
+/share/img/*      /img/:splat      200
+/share/favicon.svg  /favicon.svg   200

@@ -16,6 +16,15 @@ Astro site, content tĩnh. Chủ repo là hiepln. Khi được bảo "đẩy lê
 - Chỉ ghi những gì đã trao đổi thật; không bịa chi tiết. Không đưa secret, key, thông tin nội bộ
   nhạy cảm của công ty vào bài.
 
+## Chia sẻ công khai
+
+- Site khoá bằng Cloudflare Access. Riêng `/share/*` được mở (Access application riêng, policy Bypass).
+- Bài muốn chia sẻ: thêm `share: true` vào frontmatter → có thêm bản `/share/<slug>/` (layout không có
+  menu, không lộ chuyên mục khác) và nằm trong danh sách `/share/`.
+- Slide, demo, ảnh trong `public/` xem công khai qua `/share/slides/…`, `/share/demo/…`, `/share/img/…`
+  (rewrite trong `public/_redirects`). Link `/slides/…` trong bài share tự đổi sang `/share/…`.
+- Không đặt `share: true` cho bài có thông tin công việc hoặc dữ liệu riêng tư.
+
 ## Commit
 
 - Message: `post(<section>): <tiêu đề ngắn>`; sửa code site thì ghi bình thường.
