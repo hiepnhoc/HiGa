@@ -11,6 +11,8 @@ tldr: >-
 
 ## Bối cảnh
 
+**Slide:** [/slides/aws-kiro-quick/](/slides/aws-kiro-quick/) · [bản offline](/slides/aws-kiro-quick/offline.html) · [tải PowerPoint (.pptx)](/slides/aws-kiro-quick/amazon-quick-va-kiro.pptx)
+
 Slide ở [/slides/aws-kiro-quick/](/slides/aws-kiro-quick/) nói về tính năng; bài này là phần
 **demo sống** đi kèm. Mọi demo chạy trên một project nhỏ `fee-demo` (Quarkus, tính phí + thuế
 cho một lệnh chứng khoán, số liệu ví dụ công khai) để có một ví dụ Java cụ thể.
