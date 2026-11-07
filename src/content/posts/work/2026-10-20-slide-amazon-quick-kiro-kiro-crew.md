@@ -22,6 +22,8 @@ ghi chú thuyết trình, `F` toàn màn hình, `#n` trên URL để nhảy th�
 
 **Tải PowerPoint (.pptx, chữ và bảng sửa được, có ghi chú thuyết trình):** [amazon-quick-va-kiro.pptx](/slides/aws-kiro-quick/amazon-quick-va-kiro.pptx)
 
+**Bản riêng Amazon Quick (12 slide):** [/slides/amazon-quick/](/slides/amazon-quick/) · [bản offline](/slides/amazon-quick/offline.html) · [tải PowerPoint](/slides/amazon-quick/amazon-quick.pptx)
+
 Bản hiện tại (07/11/2026): 29 slide, hai phần Amazon Quick và Kiro (IDE, CLI, Crew), mỗi slide ghi nguồn
 chính thức, ảnh chụp sản phẩm từ AWS và Kiro, có slide Model trong Kiro.
 

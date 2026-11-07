@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Amazon Quick</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff; --bg-2:#f3f4f7; --bg-3:#e8eaf0;
+  --paper:#1d2433; --paper-2:#3d4659; --paper-3:#6b7489;
+  --line:#d9dce4;
+  --quick:#b85f00; --kiro:#5a3ec8; --mint:#0f7f6b;
+  --body:"Be Vietnam Pro",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#d5d8df;color:var(--paper);font-family:var(--body);overflow:hidden}
+#stage{position:fixed;inset:0;overflow:hidden}
+#deck{position:absolute;left:50%;top:50%;width:1280px;height:720px;background:var(--bg);box-shadow:0 2px 12px rgba(0,0,0,.12);transform-origin:center center;transform:translate(-50%,-50%) scale(1)}
+.slide{position:absolute;inset:0;padding:44px 72px 64px;display:none;flex-direction:column}
+.slide.on{display:flex}
+.slide>.notes{display:none}
+
+.prod{position:absolute;top:22px;right:72px;font-size:14px;font-weight:600;color:var(--paper-3)}
+.q .prod{color:var(--quick)} .k .prod{color:var(--kiro)}
+h1{font-size:54px;font-weight:700;line-height:1.15}
+h2{font-size:34px;font-weight:700;line-height:1.2;margin-bottom:22px;padding-bottom:12px;border-bottom:2px solid var(--bg-3)}
+.q h2{border-bottom-color:#f1d7b8} .k h2{border-bottom-color:#d9d1f5}
+h3{font-size:20px;font-weight:600;margin-bottom:8px;color:var(--paper)}
+p,li,td,th{font-size:19px;line-height:1.5;color:var(--paper-2)}
+b{color:var(--paper);font-weight:600}
+ul{padding-left:22px}
+li{margin-bottom:8px}
+li::marker{color:var(--paper-3)}
+.q li::marker{color:var(--quick)} .k li::marker{color:var(--kiro)}
+code{font-family:var(--mono);font-size:.88em;background:var(--bg-2);padding:1px 5px;border-radius:3px}
+.small{font-size:16px;color:var(--paper-3)}
+.quote{font-size:19px;color:var(--paper);border-left:3px solid var(--line);padding:4px 0 4px 16px;margin-bottom:14px;font-style:italic}
+.q .quote{border-left-color:var(--quick)} .k .quote{border-left-color:var(--kiro)}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:36px;flex:1;min-height:0}
+.two.wide-l{grid-template-columns:1.15fr .85fr}
+.two.wide-r{grid-template-columns:.9fr 1.1fr}
+.col{min-height:0}
+
+figure.shot{display:flex;flex-direction:column;min-height:0;height:100%;margin:0}
+figure.shot .frame{flex:1;min-height:0;border:1px solid var(--line);border-radius:6px;background:var(--bg-2);display:flex;align-items:center;justify-content:center;overflow:hidden}
+figure.shot img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+figure.shot figcaption{font-size:13px;color:var(--paper-3);margin-top:6px}
+figure.shot .frame.err img{display:none}
+figure.shot .frame.err::after{content:"Không tải được ảnh. Xem ảnh gốc tại nguồn ghi bên dưới.";font-size:15px;color:var(--paper-3);padding:20px;text-align:center}
+
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;font-size:17px;line-height:1.4}
+th{font-weight:600;color:var(--paper);background:var(--bg-2)}
+td.c,th.c{text-align:center}
+
+pre{font-family:var(--mono);font-size:14px;line-height:1.55;background:#f6f7f9;border:1px solid var(--line);border-radius:6px;padding:14px 16px;color:#2b3242;white-space:pre;overflow:hidden}
+pre .h{color:var(--paper-3)}
+
+.src{position:absolute;left:72px;right:140px;bottom:20px;font-size:12.5px;color:var(--paper-3);line-height:1.4}
+.pg{position:absolute;right:72px;bottom:20px;font-size:13px;color:var(--paper-3)}
+
+.title{justify-content:center;padding:80px 96px}
+.title .sub{font-size:24px;color:var(--paper-2);margin-top:18px}
+.title .who{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);font-size:18px;color:var(--paper-3)}
+.agenda{list-style:none;padding:0;counter-reset:a}
+.agenda li{counter-increment:a;font-size:24px;padding:13px 0;margin:0;border-bottom:1px solid var(--line);color:var(--paper)}
+.agenda li::before{content:counter(a) ".";display:inline-block;width:44px;color:var(--paper-3)}
+.agenda li span{font-size:17px;color:var(--paper-3);margin-left:10px}
+
+.flow{display:flex;gap:12px;margin-bottom:22px}
+.flow div{flex:1;border:1px solid var(--line);border-top:3px solid var(--kiro);border-radius:4px;padding:12px 14px;background:#fafafc}
+.flow div b{display:block;font-size:17px;margin-bottom:4px}
+.flow div span{font-size:15px;color:var(--paper-2);line-height:1.4;display:block}
+.flow div.last{border-top-color:var(--mint)}
+
+.d .bx{fill:#f6f7f9;stroke:#c9cdd8;stroke-width:1.2}
+.d .bq{fill:#fdf3e6;stroke:#d99a4e;stroke-width:1.2}
+.d .bk{fill:#f1edfc;stroke:#9c88e6;stroke-width:1.2}
+.d .bm{fill:#e8f6f2;stroke:#5bb8a5;stroke-width:1.2}
+.d .t{fill:var(--paper);font-size:15px;font-weight:600;font-family:var(--body)}
+.d .s{fill:var(--paper-2);font-size:13px;font-family:var(--body)}
+.d .c{text-anchor:middle}
+.d .ln{stroke:#8a92a6;stroke-width:1.3;fill:none}
+
+.uc{margin-top:14px;padding:12px 16px 6px;border-radius:6px;background:#fdf6ec;border:1px solid #f1d7b8}
+.k .uc{background:#f4f1fd;border-color:#d9d1f5}
+.uc h4{font-size:15px;font-weight:600;color:var(--quick);margin-bottom:6px}
+.k .uc h4{color:var(--kiro)}
+.uc li{font-size:17px;line-height:1.45;margin-bottom:5px}
+.tight li{font-size:18px;margin-bottom:6px}
+.divider{justify-content:center;padding:80px 96px}
+.divider .part{font-size:18px;font-weight:600;color:var(--paper-3);margin-bottom:10px}
+.divider.q .part{color:var(--quick)} .divider.k .part{color:var(--kiro)}
+.divider h1{font-size:50px}
+.divider .aud{font-size:22px;color:var(--paper-2);margin-top:16px}
+#notes{position:fixed;right:0;top:0;bottom:0;width:360px;background:#fff;border-left:1px solid var(--line);padding:24px;overflow:auto;display:none;z-index:6;font-size:16px;line-height:1.55;color:var(--paper-2)}
+#notes h4{font-size:13px;color:var(--paper-3);margin-bottom:10px;font-weight:600}
+body[data-notes="1"] #notes{display:block}
+body[data-notes="1"] #stage{right:360px}
+#help{position:fixed;right:14px;top:8px;font-size:12px;color:#5f6678;z-index:5}
+body[data-notes="1"] #help{right:374px}
+#rot{position:fixed;left:0;right:0;bottom:30px;text-align:center;font-size:14px;color:#555;display:none}
+@media (orientation:portrait) and (max-width:700px){#rot{display:block}#help{display:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8a92a6"/></marker>
+</defs></svg>
+<div id="stage"><div id="deck">
+
+<!-- 1 -->
+<section class="slide title">
+  <h1>Amazon Quick</h1>
+  <p class="sub">Trợ lý AI cho công việc: tính năng và các trường hợp sử dụng</p>
+  <p class="who">CloudNexus<br>Tháng 11/2026</p>
+  <p class="small" style="margin-top:40px;font-size:14px">Phím ← → để chuyển slide, N để xem ghi chú, F để toàn màn hình.</p>
+  <aside class="notes">Giới thiệu Amazon Quick của AWS. Số liệu lấy từ tài liệu chính thức của AWS tại thời điểm 11/2026, nguồn ghi ở cuối mỗi slide.</aside>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <h2>Nội dung</h2>
+  <ol class="agenda">
+    <li>Amazon Quick là gì</li>
+    <li>Chat, Apps và Spaces<span>hỏi đáp, không gian chung của nhóm</span></li>
+    <li>Quick Research và Quick Sight<span>nghiên cứu, số liệu</span></li>
+    <li>Quick Flows và Quick Automate<span>tự động hoá</span></li>
+    <li>Kết nối và gói dịch vụ</li>
+    <li>Demo và hỏi đáp</li>
+  </ol>
+</section>
+
+<!-- 4 -->
+<section class="slide q">
+  <span class="prod">Amazon Quick</span>
+  <h2>Amazon Quick là gì</h2>
+  <div class="two wide-l">
+    <div class="col">
+      <p class="quote">"An AI assistant for work that turns questions into answers", và có thể thực hiện hành động như đặt lịch họp, theo dõi đầu việc.</p>
+      <table>
+        <tr><td style="width:190px"><b>Chat, Apps</b></td><td>Hỏi đáp, tạo tài liệu, tạo app nhỏ không cần code</td></tr>
+        <tr><td><b>Spaces</b></td><td>Không gian chung của nhóm: tài liệu, dữ liệu, agent</td></tr>
+        <tr><td><b>Quick Research</b></td><td>Nghiên cứu nhiều nguồn, báo cáo có trích dẫn</td></tr>
+        <tr><td><b>Quick Sight</b></td><td>Dashboard, hỏi số liệu bằng câu tự nhiên</td></tr>
+        <tr><td><b>Quick Flows</b></td><td>Tự động hoá việc lặp lại bằng cách mô tả</td></tr>
+        <tr><td><b>Quick Automate</b></td><td>Tự động hoá quy trình nhiều bước, có người duyệt</td></tr>
+      </table>
+    </div>
+    <figure class="shot"><div class="frame"><img src="img/2025_quick-suite_1.webp" data-remote="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2025/10/01/2025_quick-suite_1.png" alt="Giao diện Amazon Quick" loading="lazy" onerror="imgFail(this)"></div><figcaption>Ảnh: AWS News Blog</figcaption></figure>
+  </div>
+  <p class="src">Nguồn: aws.amazon.com/quick/faqs; AWS News Blog "Announcing Amazon Quick Suite" (09/10/2025)</p>
+  <aside class="notes">Mỗi dòng trong bảng có một slide riêng phía sau, kèm các trường hợp sử dụng.</aside>
+</section>
+<!-- Q-chat -->
+<section class="slide q">
+  <span class="prod">Amazon Quick</span>
+  <h2>Chat, Apps và tiện ích mở rộng</h2>
+  <div class="two">
+    <div class="col">
+      <ul class="tight">
+        <li><b>Chat</b>: hỏi về dữ liệu công ty hoặc bất kỳ chủ đề nào. Có agent mặc định và agent riêng cho từng phòng ban.</li>
+        <li><b>Apps in Quick</b>: tạo ứng dụng nhỏ bằng mô tả, không cần viết code, có thể gắn vào luồng phê duyệt.</li>
+        <li><b>Tiện ích</b>: extension cho trình duyệt và Microsoft 365, desktop app làm việc với file trên máy không cần tải lên.</li>
+      </ul>
+      <div class="uc"><h4>Dùng khi nào</h4><ul>
+        <li>Chuyển một cuộc hội thoại thành tài liệu, bài trình bày, bảng tính hoặc hình ảnh.</li>
+        <li>Tạo form tiếp nhận yêu cầu, bảng theo dõi trạng thái, công cụ tính toán chuyên dụng.</li>
+        <li>Chuẩn bị trước cuộc họp, tổng hợp việc cần làm sau họp.</li>
+        <li>Tóm tắt hoặc giải thích đoạn văn bản đang đọc trên trình duyệt.</li>
+      </ul></div>
+    </div>
+    <figure class="shot"><div class="frame"><img src="img/2025_quick-suite_chat-agent-2.webp" data-remote="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2025/10/02/2025_quick-suite_chat-agent-2.png" alt="Chat agent trong Amazon Quick" loading="lazy" onerror="imgFail(this)"></div><figcaption>Chat agent. Ảnh: AWS News Blog</figcaption></figure>
+  </div>
+  <p class="src">Nguồn: aws.amazon.com/quick; AWS News Blog (09/10/2025); Amazon Quick browser extension (Firefox Add-ons)</p>
+</section>
+<!-- 5 -->
+<section class="slide q">
+  <span class="prod">Amazon Quick</span>
+  <h2>Spaces</h2>
+  <div class="two">
+    <div class="col">
+      <ul class="tight">
+        <li>Không gian chung của một nhóm. Thêm vào: file, knowledge base (SharePoint, OneDrive, Google Drive, Confluence, S3, web), dashboard, actions.</li>
+        <li>Chọn Space làm ngữ cảnh thì agent chỉ trả lời trong phạm vi Space đó.</li>
+        <li>Tài liệu trong Space được index tự động ở chế độ chạy nền. File đính kèm trong chat chỉ dùng cho cuộc chat đó.</li>
+        <li>Tối đa 10.000 file, 10 GB. Quyền owner và viewer.</li>
+      </ul>
+      <div class="uc"><h4>Dùng khi nào</h4><ul>
+        <li>Gom kiến thức của nhóm vào một chỗ để mọi người hỏi đáp, thay vì tìm trong nhiều thư mục.</li>
+        <li>Dùng chung agent và automation trong nhóm; kiến thức tích luỹ dần qua nhiều người.</li>
+        <li>Biến một thư mục trên máy thành Space có thể tìm kiếm (desktop app, từ 9/2026).</li>
+      </ul></div>
+    </div>
+    <figure class="shot"><div class="frame"><img src="img/2025_quick-suite_space-1.webp" data-remote="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2025/10/02/2025_quick-suite_space-1.png" alt="Màn hình Space trong Amazon Quick" loading="lazy" onerror="imgFail(this)"></div><figcaption>Ảnh: AWS News Blog</figcaption></figure>
+  </div>
+  <p class="src">Nguồn: docs.aws.amazon.com/quick: "Working with spaces", "Managing a space"; aws.amazon.com/quick; AWS What's New (09/09/2026)</p>
+  <aside class="notes">Chia sẻ Space không tự cấp quyền xem dashboard bên trong; quyền của từng tài nguyên giữ riêng.</aside>
+</section>
+<!-- 7 -->
+<section class="slide q">
+  <span class="prod">Amazon Quick</span>
+  <h2>Quick Research</h2>
+  <div class="two">
+    <div class="col">
+      <ul class="tight">
+        <li>Nhận một đề tài, lập kế hoạch nghiên cứu. Người dùng chỉnh kế hoạch rồi agent chạy nền.</li>
+        <li>Kết quả là báo cáo, mỗi nhận định có trích dẫn đến nguồn gốc.</li>
+        <li>Nguồn: dữ liệu nội bộ, web và tin tức hơn 200 đầu báo, S&amp;P Global, FactSet, IDC (cần subscription), US Patents, PubMed.</li>
+      </ul>
+      <div class="uc"><h4>Dùng khi nào</h4><ul>
+        <li>Phân tích thị trường, đối thủ, xu hướng ngành; dự báo tăng trưởng và đề xuất chiến lược.</li>
+        <li>Rà soát rủi ro và tuân thủ: quy định, kiểm tra due diligence, tra cứu bằng sáng chế.</li>
+        <li>Tìm nguyên nhân gây kém hiệu quả, cơ hội về giá và doanh thu.</li>
+        <li>Tìm hiểu khách hàng: nhu cầu, khó khăn, vị thế so với đối thủ, phục vụ bán hàng.</li>
+      </ul></div>
+    </div>
+    <figure class="shot"><div class="frame"><img src="img/2025_quick-suite_research_1-2.webp" data-remote="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2025/10/07/2025_quick-suite_research_1-2.png" alt="Quick Research tạo kế hoạch nghiên cứu từ một yêu cầu" loading="lazy" onerror="imgFail(this)"></div><figcaption>Kế hoạch nghiên cứu được tạo từ một yêu cầu. Ảnh: AWS News Blog</figcaption></figure>
+  </div>
+  <p class="src">Nguồn: aws.amazon.com/quick/research; aws.amazon.com/quick; docs.aws.amazon.com/quick: "Using Amazon Quick Research"</p>
+  <aside class="notes">Khác chat: chat trả lời ngay, Research chạy nhiều bước và trả về tài liệu dùng lại được. Nguồn trả phí như FactSet chỉ dùng được nếu công ty đã mua dữ liệu đó.</aside>
+</section>
+<!-- 8 -->
+<section class="slide q">
+  <span class="prod">Amazon Quick</span>
+  <h2>Quick Sight</h2>
+  <div class="two">
+    <div class="col">
+      <ul class="tight">
+        <li>Là Amazon QuickSight trước đây. Dựng <i>analysis</i> rồi publish thành <i>dashboard</i>.</li>
+        <li>Lấy số liệu từ database, kho dữ liệu hoặc file Excel/CSV qua dataset. Space không phải nguồn dữ liệu của Quick Sight.</li>
+        <li>Topic giúp hỏi số liệu bằng câu tự nhiên.</li>
+      </ul>
+      <div class="uc"><h4>Dùng khi nào</h4><ul>
+        <li>Tạo analysis từ câu mô tả: chọn dataset, Quick dựng sheet, biểu đồ, bộ lọc (Generate Analysis, 5/2026).</li>
+        <li>Tạo analysis từ ảnh chụp một dashboard có sẵn, kể cả của công cụ BI khác (9/2026).</li>
+        <li>Hỏi số liệu bằng câu tự nhiên, nhận biểu đồ và phần giải thích.</li>
+        <li>Phân tích giả định (what-if) bằng tính năng Scenarios.</li>
+        <li>Từ dashboard, tạo ticket hoặc cảnh báo bằng một thao tác.</li>
+      </ul></div>
+    </div>
+    <figure class="shot"><div class="frame"><img src="img/2025_quicksuite_quicksight_1-1.webp" data-remote="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2025/10/05/2025_quicksuite_quicksight_1-1.gif" alt="Hỏi số liệu bằng ngôn ngữ tự nhiên trong Quick Sight" loading="lazy" onerror="imgFail(this)"></div><figcaption>Hỏi bằng câu tự nhiên, nhận biểu đồ và tóm tắt. Ảnh: AWS News Blog</figcaption></figure>
+  </div>
+  <p class="src">Nguồn: AWS News Blog (09/10/2025); AWS What's New (04/05/2026, 17/09/2026); docs.aws.amazon.com/quick: "Starting an analysis in Quick Sight"</p>
+  <aside class="notes">Câu hỏi đã gặp: Quick Sight có lấy dữ liệu từ Space không? Không. File trong Space chỉ để agent đọc. Muốn vẽ từ Excel thì tải file đó lên làm dataset. Database trong mạng nội bộ cần VPC connection.</aside>
+</section>
+<!-- 9 -->
+<section class="slide q">
+  <span class="prod">Amazon Quick</span>
+  <h2>Quick Flows</h2>
+  <div class="two wide-r">
+    <div class="col">
+      <ul class="tight">
+        <li>Mô tả công việc bằng lời, Quick tạo flow gồm các bước nhập liệu, xử lý, kết quả. Không cần lập trình.</li>
+        <li>Chia sẻ flow cho đồng nghiệp, chạy từ thư viện hoặc từ chat, hoặc chạy theo lịch.</li>
+        <li>Có trong cả gói Free.</li>
+      </ul>
+      <div class="uc"><h4>Dùng khi nào</h4><ul>
+        <li>Các việc vặt lặp lại hằng ngày của một người hoặc một nhóm.</li>
+        <li>Tạo báo cáo nghiên cứu định kỳ: đặt Quick Research làm một bước, chạy theo lịch.</li>
+        <li>Đóng gói một cách làm hay thành flow để cả nhóm dùng lại.</li>
+      </ul></div>
+    </div>
+    <figure class="shot"><div class="frame"><img src="img/2025_quick-suite_flows_4.webp" data-remote="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2025/10/02/2025_quick-suite_flows_4.png" alt="Một flow nhiều bước trong Quick Flows" loading="lazy" onerror="imgFail(this)"></div><figcaption>Flow được tạo từ mô tả. Ảnh: AWS News Blog</figcaption></figure>
+  </div>
+  <p class="src">Nguồn: AWS News Blog (09/10/2025); aws.amazon.com/quick; AWS What's New "Quick Research in Quick Flows" (08/12/2025)</p>
+</section>
+<!-- 10 -->
+<section class="slide q">
+  <span class="prod">Amazon Quick</span>
+  <h2>Quick Automate</h2>
+  <div class="two wide-r">
+    <div class="col">
+      <ul class="tight">
+        <li>Tự động hoá quy trình nhiều bước, qua nhiều phòng ban và hệ thống. Thiết lập bằng mô tả hoặc từ tài liệu quy trình có sẵn.</li>
+        <li>Chuyển các trường hợp ngoại lệ cho người duyệt. Có phân quyền, quản lý phiên bản, nhật ký và báo cáo.</li>
+      </ul>
+      <div class="uc"><h4>Dùng khi nào</h4><ul>
+        <li>Đối soát hoá đơn: nhóm Finance của Amazon xử lý hàng nghìn hoá đơn mỗi tháng.</li>
+        <li>Ngân hàng: xử lý hồ sơ vay, hồ sơ tín dụng, quản lý tài khoản.</li>
+        <li>Bảo hiểm: xử lý bồi thường, quản lý hợp đồng, thẩm định.</li>
+        <li>Chăm sóc khách hàng: Propulse Lab xử lý hơn 1.600 ticket mỗi tháng, có người kiểm tra.</li>
+        <li>Phân tích tài chính và tự gửi bản tóm tắt cho các bên liên quan.</li>
+      </ul></div>
+    </div>
+    <figure class="shot"><div class="frame"><img src="img/2025_quick-suite_automate_4.webp" data-remote="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2025/10/02/2025_quick-suite_automate_4.png" alt="Kế hoạch tự động hoá trong Quick Automate" loading="lazy" onerror="imgFail(this)"></div><figcaption>Ảnh: AWS News Blog</figcaption></figure>
+  </div>
+  <p class="src">Nguồn: aws.amazon.com/quick/automate; aws.amazon.com/quick; aboutamazon.com; AWS News Blog (09/10/2025)</p>
+  <aside class="notes">Khác Flows: Flows cho việc đơn giản của cá nhân hoặc nhóm. Automate cho quy trình xuyên phòng ban, có rẽ nhánh, người duyệt, theo dõi. Automate có trong gói Professional và Enterprise.</aside>
+</section>
+<!-- 11 -->
+<section class="slide q">
+  <span class="prod">Amazon Quick</span>
+  <h2>Kết nối và gói dịch vụ</h2>
+  <div class="two">
+    <div class="col">
+      <h3>Kết nối</h3>
+      <ul>
+        <li>Hơn 50 connector có sẵn: SharePoint, Snowflake, Google Drive, OneDrive, Outlook, ServiceNow, Databricks, Redshift, S3...</li>
+        <li>Actions cho phép đọc và ghi dữ liệu trên ứng dụng SaaS và MCP server.</li>
+        <li>Connector do AWS làm sẵn cho từng ứng dụng. MCP là chuẩn mở: hệ thống nào có MCP server, kể cả hệ thống nội bộ tự viết, đều kết nối được.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>Gói dịch vụ</h3>
+      <ul>
+        <li>Free, Plus (dùng thử 30 ngày), Professional, Enterprise.</li>
+        <li>Professional và Enterprise có thêm Quick Sight, Quick Automate, kết nối nguồn dữ liệu AWS, đăng nhập qua hệ thống định danh của công ty, quản trị nâng cao.</li>
+        <li>Agent hours từ 9/2026: Professional 8 giờ/tháng, Enterprise 18 giờ/tháng.</li>
+        <li>AWS không dùng dữ liệu khách hàng để huấn luyện model ở mọi gói.</li>
+      </ul>
+      <p class="small">Giá chi tiết: aws.amazon.com/quick/pricing</p>
+    </div>
+  </div>
+  <p class="src">Nguồn: aboutamazon.com; docs.aws.amazon.com/quick: "Managing a space"; aws.amazon.com/quick/faqs; AWS What's New (09/09/2026)</p>
+  <aside class="notes">Cập nhật 9/2026: agent có thể chạy theo lịch trên cloud khi tắt máy, kết quả trả về feed; có tích hợp Microsoft Purview DLP. Giá có thể thay đổi, kiểm tra trang pricing trước khi báo cáo.</aside>
+</section>
+<!-- 24 -->
+<section class="slide">
+  <h2>Demo</h2>
+  <ol style="padding-left:26px">
+    <li>Tạo một Space từ vài tài liệu, hỏi đáp trong phạm vi Space.</li>
+    <li>Chạy Quick Research cho một đề tài, xem kế hoạch nghiên cứu và báo cáo có trích dẫn.</li>
+    <li>Quick Sight: hỏi số liệu bằng câu tự nhiên trên một dashboard mẫu.</li>
+    <li>Tạo một flow bằng mô tả, chạy thử.</li>
+  </ol>
+</section>
+
+<!-- 25 -->
+<section class="slide">
+  <h2>Tài liệu tham khảo</h2>
+  <div>
+      
+      <ul class="small">
+        <li style="font-size:15px">aws.amazon.com/blogs/aws/reimagine-the-way-you-work-with-ai-agents-in-amazon-quick-suite</li>
+        <li style="font-size:15px">aws.amazon.com/quick/faqs, aws.amazon.com/quick/pricing</li>
+        <li style="font-size:15px">aws.amazon.com/quick/research, aws.amazon.com/quick/index</li>
+        <li style="font-size:15px">docs.aws.amazon.com/quick/latest/userguide</li>
+        <li style="font-size:15px">aws.amazon.com/about-aws/whats-new/2026/09/amazon-quick-always-on-agents-sharper-feed-enterprise-controls</li>
+        <li style="font-size:15px">aboutamazon.com/news/aws/amazon-quick-suite-agentic-ai-aws-work</li>
+      </ul>
+    </div>
+  <p class="small" style="margin-top:18px;font-size:15px">Tải bản PowerPoint: <a href="amazon-quick.pptx" download style="color:#b85f00">amazon-quick.pptx</a></p>
+  <p class="src">Ảnh chụp màn hình thuộc AWS, dùng cho mục đích giới thiệu.</p>
+</section>
+
+</div></div>
+
+<aside id="notes"><h4>Ghi chú</h4><div id="notesBody"></div></aside>
+<div id="rot">Xoay ngang điện thoại để xem rõ hơn</div>
+
+<script>
+function imgFail(im){if(im.dataset.remote&&!im.dataset.tried){im.dataset.tried=1;im.src=im.dataset.remote;}else{im.parentNode.classList.add('err');}}
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide')),n=slides.length,i=0;
+  var deck=document.getElementById('deck'),stage=document.getElementById('stage'),notesBody=document.getElementById('notesBody');
+  slides.forEach(function(s,k){if(k===0)return;var p=document.createElement('div');p.className='pg';p.textContent=(k+1)+' / '+n;s.appendChild(p);});
+  function fit(){var r=stage.getBoundingClientRect(),s=Math.min(r.width/1280,r.height/720)*0.98;deck.style.transform='translate(-50%,-50%) scale('+s+')';}
+  function show(k){k=Math.max(0,Math.min(n-1,k));slides[i].classList.remove('on');i=k;slides[i].classList.add('on');
+    try{history.replaceState(null,'','#'+(i+1));}catch(e){}
+    var a=slides[i].querySelector('.notes');notesBody.textContent=a?a.textContent:'';}
+  function go(d){show(i+d);}
+  document.addEventListener('keydown',function(e){
+    if(e.metaKey||e.ctrlKey||e.altKey)return;
+    switch(e.key){case 'ArrowRight':case 'ArrowDown':case ' ':case 'PageDown':case 'Enter':e.preventDefault();go(1);break;
+      case 'ArrowLeft':case 'ArrowUp':case 'PageUp':case 'Backspace':e.preventDefault();go(-1);break;
+      case 'Home':show(0);break;case 'End':show(n-1);break;
+      case 'n':case 'N':document.body.dataset.notes=document.body.dataset.notes==='1'?'0':'1';fit();break;
+      case 'f':case 'F':try{if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen();}catch(e){}break;}
+  });
+  stage.addEventListener('click',function(e){if(e.target.closest('a'))return;var r=stage.getBoundingClientRect();go(e.clientX-r.left<r.width*.25?-1:1);});
+  var tx=null;stage.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;},{passive:true});
+  stage.addEventListener('touchend',function(e){if(tx===null)return;var dx=e.changedTouches[0].clientX-tx;tx=null;if(Math.abs(dx)>40)go(dx<0?1:-1);},{passive:true});
+  window.addEventListener('resize',fit);
+  window.addEventListener('hashchange',function(){var h=parseInt(location.hash.slice(1),10);if(!isNaN(h)&&h-1!==i)show(h-1);});
+  var h=NaN;try{h=parseInt(location.hash.slice(1),10);}catch(e){}
+  slides[0].classList.add('on');fit();show(isNaN(h)?0:h-1);
+})();
+</script>
+</body>
+</html>
