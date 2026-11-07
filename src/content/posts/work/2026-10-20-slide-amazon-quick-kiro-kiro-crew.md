@@ -1,7 +1,7 @@
 ---
 title: Slide trình bày Amazon Quick, Kiro IDE và Kiro Crew — tính năng và use case kinh điển
 date: 2026-10-20
-updated: 2026-10-25
+updated: 2026-11-07
 share: true
 tags: [aws, kiro, kiro-crew, amazon-quick, agentic-ai, slide, presentation]
 tldr: >-
@@ -22,7 +22,7 @@ ghi chú thuyết trình, `F` toàn màn hình, `#n` trên URL để nhảy th�
 
 **Tải PowerPoint (.pptx, chữ và bảng sửa được, có ghi chú thuyết trình):** [amazon-quick-va-kiro.pptx](/slides/aws-kiro-quick/amazon-quick-va-kiro.pptx)
 
-Bản hiện tại (23/10/2026): 30 slide, hai phần Amazon Quick và Kiro (IDE, CLI, Crew), mỗi slide ghi nguồn
+Bản hiện tại (07/11/2026): 29 slide, hai phần Amazon Quick và Kiro (IDE, CLI, Crew), mỗi slide ghi nguồn
 chính thức, ảnh chụp sản phẩm từ AWS và Kiro, có slide Model trong Kiro.
 
 ## Nội dung chính đã gom
