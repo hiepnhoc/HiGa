@@ -175,7 +175,11 @@ chung số lượng thì các mặt hàng tính bằng tấn nằm sát 0. File 
      lượng nhưng thêm bộ lọc `don_vi = tấn`.
    - **Bảng** hiện toàn số 12: là đang *đếm* (Count) theo nhóm. Đổi visual sang dạng bảng chi tiết, hoặc để
      các cột số ở ô *Value* với kiểu **Sum** thay vì Count. Thêm filter `canh_bao` = *Dưới mức tối thiểu*.
-4. Publish thành dashboard. Muốn hỏi bằng câu thường thì tạo **Topic** từ dataset này.
+4. Publish thành dashboard và **bật hỏi đáp**: trong analysis bấm **Publish** → tick **Allow data Q&A**
+   → (tuỳ chọn) **MANAGE Q&A** chọn dataset → **APPLY CHANGES** → **Publish dashboard** (ghi đè dashboard
+   cũ cũng được). Sau đó trên đầu dashboard có ô **Ask a question about this dashboard** để hỏi. Không cần
+   tạo Topic. Lưu ý: Q&A hỏi trên toàn bộ dataset, không chỉ phần đang hiện; tính năng này có phí bật
+   (enablement fee) ở cấp tài khoản.
 
 **Trên sân khấu:** mở dashboard, rồi hỏi:
 
