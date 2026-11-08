@@ -10,8 +10,10 @@ nhựa PP, mua từ 3 nhà cung cấp.
 | `hop-dong-nha-cung-cap-tom-tat.md` | Space, Chat agent, Research |
 | `ton-kho-hat-nhua-pp.csv` | Space, Chat agent, Research, Flows |
 | `ton-kho-don-hang-12-tuan.csv` | Quick Sight (6 mặt hàng × 12 tuần, tuần 42–53/2026) |
+| `email-mau.md` | Connector: 4 email gửi vào hộp thư demo |
 
-Thứ tự trên sân khấu, khoảng 25 phút: **Chat → Space → Chat agent → Research → Quick Sight → Flows**,
+Thứ tự trên sân khấu, khoảng 30 phút: **Chat → Space → Chat agent → Research → Quick Sight → Flows →
+Connector (email, lịch)**,
 cuối cùng hỏi nhu cầu cho Quick Automate.
 
 Giao diện thật có thể khác ảnh chụp trong slide; tối nay làm thử từng bước một lần.
@@ -148,7 +150,48 @@ Nếu đã kết nối Outlook thì thêm bước gửi email kết quả; chưa
 
 ---
 
-## 7. Quick Automate: lấy nhu cầu, xây sau
+## 7. Connector: email và lịch họp (5 phút)
+
+Quick có connector dựng sẵn cho **Gmail**, **Google Calendar** (từ 4/2026) và **Microsoft Outlook** (một
+connector gồm cả email, lịch, danh bạ). Dùng bộ nào cũng được, nên dùng **tài khoản thử hoặc cá nhân**,
+không dùng hộp thư công ty có dữ liệu thật.
+
+**Chuẩn bị (tối nay):**
+
+1. Kết nối: vào **Connectors** → tab **Available** → tìm **Gmail** và **Google Calendar** (hoặc
+   **Microsoft Outlook**) → **Connect** → đăng nhập, cho phép quyền. Dùng *Default OAuth app*, không cần
+   cấu hình gì thêm. Vào lại Connectors xem danh sách *actions* của từng connector (Get Emails, Create
+   Draft, Send Email; Outlook có thêm Create Calendar Event, Find Meeting Times…) để quen giao diện.
+   Outlook công ty mà báo lỗi khi đăng nhập là do tenant chặn ứng dụng ngoài, cần admin Microsoft 365
+   cấp quyền; khi đó dùng Gmail cá nhân.
+2. Tạo dữ liệu: gửi 4 email trong [email-mau.md](email-mau.md) từ một tài khoản khác tới hộp thư demo.
+
+**Trên sân khấu,** trong Chat (hoặc trong agent Trợ lý Mua hàng):
+
+| Câu lệnh | Kết quả mong đợi |
+|---|---|
+| Tìm các email có tiêu đề bắt đầu bằng [DEMO-NCC] trong 7 ngày qua, tóm tắt thành bảng: người gửi, nội dung chính, việc cần làm, hạn. | Bảng 4 dòng: NCC-A trễ lô tuần 49 (xin họp); NCC-B lô tuần 48 đúng hạn, muốn tăng thì xác nhận trước 20/11; NCC-C báo giá thêm 60 tấn, hiệu lực đến 30/11; Kho báo tồn 480 → 465 tấn |
+| Dựa trên hợp đồng trong Space "Chuỗi cung ứng – demo", lô NCC-A trễ 3 tuần thì mình được phạt bao nhiêu? Trường hợp này có phải bất khả kháng không? | 0,5% × 3 tuần = 1,5% giá trị lô; lô 130 tấn × 1.150 USD = 149.500 USD → khoảng **2.242 USD**. Bảo trì nhà máy không nằm trong danh sách bất khả kháng (thiên tai, đình công cảng, thiếu tàu) nên vẫn phạt |
+| Soạn **bản nháp** trả lời email của NCC-A: xác nhận đã nhận thông báo, nhắc điều khoản phạt 0,5%/tuần, đề nghị họp 30 phút. | Một draft trong hộp thư (Create Draft), chưa gửi. Mở Gmail/Outlook cho mọi người thấy draft |
+| Tạo cuộc họp 30 phút ngày mai lúc 15:00, tiêu đề "Xử lý lô NCC-A giao trễ", nội dung tóm tắt email NCC-A, mời [email thử của mày]. | Sự kiện mới trên lịch. Mở lịch cho mọi người thấy |
+| Tuần này lịch của tôi còn trống buổi nào để họp 1 tiếng? | Danh sách khung giờ trống (Outlook có action Find Meeting Times) |
+
+**Điểm nói:**
+
+- Một câu lệnh đi qua nhiều nơi: đọc email, đối chiếu hợp đồng trong Space, rồi soạn thư và đặt lịch.
+- Thao tác ghi (gửi email, tạo lịch) chạy bằng quyền của chính người đăng nhập. Tối nay để ý xem Quick
+  có hỏi xác nhận trước khi ghi không; khi demo ưu tiên **soạn nháp** thay vì gửi thẳng.
+- Connector đọc/ghi dữ liệu trên ứng dụng khác; còn tài liệu cần hỏi đáp lâu dài thì đưa vào Space.
+
+**Nếu tồn kho bị ảnh hưởng?** Hỏi thêm agent: *"Lô NCC-A tuần 49 dời sang tuần 52 thì tồn kho PP thấp
+nhất là bao nhiêu, có dưới 300 tấn không?"* → thấp nhất **345 tấn ở tuần 50**, vẫn trên 300.
+
+**Nối với Flows (tuỳ chọn):** thêm vào flow báo cáo tồn kho buổi sáng một bước *gửi kết quả qua email
+cho chính mình*.
+
+---
+
+## 8. Quick Automate: lấy nhu cầu, xây sau
 
 Không demo. Cuối buổi hỏi phòng 4 câu để chọn quy trình đầu tiên:
 
