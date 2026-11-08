@@ -100,6 +100,8 @@ pre .h{color:var(--paper-3)}
 .divider h1{font-size:50px}
 .divider .aud{font-size:22px;color:var(--paper-2);margin-top:16px}
 .gh{font-size:17px;color:var(--quick);margin:6px 0 4px}
+.lead2{font-size:19px;color:var(--ink,#1c2333);margin:-4px 0 14px}
+.q .flow div{border-top-color:var(--quick)} .q .flow div.last{border-top-color:var(--mint)} .q .flow{margin-bottom:14px}
 #notes{position:fixed;right:0;top:0;bottom:0;width:360px;background:#fff;border-left:1px solid var(--line);padding:24px;overflow:auto;display:none;z-index:6;font-size:16px;line-height:1.55;color:var(--paper-2)}
 #notes h4{font-size:13px;color:var(--paper-3);margin-bottom:10px;font-weight:600}
 body[data-notes="1"] #notes{display:block}
@@ -215,24 +217,31 @@ body[data-notes="1"] #help{right:374px}
 <section class="slide q">
   <span class="prod">Amazon Quick</span>
   <h2>Quick Research</h2>
+  <p class="lead2">Giao một đề tài lớn, Quick tự đọc tài liệu nội bộ và tin tức trên web, rồi trả về một bản báo cáo có dẫn nguồn.</p>
+  <div class="flow">
+    <div><b>1. Đặt đề tài</b><span>Viết như giao việc cho một người.</span></div>
+    <div><b>2. Sửa kế hoạch</b><span>Quick chia đề tài thành các mục; mình thêm, bớt.</span></div>
+    <div><b>3. Chạy nền</b><span>Vài phút đến vài chục phút, mình làm việc khác.</span></div>
+    <div class="last"><b>4. Nhận báo cáo</b><span>Mỗi nhận định có link về nguồn để kiểm tra.</span></div>
+  </div>
   <div class="two">
     <div class="col">
+      <h3 class="gh">Lấy thông tin từ đâu</h3>
       <ul class="tight">
-        <li>Nhận một đề tài, lập kế hoạch nghiên cứu. Người dùng chỉnh kế hoạch rồi agent chạy nền.</li>
-        <li>Kết quả là báo cáo, mỗi nhận định có trích dẫn đến nguồn gốc.</li>
-        <li>Nguồn: dữ liệu nội bộ, web và tin tức hơn 200 đầu báo, S&amp;P Global, FactSet, IDC (cần subscription), US Patents, PubMed.</li>
+        <li>Tài liệu nội bộ: Space, SharePoint, Google Drive, Snowflake…</li>
+        <li>Web: tin tức từ hơn 200 đầu báo.</li>
+        <li>Nguồn trả phí (S&amp;P Global, FactSet, IDC) chỉ dùng được khi công ty đã mua.</li>
       </ul>
       <div class="uc"><h4>Dùng khi nào</h4><ul>
-        <li>Phân tích thị trường, đối thủ, xu hướng ngành; dự báo tăng trưởng và đề xuất chiến lược.</li>
-        <li>Rà soát rủi ro và tuân thủ: quy định, kiểm tra due diligence, tra cứu bằng sáng chế.</li>
-        <li>Rủi ro nguồn cung: tin tức về nhà cung cấp, giá nguyên vật liệu, tìm nhà cung cấp thay thế.</li>
-        <li>Tìm hiểu khách hàng: nhu cầu, khó khăn, vị thế so với đối thủ, phục vụ bán hàng.</li>
+        <li>Đánh giá rủi ro nguồn cung một nhóm nguyên vật liệu: giá, nhà cung cấp, tin tức thị trường.</li>
+        <li>Tìm và so sánh nhà cung cấp thay thế.</li>
+        <li>Bản tin thị trường hằng tuần cho phòng mua hàng, chạy theo lịch bằng Flows.</li>
       </ul></div>
     </div>
-    <figure class="shot"><div class="frame"><img src="img/2025_quick-suite_research_1-2.webp" data-remote="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2025/10/07/2025_quick-suite_research_1-2.png" alt="Quick Research tạo kế hoạch nghiên cứu từ một yêu cầu" loading="lazy" onerror="imgFail(this)"></div><figcaption>Kế hoạch nghiên cứu được tạo từ một yêu cầu. Ảnh: AWS News Blog</figcaption></figure>
+    <figure class="shot"><div class="frame"><img src="img/2025_quick-suite_research_1-2.webp" data-remote="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2025/10/07/2025_quick-suite_research_1-2.png" alt="Màn hình tạo nghiên cứu mới trong Quick Research" loading="lazy" onerror="imgFail(this)"></div><figcaption>Bước 1: nhập đề tài, chọn nguồn (web, file tải lên, tài liệu trong Quick). Ảnh: AWS News Blog</figcaption></figure>
   </div>
-  <p class="src">Nguồn: aws.amazon.com/quick/research; aws.amazon.com/quick; docs.aws.amazon.com/quick: "Using Amazon Quick Research"</p>
-  <aside class="notes">Khác chat: chat trả lời ngay, Research chạy nhiều bước và trả về tài liệu dùng lại được. Nguồn trả phí như FactSet chỉ dùng được nếu công ty đã mua dữ liệu đó.</aside>
+  <p class="src">Nguồn: aws.amazon.com/quick/research; docs.aws.amazon.com/quick: "Using Amazon Quick Research", "Automating research with Quick Flows"; AWS What's New (08/12/2025)</p>
+  <aside class="notes">Một câu để nhớ: chat là hỏi một câu, trả lời ngay; Research là giao một đề tài, nhận về một bản báo cáo. AWS không công bố thời gian chạy chuẩn; trang sản phẩm có khách hàng kể một bản phân tích mất khoảng 30 phút. Khi demo nên chạy sẵn từ trước, trên sân khấu chỉ cho xem bước lập kế hoạch và mở báo cáo đã chạy. Bấm thử một trích dẫn để mọi người thấy kiểm chứng được. Research gắn được vào Quick Flows để chạy theo lịch (từ 12/2025).</aside>
 </section>
 <!-- 8 -->
 <section class="slide q">
