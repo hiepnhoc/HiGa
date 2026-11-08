@@ -110,8 +110,8 @@ Slide 4–6.
 
 - Tạo Space "CloudNexus demo", upload 2–3 PDF công khai (ví dụ tài liệu Kiro Crew, bài blog Quick Suite).
 - **Quick Research** với prompt 10a → báo cáo có trích dẫn, chỉ vào phần nguồn nội bộ vs web.
-  Bản cho phòng chuỗi cung ứng (rủi ro nguồn cung hạt nhựa PP, dữ liệu giả lập, đề tài dán sẵn, đáp án
-  tự kiểm tra): [/demo/amazon-quick-research/README.md](/demo/amazon-quick-research/README.md).
+  Bộ demo Quick cho phòng chuỗi cung ứng (Space, Research, Quick Sight, Flows; dữ liệu giả lập, câu hỏi
+  và đáp án sẵn): [/demo/amazon-quick/README.md](/demo/amazon-quick/README.md).
 - **Quick Flows** với prompt 10b → flow tạo bằng lời, có lịch. Không cần chạy thật.
 - Browser extension: bôi đen một đoạn trên trang kiro.dev → "Summarize this selection".
 

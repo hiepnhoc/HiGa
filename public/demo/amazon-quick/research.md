@@ -1,6 +1,6 @@
 # Demo Quick Research: rủi ro nguồn cung hạt nhựa PP
 
-Dữ liệu trong thư mục này là **giả lập để demo**. Công ty Bao bì Mẫu, NCC-A/B/C và mọi con số đều không có thật.
+Phần 2 của [bộ demo](README.md). Dữ liệu là **giả lập để demo**. Công ty Bao bì Mẫu, NCC-A/B/C và mọi con số đều không có thật.
 
 | File | Nội dung |
 |---|---|
