@@ -1,23 +1,47 @@
 # Bộ demo Amazon Quick cho phòng chuỗi cung ứng
 
 Tất cả dữ liệu ở đây là **giả lập**. Công ty Bao bì Mẫu, các nhà cung cấp NCC-A đến NCC-F và mọi con số
-đều không có thật. Bốn demo dùng chung một câu chuyện: công ty sản xuất bao bì, nguyên liệu chính là hạt
+đều không có thật. Các demo dùng chung một câu chuyện: công ty sản xuất bao bì, nguyên liệu chính là hạt
 nhựa PP, mua từ 3 nhà cung cấp.
 
 | File | Dùng cho |
 |---|---|
-| `nha-cung-cap-hat-nhua-pp.csv` | Space, Research |
-| `hop-dong-nha-cung-cap-tom-tat.md` | Space, Research |
-| `ton-kho-hat-nhua-pp.csv` | Space, Research, Flows |
+| `nha-cung-cap-hat-nhua-pp.csv` | Chat (đính kèm), Space, Chat agent, Research |
+| `hop-dong-nha-cung-cap-tom-tat.md` | Space, Chat agent, Research |
+| `ton-kho-hat-nhua-pp.csv` | Space, Chat agent, Research, Flows |
 | `ton-kho-don-hang-12-tuan.csv` | Quick Sight (6 mặt hàng × 12 tuần, tuần 42–53/2026) |
 
-Thứ tự trên sân khấu, khoảng 15 phút: **Space → Research → Quick Sight → Flows**.
+Thứ tự trên sân khấu, khoảng 25 phút: **Chat → Space → Chat agent → Research → Quick Sight → Flows**,
+cuối cùng hỏi nhu cầu cho Quick Automate.
 
 Giao diện thật có thể khác ảnh chụp trong slide; tối nay làm thử từng bước một lần.
 
 ---
 
-## 1. Space: hỏi đáp trên tài liệu của phòng (3 phút)
+## 1. Chat: hỏi nhanh, đính kèm file ngay trong cuộc chat (3 phút)
+
+**Chuẩn bị:** không cần gì, chỉ cần mở trang Chat của Quick.
+
+**Trên sân khấu:**
+
+1. Hỏi một câu chung, không đính kèm gì:
+   ```
+   Giải thích ngắn gọn lead time và safety stock khác nhau thế nào, cho ví dụ ngành bao bì.
+   ```
+2. Đính kèm file `nha-cung-cap-hat-nhua-pp.csv` vào ô chat rồi hỏi:
+   ```
+   Tóm tắt bảng này thành 3 ý. Nhà cung cấp nào rủi ro nhất về giao hàng, vì sao?
+   ```
+   **Đáp án:** NCC-A, vì chiếm 50% sản lượng, lead time dài nhất (6 tuần), giao đúng hạn thấp nhất
+   (88%) và đã trễ 2 lô trong quý 3/2026.
+3. Hỏi tiếp: `Viết email ngắn gửi NCC-A hỏi kế hoạch giao hàng tháng 12, giọng lịch sự.`
+
+**Điểm nói:** file đính kèm trong chat chỉ dùng cho cuộc chat đó (tối đa 20 file). Muốn cả nhóm dùng
+chung và lâu dài thì đưa tài liệu vào Space, phần tiếp theo.
+
+---
+
+## 2. Space: hỏi đáp trên tài liệu của phòng (3 phút)
 
 **Chuẩn bị:** tạo Space **Chuỗi cung ứng – demo**, upload 3 file đầu (không upload file 12 tuần). Chờ
 các file ở trạng thái *Ready*.
@@ -35,14 +59,46 @@ các file ở trạng thái *Ready*.
 
 ---
 
-## 2. Quick Research: đánh giá rủi ro nguồn cung (5 phút)
+## 3. Chat agent: trợ lý riêng cho phòng Mua hàng (4 phút)
+
+**Chuẩn bị:** vào **Chat agents**, tạo agent mới:
+
+- **Tên:** Trợ lý Mua hàng
+- **Mô tả:** Trả lời câu hỏi về nhà cung cấp, hợp đồng và tồn kho hạt nhựa PP.
+- **Hướng dẫn (instructions):**
+  ```
+  Bạn là trợ lý của phòng Mua hàng, Công ty Bao bì Mẫu.
+  Chỉ trả lời dựa trên tài liệu trong Space "Chuỗi cung ứng – demo"; không có thông tin thì nói rõ là không có.
+  Trả lời bằng tiếng Việt, ngắn gọn, ưu tiên dạng bảng khi so sánh.
+  Khi nói về tồn kho, luôn so với mức tối thiểu 300 tấn.
+  Cuối câu trả lời, gợi ý một việc phòng mua hàng nên làm tiếp.
+  ```
+- **Kiến thức:** chọn Space **Chuỗi cung ứng – demo**.
+- Lưu, chat thử vài câu bên dưới. Nếu muốn, chia sẻ agent cho một đồng nghiệp (quyền viewer), nhớ chia
+  sẻ luôn Space.
+
+**Trên sân khấu:** mở agent, hỏi:
+
+| Câu hỏi | Câu trả lời đúng |
+|---|---|
+| Tuần nào tồn kho PP thấp nhất trong 8 tuần tới? | Tuần 46 và 52 cùng thấp nhất, 465 tấn, vẫn trên mức 300 |
+| Nếu NCC-A trễ, mình nên tăng ai? | NCC-B: được tăng tối đa 20% nếu báo trước 6 tuần; NCC-C: còn khoảng 60 tấn/tháng, giao 1 tuần |
+| Giá PP tuần này bao nhiêu? | Agent nên nói tài liệu không có thông tin này (đúng như hướng dẫn) |
+
+**Điểm nói:** cùng dữ liệu với Space, nhưng agent có "tính cách" và quy tắc riêng của phòng; tạo một lần,
+chia sẻ cho cả phòng, sửa hướng dẫn thì mọi người dùng bản mới. Câu cuối cho thấy agent biết từ chối khi
+tài liệu không có, thay vì bịa.
+
+---
+
+## 4. Quick Research: đánh giá rủi ro nguồn cung (5 phút)
 
 Chi tiết, đề tài dán sẵn và đáp án: [research.md](research.md). Chạy **từ tối nay**, trên sân khấu chỉ
 cho xem bước lập kế hoạch rồi mở báo cáo đã chạy.
 
 ---
 
-## 3. Quick Sight: hỏi số liệu tồn kho bằng câu thường (4 phút)
+## 5. Quick Sight: hỏi số liệu tồn kho bằng câu thường (4 phút)
 
 **Chuẩn bị:**
 
@@ -69,7 +125,7 @@ cho xem bước lập kế hoạch rồi mở báo cáo đã chạy.
 
 ---
 
-## 4. Quick Flows: báo cáo tồn kho mỗi sáng (3 phút)
+## 6. Quick Flows: báo cáo tồn kho mỗi sáng (3 phút)
 
 **Chuẩn bị:** mở Flows, tạo flow mới bằng mô tả:
 
@@ -92,8 +148,24 @@ Nếu đã kết nối Outlook thì thêm bước gửi email kết quả; chưa
 
 ---
 
+## 7. Quick Automate: lấy nhu cầu, xây sau
+
+Không demo. Cuối buổi hỏi phòng 4 câu để chọn quy trình đầu tiên:
+
+1. Việc nào lặp lại nhiều nhất mỗi tuần, đi qua nhiều người hoặc nhiều hệ thống? (ví dụ đối chiếu đơn
+   mua hàng, phiếu nhập kho, hoá đơn)
+2. Dữ liệu đầu vào nằm ở đâu: email, Excel, ERP, cổng nhà cung cấp?
+3. Bước nào cần người duyệt, ai duyệt, sai lệch bao nhiêu thì phải duyệt?
+4. Mỗi tháng có khoảng bao nhiêu hồ sơ, mỗi hồ sơ mất bao lâu làm tay?
+
+Ghi lại, chọn một quy trình đủ rõ để làm thử. Lưu ý: theo trang giá hiện tại, Quick Automate cần gói
+Enterprise.
+
+---
+
 ## Dự phòng chung
 
 - Chụp màn hình kết quả từng phần tối nay. Phần nào lỗi trên sân khấu thì chiếu ảnh và nói tiếp.
 - Nếu Quick trả lời bằng tiếng Anh, hỏi thêm "trả lời bằng tiếng Việt".
 - Câu trả lời của Quick khác đáp án: nói thẳng, đó là lý do mọi kết quả đều có trích dẫn để kiểm tra.
+- Research, Flows và agent đều tính agent hours; chạy thử tối nay vừa đủ, đừng chạy lại nhiều lần.
