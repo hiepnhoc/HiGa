@@ -6,14 +6,14 @@ nhựa PP, mua từ 3 nhà cung cấp.
 
 | File | Dùng cho |
 |---|---|
-| `nha-cung-cap-hat-nhua-pp.csv` | Chat (đính kèm), Space, Chat agent, Research |
+| `nha-cung-cap-hat-nhua-pp.csv` | Chat (đính kèm), Space, Chat agent, Apps, Research |
 | `hop-dong-nha-cung-cap-tom-tat.md` | Space, Chat agent, Research |
 | `ton-kho-hat-nhua-pp.csv` | Space, Chat agent, Research, Flows |
 | `ton-kho-don-hang-12-tuan.csv` | Quick Sight (6 mặt hàng × 12 tuần, tuần 42–53/2026) |
 | `email-mau.md` | Connector: 4 email gửi vào hộp thư demo |
 
-Thứ tự trên sân khấu, khoảng 30 phút: **Chat → Space → Chat agent → Research → Quick Sight → Flows →
-Connector (email, lịch)**,
+Thứ tự trên sân khấu, khoảng 35 phút: **Chat → Space → Chat agent → Apps → Research → Quick Sight →
+Flows → Connector (email, lịch)**,
 cuối cùng hỏi nhu cầu cho Quick Automate.
 
 Giao diện thật có thể khác ảnh chụp trong slide; tối nay làm thử từng bước một lần.
@@ -93,14 +93,61 @@ tài liệu không có, thay vì bịa.
 
 ---
 
-## 4. Quick Research: đánh giá rủi ro nguồn cung (5 phút)
+## 4. Apps: app chấm điểm nhà cung cấp (5 phút)
+
+App nhỏ tạo bằng mô tả, không cần code. Mỗi app có sẵn chỗ lưu dữ liệu (dùng chung cho mọi người dùng app),
+đọc được Space, nhúng được biểu đồ Quick Sight. Cần quyền Author/Professional trở lên để tạo.
+
+**Chuẩn bị:** vào **Apps** ở thanh bên trái, dán mô tả vào ô nhập, bấm **Generate**:
+
+```
+Tạo app "Đánh giá nhà cung cấp" cho phòng Mua hàng Công ty Bao bì Mẫu.
+
+- Form chấm điểm một nhà cung cấp: chọn nhà cung cấp (NCC-A, NCC-B, NCC-C), kỳ đánh giá (ví dụ Q4/2026),
+  người đánh giá, và 4 tiêu chí chấm từ 1 đến 5: Giao hàng đúng hạn (trọng số 35%), Chất lượng (30%),
+  Giá (20%), Phản hồi và hỗ trợ (15%), kèm ô nhận xét.
+- Tự tính điểm tổng có trọng số (thang 5, làm tròn 2 số lẻ) và xếp loại: từ 4,0 trở lên là "Ưu tiên",
+  từ 3,0 đến dưới 4,0 là "Theo dõi", dưới 3,0 là "Cần cải thiện".
+- Lưu mỗi lần đánh giá vào bộ nhớ dùng chung để cả phòng cùng xem.
+- Trang "Bảng xếp hạng": bảng các nhà cung cấp theo điểm mới nhất, có màu theo xếp loại, và biểu đồ cột so sánh điểm.
+- Nút "AI nhận xét": tóm tắt điểm mạnh, điểm yếu của nhà cung cấp đang chọn, dựa trên điểm, nhận xét
+  và tài liệu trong Space "Chuỗi cung ứng – demo".
+- Giao diện tiếng Việt, gọn, dùng tốt trên laptop.
+```
+
+Xem bản xem trước bên trái; sửa bằng chat bên phải nếu cần, ví dụ:
+*"Thêm nút xuất bảng xếp hạng ra CSV"*, *"Đổi màu xếp loại Ưu tiên sang xanh lá"*.
+
+Nhập thử 3 lượt đánh giá:
+
+| Nhà cung cấp | Đúng hạn | Chất lượng | Giá | Phản hồi | Nhận xét |
+|---|---|---|---|---|---|
+| NCC-A | 3 | 5 | 4 | 3 | Chất lượng ổn định nhưng trễ 2 lô quý 3, sắp trễ lô tuần 49 |
+| NCC-B | 5 | 4 | 4 | 4 | Giao đúng hạn, có thể tăng 20% khối lượng |
+| NCC-C | 5 | 4 | 3 | 5 | Giao nhanh 1 tuần, giá cao hơn hàng nhập 3–5% |
+
+**Đáp án:** NCC-B **4,35** (Ưu tiên), NCC-C **4,30** (Ưu tiên), NCC-A **3,80** (Theo dõi).
+
+Xong thì **Publish**, rồi **Share** cho một đồng nghiệp (Viewer) hoặc bật *Share with all*.
+
+**Trên sân khấu:** mở app đã publish, nhập thêm một lượt đánh giá trực tiếp (ví dụ NCC-A kỳ sau, đúng hạn
+2 điểm), cho mọi người thấy bảng xếp hạng cập nhật; bấm "AI nhận xét" cho NCC-A. Nếu còn thời gian, mở
+editor, gõ một yêu cầu sửa nhỏ để thấy app đổi ngay.
+
+**Điểm nói:** form, bảng, biểu đồ thường phải nhờ IT làm, giờ người trong phòng tự mô tả là có; sửa một
+lần, publish lại thì cả phòng dùng bản mới. Mỗi lần agent sửa app là một version, lỡ hỏng thì khôi phục
+version cũ.
+
+---
+
+## 5. Quick Research: đánh giá rủi ro nguồn cung (5 phút)
 
 Chi tiết, đề tài dán sẵn và đáp án: [research.md](research.md). Chạy **từ tối nay**, trên sân khấu chỉ
 cho xem bước lập kế hoạch rồi mở báo cáo đã chạy.
 
 ---
 
-## 5. Quick Sight: hỏi số liệu tồn kho bằng câu thường (4 phút)
+## 6. Quick Sight: hỏi số liệu tồn kho bằng câu thường (4 phút)
 
 **Chuẩn bị:**
 
@@ -127,7 +174,7 @@ cho xem bước lập kế hoạch rồi mở báo cáo đã chạy.
 
 ---
 
-## 6. Quick Flows: báo cáo tồn kho mỗi sáng (3 phút)
+## 7. Quick Flows: báo cáo tồn kho mỗi sáng (3 phút)
 
 **Chuẩn bị:** mở Flows, tạo flow mới bằng mô tả:
 
@@ -150,7 +197,7 @@ Nếu đã kết nối Outlook thì thêm bước gửi email kết quả; chưa
 
 ---
 
-## 7. Connector: email và lịch họp (5 phút)
+## 8. Connector: email và lịch họp (5 phút)
 
 Quick có connector dựng sẵn cho **Gmail**, **Google Calendar** (từ 4/2026) và **Microsoft Outlook** (một
 connector gồm cả email, lịch, danh bạ). Dùng bộ nào cũng được, nên dùng **tài khoản thử hoặc cá nhân**,
@@ -191,7 +238,7 @@ cho chính mình*.
 
 ---
 
-## 8. Quick Automate: lấy nhu cầu, xây sau
+## 9. Quick Automate: lấy nhu cầu, xây sau
 
 Không demo. Cuối buổi hỏi phòng 4 câu để chọn quy trình đầu tiên:
 
