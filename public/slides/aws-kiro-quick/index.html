@@ -99,6 +99,7 @@ pre .h{color:var(--paper-3)}
 .divider.q .part{color:var(--quick)} .divider.k .part{color:var(--kiro)}
 .divider h1{font-size:50px}
 .divider .aud{font-size:22px;color:var(--paper-2);margin-top:16px}
+.gh{font-size:17px;color:var(--quick);margin:6px 0 4px}
 #notes{position:fixed;right:0;top:0;bottom:0;width:360px;background:#fff;border-left:1px solid var(--line);padding:24px;overflow:auto;display:none;z-index:6;font-size:16px;line-height:1.55;color:var(--paper-2)}
 #notes h4{font-size:13px;color:var(--paper-3);margin-bottom:10px;font-weight:600}
 body[data-notes="1"] #notes{display:block}
@@ -182,24 +183,33 @@ body[data-notes="1"] #help{right:374px}
 <!-- Q-chat -->
 <section class="slide q">
   <span class="prod">Amazon Quick</span>
-  <h2>Chat, Apps và tiện ích mở rộng</h2>
-  <div class="two">
+  <h2>Chat agent, Apps và tiện ích</h2>
+  <div class="two wide-l">
     <div class="col">
+      <h3 class="gh">Chat agent</h3>
       <ul class="tight">
-        <li><b>Chat</b>: hỏi về dữ liệu công ty hoặc bất kỳ chủ đề nào. Có agent mặc định và agent riêng cho từng phòng ban.</li>
-        <li><b>Apps in Quick</b>: tạo ứng dụng nhỏ bằng mô tả, không cần viết code, có thể gắn vào luồng phê duyệt.</li>
-        <li><b>Tiện ích</b>: extension cho trình duyệt và Microsoft 365, desktop app làm việc với file trên máy không cần tải lên.</li>
+        <li>Hỏi đáp trên dữ liệu công ty. Mọi người dùng chung một agent mặc định.</li>
+        <li>Tạo agent riêng cho từng phòng ban: hướng dẫn riêng, Space làm kiến thức, actions được phép làm.</li>
+      </ul>
+      <h3 class="gh">Apps in Quick</h3>
+      <ul class="tight">
+        <li>Ứng dụng nhỏ tạo bằng mô tả, không cần code, dữ liệu lấy từ Space.</li>
+        <li>Ví dụ: form tiếp nhận yêu cầu, bảng theo dõi trạng thái, luồng phê duyệt.</li>
+      </ul>
+      <h3 class="gh">Tiện ích</h3>
+      <ul class="tight">
+        <li>Extension trình duyệt và Microsoft 365: hỏi, tóm tắt ngay trên trang đang đọc.</li>
+        <li>Desktop app: làm việc với file trên máy, biến một thư mục thành Space.</li>
       </ul>
       <div class="uc"><h4>Dùng khi nào</h4><ul>
-        <li>Chuyển một cuộc hội thoại thành tài liệu, bài trình bày, bảng tính hoặc hình ảnh.</li>
-        <li>Tạo form tiếp nhận yêu cầu, bảng theo dõi trạng thái, công cụ tính toán chuyên dụng.</li>
-        <li>Chuẩn bị trước cuộc họp, tổng hợp việc cần làm sau họp.</li>
-        <li>Tóm tắt hoặc giải thích đoạn văn bản đang đọc trên trình duyệt.</li>
+        <li>Chuyển hội thoại thành tài liệu, slide, bảng tính.</li>
+        <li>Chuẩn bị họp, tổng hợp việc cần làm sau họp.</li>
       </ul></div>
     </div>
-    <figure class="shot"><div class="frame"><img src="img/2025_quick-suite_chat-agent-2.webp" data-remote="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2025/10/02/2025_quick-suite_chat-agent-2.png" alt="Chat agent trong Amazon Quick" loading="lazy" onerror="imgFail(this)"></div><figcaption>Chat agent. Ảnh: AWS News Blog</figcaption></figure>
+    <figure class="shot"><div class="frame"><img src="img/2025_quick-suite_chat-agent-2.webp" data-remote="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2025/10/02/2025_quick-suite_chat-agent-2.png" alt="Chat agent trong Amazon Quick" loading="lazy" onerror="imgFail(this)"></div><figcaption>Tạo chat agent riêng. Ảnh: AWS News Blog</figcaption></figure>
   </div>
-  <p class="src">Nguồn: aws.amazon.com/quick; AWS News Blog (09/10/2025); Amazon Quick browser extension (Firefox Add-ons)</p>
+  <p class="src">Nguồn: aws.amazon.com/quick; AWS News Blog (09/10/2025); docs.aws.amazon.com/quick: "Chat agents"; AWS What's New (09/09/2026)</p>
+  <aside class="notes">Chat agent: giống ChatGPT nhưng đọc được dữ liệu công ty; AWS hay lấy ví dụ agent cho Sales, HR, IT helpdesk. Apps ở đây là app người dùng tự tạo trong Quick, không phải connector tới Jira hay Slack. Tiện ích: gõ @Quick trên thanh địa chỉ, hoặc bôi đen đoạn văn để tóm tắt; desktop app làm việc với file trên máy không cần tải lên.</aside>
 </section>
 
 <!-- 5 -->
