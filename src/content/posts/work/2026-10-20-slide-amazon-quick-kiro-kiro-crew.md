@@ -1,7 +1,7 @@
 ---
 title: Slide trình bày Amazon Quick, Kiro IDE và Kiro Crew — tính năng và use case kinh điển
 date: 2026-10-20
-updated: 2026-11-07
+updated: 2026-11-08
 share: true
 tags: [aws, kiro, kiro-crew, amazon-quick, agentic-ai, slide, presentation]
 tldr: >-
@@ -20,11 +20,11 @@ ghi chú thuyết trình, `F` toàn màn hình, `#n` trên URL để nhảy th�
 
 **Bản offline (nhúng sẵn ảnh, một file):** [/slides/aws-kiro-quick/offline.html](/slides/aws-kiro-quick/offline.html)
 
-**Tải PowerPoint (.pptx, chữ và bảng sửa được, có ghi chú thuyết trình):** [amazon-quick-va-kiro.pptx](/slides/aws-kiro-quick/amazon-quick-va-kiro.pptx)
+**Tải PowerPoint (.pptx, chữ và bảng sửa được, có ghi chú thuyết trình):** [amazon-quick-va-kiro.pptx](/slides/aws-kiro-quick/amazon-quick-va-kiro.pptx) · [tải PDF](/slides/aws-kiro-quick/amazon-quick-va-kiro.pdf)
 
-**Bản riêng Amazon Quick (12 slide):** [/slides/amazon-quick/](/slides/amazon-quick/) · [bản offline](/slides/amazon-quick/offline.html) · [tải PowerPoint](/slides/amazon-quick/amazon-quick.pptx) · [tải PDF](/slides/amazon-quick/amazon-quick.pdf)
+**Bản riêng Amazon Quick (11 slide):** [/slides/amazon-quick/](/slides/amazon-quick/) · [bản offline](/slides/amazon-quick/offline.html) · [tải PowerPoint](/slides/amazon-quick/amazon-quick.pptx) · [tải PDF](/slides/amazon-quick/amazon-quick.pdf)
 
-Bản hiện tại (07/11/2026): 29 slide, hai phần Amazon Quick và Kiro (IDE, CLI, Crew), mỗi slide ghi nguồn
+Bản hiện tại (08/11/2026): 28 slide (đã bỏ slide Demo), hai phần Amazon Quick và Kiro (IDE, CLI, Crew), mỗi slide ghi nguồn
 chính thức, ảnh chụp sản phẩm từ AWS và Kiro, có slide Model trong Kiro.
 
 ## Nội dung chính đã gom
