@@ -175,9 +175,13 @@ chung số lượng thì các mặt hàng tính bằng tấn nằm sát 0. File 
      lượng nhưng thêm bộ lọc `don_vi = tấn`.
    - **Bảng** hiện toàn số 12: là đang *đếm* (Count) theo nhóm. Đổi visual sang dạng bảng chi tiết, hoặc để
      các cột số ở ô *Value* với kiểu **Sum** thay vì Count. Thêm filter `canh_bao` = *Dưới mức tối thiểu*.
-4. Publish thành dashboard và **bật hỏi đáp**: trong analysis bấm **Publish** → tick **Allow data Q&A**
-   → (tuỳ chọn) **MANAGE Q&A** chọn dataset → **APPLY CHANGES** → **Publish dashboard** (ghi đè dashboard
-   cũ cũng được). Sau đó trên đầu dashboard có ô **Ask a question about this dashboard** để hỏi. Không cần
+4. Publish thành dashboard và **bật hỏi đáp**: trong analysis bấm **Publish** → tab *Replace existing
+   dashboard* (hoặc *New dashboard*). Giao diện thử ngày 08/11/2026 không có ô "Allow data Q&A" như docs;
+   hỏi đáp nằm ở mục *Generative capabilities* → **Manage Q&A** → chọn *Use datasets for Build visual and
+   Q&A* + *All datasets* (không tick "insight summaries from Q Business") → **APPLY CHANGES** →
+   **Publish dashboard**. Nếu thấy ô "Allow data Q&A" thì tick.
+   Trước khi publish: sửa tên analysis nếu bị lỗi font (hiện "\u1ed3…"), và đổi tiêu đề thẻ KPI "mặt hàng
+   dưới mức tối thiểu" thành "số tuần có mặt hàng dưới mức tối thiểu" (con số 4 là 4 tuần của màng co). Sau đó trên đầu dashboard có ô **Ask a question about this dashboard** để hỏi. Không cần
    tạo Topic. Lưu ý: Q&A hỏi trên toàn bộ dataset, không chỉ phần đang hiện; tính năng này có phí bật
    (enablement fee) ở cấp tài khoản.
 
