@@ -14,7 +14,7 @@ Phần 2 của [bộ demo](README.md). Dữ liệu là **giả lập để demo*
 2. Mở **Research** → **New research**. Dán đề tài ở dưới vào ô *Research objective*.
 3. Phần *Research materials*: bật **Web search**; ở **Quick Suite assets** chọn Space vừa tạo
    (hoặc upload thẳng 3 file ở mục **File uploads**). Bấm **Create plan**.
-4. Sửa kế hoạch theo gợi ý ở dưới, rồi cho chạy. Trong lúc chạy làm việc khác.
+4. Sửa kế hoạch theo hướng dẫn ở dưới, rồi bấm **Start researching**. Trong lúc chạy làm việc khác.
 5. Chạy xong: đọc lướt, bấm thử 2–3 trích dẫn xem có đúng nguồn không. Chụp màn hình phần tóm tắt và
    phần bảng làm dự phòng.
 
@@ -50,15 +50,24 @@ Start with a risk summary table (low / medium / high). Answer in Vietnamese.
 
 ## Sửa kế hoạch (bước làm cho người xem thấy)
 
-Kế hoạch Quick tạo ra sẽ khác nhau mỗi lần, nên chỉ cần một hai thao tác:
+Kế hoạch không sửa trực tiếp từng dòng. Sau khi bấm **Create plan**, bên phải có khung **Revise Plan**:
 
-- **Thêm** một mục: *"So sánh điều khoản phạt giao trễ và bất khả kháng giữa NCC-A và NCC-B"*.
-- **Bớt** mục nào quá rộng, ví dụ tổng quan lịch sử ngành nhựa hay dự báo dài hạn nhiều năm.
+1. Đọc các gợi ý Quick đưa ra trong khung này.
+2. Gõ góp ý vào ô **How should I change the plan?**, ví dụ:
+   ```
+   Thêm phần so sánh điều khoản phạt giao trễ và bất khả kháng giữa NCC-A và NCC-B.
+   Bỏ phần lịch sử ngành nhựa và dự báo dài hạn nhiều năm, chỉ tập trung 6 tháng tới.
+   ```
+3. Bấm **Revise plan**, chờ kế hoạch cập nhật. Phần **revision history** ghi lại các lần sửa.
+4. Bấm **Start researching** để chạy.
+
+Không thấy khung Revise Plan: thử mở rộng cửa sổ trình duyệt (khung nằm bên phải), và kiểm tra là chưa
+bấm Start researching (đã chạy thì không còn bước sửa kế hoạch).
 
 ## Trên sân khấu (khoảng 5 phút)
 
 1. Mở Space, cho xem 3 file: "đây là dữ liệu nội bộ của phòng".
-2. Mở một Research mới, dán đề tài, bấm Create plan, cho xem kế hoạch, sửa một mục. **Không cần chờ chạy.**
+2. Mở một Research mới, dán đề tài, bấm Create plan, cho xem kế hoạch, gõ một góp ý vào ô *How should I change the plan?* rồi bấm *Revise plan*. **Không cần chờ chạy.**
 3. Chuyển sang báo cáo đã chạy tối hôm trước:
    - Đọc bảng tóm tắt rủi ro ở đầu.
    - Chỉ một đoạn lấy từ file nội bộ (ví dụ NCC-A chiếm 50%, lead time 6 tuần, trễ 2 lô quý 3) và một
