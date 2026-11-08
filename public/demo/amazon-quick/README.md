@@ -149,28 +149,46 @@ cho xem bước lập kế hoạch rồi mở báo cáo đã chạy.
 
 ## 6. Quick Sight: hỏi số liệu tồn kho bằng câu thường (4 phút)
 
+**Lưu ý dữ liệu:** 6 mặt hàng khác đơn vị (tấn và cái: thùng carton, nhãn in tính bằng chục nghìn cái), vẽ
+chung số lượng thì các mặt hàng tính bằng tấn nằm sát 0. File đã có sẵn 2 cột để tránh chuyện đó:
+
+- `ty_le_so_voi_toi_thieu_pct`: tồn cuối kỳ chia mức tối thiểu, tính %. Dưới 100 là thiếu.
+- `canh_bao`: "Dưới mức tối thiểu" hoặc "Đủ".
+
 **Chuẩn bị:**
 
-1. Vào Quick Sight, tạo dataset mới bằng cách upload file `ton-kho-don-hang-12-tuan.csv`. Kiểm tra cột
-   `ton_dau_ky`, `nhu_cau`, `hang_ve`, `ton_cuoi_ky`, `muc_toi_thieu`, `so_lo_giao_tre` là kiểu số.
-2. Tạo analysis từ dataset. Nếu có **Generate Analysis**, gõ mô tả:
+1. Vào Quick Sight, tạo dataset bằng cách upload `ton-kho-don-hang-12-tuan.csv` (nếu đã có dataset cũ thì
+   thay file hoặc tạo dataset mới). Kiểm tra các cột số (`ton_cuoi_ky`, `muc_toi_thieu`,
+   `so_lo_giao_tre`, `ty_le_so_voi_toi_thieu_pct`…) là kiểu số; `tuan` để kiểu chuỗi.
+2. Tạo analysis. Nếu có **Generate Analysis**, gõ:
    ```
-   Dashboard tồn kho theo tuần: biểu đồ đường tồn cuối kỳ so với mức tối thiểu cho từng mặt hàng,
-   bảng các mặt hàng có tồn cuối kỳ dưới mức tối thiểu, và tổng số lô giao trễ theo nhà cung cấp.
-   Có bộ lọc theo nhóm hàng.
+   Dashboard tồn kho theo tuần, 3 visual:
+   1. Biểu đồ đường: trục X là tuan, trục Y là SUM của ty_le_so_voi_toi_thieu_pct, mỗi đường một ten_hang,
+      thêm đường tham chiếu ở 100.
+   2. Bảng chi tiết (không gộp nhóm, không đếm): tuan, ten_hang, nha_cung_cap, ton_cuoi_ky, muc_toi_thieu,
+      don_vi; chỉ lấy các dòng có canh_bao = "Dưới mức tối thiểu".
+   3. Biểu đồ cột: SUM của so_lo_giao_tre theo nha_cung_cap.
+   Thêm bộ lọc theo nhom_hang.
    ```
-   Không có thì dựng tay 3 visual trên.
-3. Publish thành dashboard. Nếu muốn hỏi bằng câu thường, tạo **Topic** từ dataset này.
+3. Kiểm tra lại từng visual, sửa tay nếu cần:
+   - **Biểu đồ đường** đang vẽ số lượng thô: đổi Y sang `ty_le_so_voi_toi_thieu_pct` (Sum). Hoặc giữ số
+     lượng nhưng thêm bộ lọc `don_vi = tấn`.
+   - **Bảng** hiện toàn số 12: là đang *đếm* (Count) theo nhóm. Đổi visual sang dạng bảng chi tiết, hoặc để
+     các cột số ở ô *Value* với kiểu **Sum** thay vì Count. Thêm filter `canh_bao` = *Dưới mức tối thiểu*.
+4. Publish thành dashboard. Muốn hỏi bằng câu thường thì tạo **Topic** từ dataset này.
 
 **Trên sân khấu:** mở dashboard, rồi hỏi:
 
 | Câu hỏi | Câu trả lời đúng |
 |---|---|
-| Mặt hàng nào có tồn cuối kỳ dưới mức tối thiểu? Từ tuần nào? | Màng co, từ tuần 50 (11,3 tấn so với mức 12), tuần 53 còn 4,3 tấn |
+| Mặt hàng nào có tồn cuối kỳ dưới mức tối thiểu? Từ tuần nào? | Màng co, từ tuần 50: 11,3 tấn (94% mức tối thiểu), tuần 51 72%, tuần 52 54%, tuần 53 còn 4,3 tấn (36%) |
 | Nhà cung cấp nào giao trễ nhiều lô nhất? | NCC-E (màng co, 3 lô ở tuần 48, 50, 52); NCC-D có 1 lô (tuần 45) |
-| Tồn kho hạt nhựa PP tuần 53 là bao nhiêu? | 495 tấn, trên mức 300 |
+| Tồn kho hạt nhựa PP tuần 53 là bao nhiêu? | 495 tấn, bằng 165% mức tối thiểu 300 |
 
-**Điểm nói:** người không biết làm báo cáo vẫn hỏi được số liệu; dashboard dựng từ một câu mô tả.
+Bảng "dưới mức tối thiểu" đúng phải có **4 dòng**, đều là màng co.
+
+**Điểm nói:** người không biết làm báo cáo vẫn hỏi được số liệu; dashboard dựng từ một câu mô tả, nhưng vẫn
+phải xem lại từng biểu đồ (ví dụ chọn đúng phép tính Sum/Count, đúng đơn vị).
 
 ---
 
